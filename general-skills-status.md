@@ -2,65 +2,53 @@
 
 Atualizado em 14 de agosto de 2026.
 
-## Objetivo da generalização
+## Fonte canônica
 
-Transformar capacidades editoriais do `editor-agent` em skills independentes de projeto. A generalização segue quatro regras:
+O repositório `guedesle/SKILLS` passa a ser a fonte de verdade para skills gerais/reutilizáveis do perfil. O inventário operacional está em [`registry.json`](registry.json) e a navegação/versões em [`README.md`](README.md).
 
-1. remover caminhos, schemas, comandos e pipelines específicos do runtime;
-2. preservar os critérios editoriais reutilizáveis;
-3. ampliar formatos e contextos de acionamento;
-4. manter limites de segurança, rastreabilidade e revisão humana.
+Skills específicas de projeto não são promovidas automaticamente. Quando uma capacidade local possui valor transversal, uma versão geral é extraída para este catálogo e a origem fica registrada.
 
-## Mapeamento e maturidade
+## Catálogo atual
 
-| Skill geral | Capacidades absorvidas | Maturidade da origem | Estado geral |
+| Skill | Categoria | Versão | Estado |
 |---|---|---:|---|
-| `plan-content` | `plan_article`, `plan_editorial` e planejamento de outros formatos | M2 | Validada estruturalmente |
-| `architect-text` | `editor-structure`, contratos de seção e matriz paragrafal | M3 | Validada estruturalmente |
-| `design-paragraphs` | `paragraph_argument`, `paragraph_explanation`, ritmo e densidade | M2 | Validada estruturalmente |
-| `write-with-evidence` | `verify_claims`, ângulo jornalístico, evidência científica e valor público | M2 | Validada estruturalmente |
-| `write-technical-content` | Redação técnica, requisitos e rastreabilidade | M2 | Validada estruturalmente |
-| `calibrate-rhetoric` | `strengthen_argument`, tom, persuasão e cadência | M2 | Validada estruturalmente |
-| `review-editorial-quality` | `full_review`, `publication_review` e handoff de correções | M2 | Validada estruturalmente |
-| `improve-accessible-writing` | `simplify_language` e `create_plain_language_summary` | M1 | Validada estruturalmente |
-| `assess-editorial-alignment` | `evaluate_editorial_fit` com princípios configuráveis | M1 | Validada estruturalmente |
+| `plan-content` | Editorial | 1.0.0 | Canônica |
+| `architect-text` | Editorial | 1.0.0 | Canônica |
+| `design-paragraphs` | Editorial | 1.0.0 | Canônica |
+| `write-with-evidence` | Editorial | 1.0.0 | Canônica |
+| `write-technical-content` | Editorial/Técnica | 1.0.0 | Canônica |
+| `calibrate-rhetoric` | Editorial | 1.0.0 | Canônica |
+| `review-editorial-quality` | QA | 1.0.0 | Canônica |
+| `improve-accessible-writing` | Acessibilidade | 1.0.0 | Canônica |
+| `assess-editorial-alignment` | Governança editorial | 1.0.0 | Canônica |
+| `graphify` | Engenharia de software | 1.0.0 | Canônica |
+| `github-project-repo-sync` | GitHub automation | 1.0.0 | Canônica |
+| `github-project-drift-audit` | GitHub/QA | 1.0.0 | Canônica |
+| `skills-central-governance` | Gestão de skills | 1.0.0 | Canônica |
 
-“Validada estruturalmente” significa que a skill possui metadados válidos, instruções completas e interface registrada. Não significa que já passou por uma bateria comparativa de resultados em produção.
+## Origem e promoção
 
-## Diferenças em relação ao editor-agent
+As nove skills editoriais foram generalizadas a partir das capacidades do `editor-agent`, removendo dependências de runtime, identidade específica e schemas exclusivos. `architect-text` preserva a proveniência da skill local `editor-structure`.
 
-- Não dependem de `/editor`, registries, schemas JSON ou artifacts do runtime.
-- Não presumem a identidade do Códice Público.
-- Não executam publicação automática.
-- Pedem critérios do usuário quando o alinhamento editorial não estiver definido.
-- Mantêm revisão humana para decisões editoriais, factuais ou institucionais relevantes.
+`graphify` foi generalizada a partir do workflow existente no `SieDOE`, mantendo a regra essencial: usar o grafo para descoberta e confirmar detalhes diretamente no código antes de editar.
 
-## Exemplos de acionamento
+`github-project-repo-sync` e `github-project-drift-audit` foram promovidas a partir das skills criadas no PFC IBMEC. A versão central remove nomes e IDs exclusivos do PFC e preserva o padrão desired → reconcile/audit → observed/live.
 
-### Planejamento e estrutura
+## Critério de maturidade
 
-- `Use $plan-content para planejar uma apresentação executiva sobre este projeto.`
-- `Use $architect-text para transformar o briefing em mapa de seções e parágrafos.`
+**Canônica** significa que a skill possui definição central, versão registrada e documentação navegável. Isso não significa, por si só, que todas as skills tenham passado por uma bateria comparativa de evals em produção.
 
-### Redação e revisão
+## Política de sincronização
 
-- `Use $design-paragraphs para melhorar a progressão deste capítulo.`
-- `Use $write-with-evidence para separar fatos, inferências e pendências de fonte.`
-- `Use $write-technical-content para converter estes requisitos em especificação.`
-- `Use $calibrate-rhetoric para deixar o texto firme sem soar agressivo.`
+- central: `skills/<nome>/SKILL.md`;
+- inventário/versionamento: `registry.json`;
+- documentação: `README.md`;
+- validação: `python scripts/sync_skills.py --check`;
+- distribuição para espelhos registrados: `python scripts/sync_skills.py --apply`;
+- automação: `.github/workflows/sync-skills.yml`.
 
-### Qualidade e alinhamento
+Espelhos só são atualizados quando declarados explicitamente em `registry.json`. Variantes locais legadas registradas em `legacy_source` servem para proveniência e não são sobrescritas automaticamente.
 
-- `Use $review-editorial-quality para apontar bloqueios antes da publicação.`
-- `Use $improve-accessible-writing para simplificar sem perder precisão.`
-- `Use $assess-editorial-alignment usando estes princípios editoriais.`
+## Próxima evolução de qualidade
 
-## Próxima etapa recomendada
-
-Executar casos de teste controlados com três famílias:
-
-1. artigo factual com fontes;
-2. documento técnico orientado à decisão;
-3. apresentação executiva.
-
-Registrar acertos, falhas e ajustes necessários antes de promover as skills de “validadas estruturalmente” para “testadas em uso”.
+Para promover maturidade além da validação estrutural, executar evals controlados por família de uso e registrar resultados por versão, sem alterar a versão canônica sem evidência de melhoria ou correção.
