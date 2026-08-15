@@ -1,0 +1,42 @@
+name: Sync central skills
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "skills/**"
+      - "registry.json"
+      - "scripts/sync_skills.py"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate registry
+        run: python scripts/sync_skills.py --check
+
+  sync:
+    needs: validate
+    if: ${{ vars.SKILLS_AUTO_SYNC == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Configure Git identity
+        run: |
+          git config --global user.name "skills-sync-bot"
+          git config --global user.email "skills-sync-bot@users.noreply.github.com"
+      - name: Sync registered mirrors
+        env:
+          GH_TOKEN: ${{ secrets.SKILLS_SYNC_TOKEN }}
+        run: python scripts/sync_skills.py --apply
