@@ -3,6 +3,7 @@
   "repository": "guedesle/SKILLS",
   "canonical_path_pattern": "skills/{name}/SKILL.md",
   "versioning": "semver",
+  "sync_model": "central-to-registered-mirrors",
   "updated_at": "2026-08-14",
   "policy": {
     "central_is_source_of_truth": true,
