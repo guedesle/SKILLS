@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""Valida e, para mirrors push, sincroniza skills canônicas de guedesle/SKILLS.
+"""Valida o catálogo e sincroniza mirrors push quando explicitamente habilitados.
 
 Uso:
   python scripts/sync_skills.py --check
   python scripts/sync_skills.py --apply
 
-Mirrors `mode: pull` são atualizados pelo workflow do repositório consumidor e não
-exigem PAT cross-repository no catálogo central. Mirrors `mode: push` continuam
-suportados explicitamente.
+Mirrors `mode: pull` são resolvidos genericamente pelo workflow reutilizável do
+catálogo central. O consumidor não contém lógica por skill: basta estar
+bootstrapado uma vez e ter seus mappings declarados em `registry.json`.
+Mirrors `mode: push` continuam suportados para casos excepcionais.
 """
 
 from __future__ import annotations
@@ -40,10 +41,24 @@ def load_registry() -> dict:
     return data
 
 
+def is_safe_relative_path(raw: str | None) -> bool:
+    if not raw or not raw.strip():
+        return False
+    path = Path(raw)
+    return not path.is_absolute() and ".." not in path.parts
+
+
 def validate_registry(data: dict) -> list[str]:
     errors: list[str] = []
     names: set[str] = set()
     paths: set[str] = set()
+    mirror_targets: set[tuple[str, str, str]] = set()
+    pull_mirror_count = 0
+
+    if data.get("schema_version", 0) < 2:
+        errors.append("schema_version deve ser >= 2 para mirrors pull genéricos.")
+
+    pull_runtime = data.get("pull_mirror", {})
 
     for skill in data.get("skills", []):
         name = skill.get("name")
@@ -67,12 +82,35 @@ def validate_registry(data: dict) -> list[str]:
 
         for mirror in skill.get("mirrors", []):
             mode = mirror.get("mode", "push")
+            repository = mirror.get("repository")
+            branch = mirror.get("branch", "main")
+            target_path = mirror.get("path")
+
             if mode not in VALID_MIRROR_MODES:
                 errors.append(f"Modo de espelho inválido em {name}: {mode}")
-            if not mirror.get("repository") or not mirror.get("path"):
+            if not repository or not target_path:
                 errors.append(f"Espelho inválido em {name}: {mirror!r}")
-            if mode == "pull" and not mirror.get("workflow"):
-                errors.append(f"Mirror pull sem workflow declarado em {name}: {mirror!r}")
+                continue
+            if not is_safe_relative_path(target_path):
+                errors.append(f"Path de mirror inseguro em {name}: {target_path!r}")
+
+            target_key = (repository, branch, target_path)
+            if target_key in mirror_targets:
+                errors.append(
+                    f"Target de mirror duplicado: {repository}:{branch}:{target_path}"
+                )
+            mirror_targets.add(target_key)
+
+            if mode == "pull":
+                pull_mirror_count += 1
+
+    if pull_mirror_count:
+        reusable = pull_runtime.get("reusable_workflow")
+        consumer = pull_runtime.get("consumer_workflow")
+        if not reusable:
+            errors.append("pull_mirror.reusable_workflow é obrigatório quando há mirrors pull.")
+        if not consumer:
+            errors.append("pull_mirror.consumer_workflow é obrigatório quando há mirrors pull.")
 
     return errors
 
@@ -164,6 +202,7 @@ def main() -> int:
                 return 2
 
     results: list[dict] = []
+    reusable = data.get("pull_mirror", {}).get("reusable_workflow", "")
     for skill, mirror in selected_mirrors:
         mirror_mode = mirror.get("mode", "push")
         if mirror_mode == "pull":
@@ -175,7 +214,7 @@ def main() -> int:
                     "branch": mirror.get("branch", "main"),
                     "path": mirror["path"],
                     "mode": "pull",
-                    "workflow": mirror["workflow"],
+                    "reusable_workflow": reusable,
                     "changed": False,
                     "applied": False,
                 }
@@ -188,8 +227,8 @@ def main() -> int:
     for result in results:
         if result["mode"] == "pull":
             print(
-                f"PULL: {result['skill']} <- {result['repository']}:{result['path']} "
-                f"via {result['workflow']}"
+                f"PULL: {result['skill']} -> {result['repository']}:{result['path']} "
+                f"via {result['reusable_workflow']}"
             )
             continue
         state = "ATUALIZADO" if result["applied"] else ("DRIFT" if result["changed"] else "OK")
