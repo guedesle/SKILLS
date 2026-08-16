@@ -1,281 +1,267 @@
 ---
 name: architect-text
-description: Transforme motivo textual, briefing, tópicos, outline ou rascunho em um artefato de arquitetura textual operacional, com parâmetros de intenção, mapa de seções, contratos de seção, sequência tipológica de parágrafos, dependências, evidências, transições, riscos e handoff para redação.
+description: Transforme finalidade, briefing, tópicos, outline ou rascunho em um plano detalhado da estrutura do texto, com sequência de seções, função de cada parágrafo, dependências entre ideias, evidências, ligações, riscos e instruções para a redação.
 ---
 
 # Architect Text
 
-## Missão
+## Objetivo
 
-Converta a intenção do texto em uma **arquitetura funcional de leitura**. A skill não organiza apenas tópicos: ela define que transformação o texto precisa produzir no leitor e quais operações de seção e parágrafo são necessárias, em que ordem, para realizar essa transformação.
+Transformar **por que o texto precisa existir** em um plano claro de **como ele deve ser organizado**.
 
-A unidade básica de planejamento paragrafal é a tipologia de `design-paragraphs`. `architect-text` escolhe **quais operações paragrafais precisam existir e onde**; `design-paragraphs` executa ou refatora cada operação no nível local.
+A skill não deve apenas listar assuntos. Ela deve explicar:
+
+- o que o texto precisa fazer;
+- o que o leitor deve compreender, decidir ou conseguir fazer ao final;
+- que sequência de seções conduz a esse resultado;
+- que função cada parágrafo deve cumprir;
+- quais ideias e evidências precisam aparecer antes de outras;
+- como cada parte se liga à seguinte.
+
+`architect-text` decide **quais parágrafos precisam existir e em que ordem**. `design-paragraphs` recebe esse plano e constrói ou refatora cada parágrafo.
+
+## Regra de linguagem
+
+Use nomes autoexplicativos. Não exponha abreviações, códigos opacos ou metáforas técnicas quando um nome direto funcionar melhor.
+
+Prefira:
+
+- **finalidade do texto** em vez de “motivo textual”;
+- **função principal do texto** em vez de “ato comunicativo dominante”;
+- **resultado esperado da leitura** em vez de “transformação do leitor”;
+- **sequência lógica do texto** em vez de “movimento macro”;
+- **objetivo e requisitos da seção** em vez de “contrato de seção”;
+- **plano de parágrafos** em vez de “matriz paragrafal”;
+- **dependências entre ideias** em vez de “grafo de dependências argumentativas”;
+- **instruções para a próxima etapa** em vez de “handoff”.
+
+Para identificar um parágrafo, use um identificador legível como `secao-02-paragrafo-04` e, na apresentação ao usuário, escreva **Seção 2 · Parágrafo 4**.
 
 ## Quando usar
 
 Use quando:
 
-- existe um objetivo, tema, briefing, material de pesquisa, template ou rascunho, mas a estrutura ainda precisa ser projetada;
-- o texto já possui seções, mas sua progressão temática ou paragrafal é arbitrária;
-- é necessário transformar requisitos e conteúdo obrigatório em uma sequência de leitura;
-- a redação precisa de um artefato de arquitetura antes de começar;
-- um texto precisa ser reestruturado sem ainda entrar na redação final.
+- existe um tema, objetivo, briefing, template, material de pesquisa ou rascunho, mas a organização do texto ainda precisa ser projetada;
+- o texto já tem seções, porém a ordem das ideias ou dos parágrafos parece arbitrária;
+- requisitos obrigatórios precisam ser distribuídos em uma sequência coerente;
+- a redação precisa de um plano estrutural antes de começar;
+- um texto precisa ser reorganizado sem ainda entrar na redação final.
 
-Se o objetivo ainda estiver indefinido a ponto de não ser possível identificar o motivo textual, use `plan-content` primeiro.
+Se ainda não for possível dizer claramente **para que o texto existe**, use `plan-content` primeiro.
 
-## Entradas
+## Etapa 1 — Defina a finalidade do texto
 
-Aceite como entrada qualquer combinação de:
+Use [`references/textual-motive.md`](references/textual-motive.md) para coletar ou inferir as informações necessárias.
 
-- pedido do usuário;
-- briefing;
-- template obrigatório;
-- tópicos ou outline;
-- rascunho existente;
-- fontes/evidências já reunidas;
-- requisitos institucionais, acadêmicos ou técnicos;
-- restrições de extensão, público ou suporte.
+O mínimo é:
 
-Não exija formulário completo quando os parâmetros puderem ser inferidos do contexto.
+1. **assunto e recorte:** sobre o que exatamente o texto tratará;
+2. **função principal:** informar, explicar, analisar, defender uma ideia, recomendar, instruir, documentar, comparar, narrar ou sintetizar;
+3. **resultado esperado da leitura:** o que o leitor deve compreender, decidir ou saber fazer ao final;
+4. **questão central:** pergunta, ideia a defender, decisão a apoiar ou tarefa a ensinar;
+5. **público principal:** quem lerá e o que já sabe;
+6. **ação ou decisão esperada:** quando houver;
+7. **tipo de documento:** relatório, nota técnica, artigo, manual, parecer, capítulo etc.;
+8. **fontes e evidências necessárias:** que tipo de suporte sustenta o texto;
+9. **escopo:** o que entra e o que fica de fora;
+10. **conteúdo obrigatório:** requisitos, tópicos, dados ou mensagens que precisam aparecer;
+11. **restrições e riscos de interpretação:** o que não pode ser perdido, antecipado ou entendido de modo errado;
+12. **extensão e nível de detalhe:** quanto desenvolvimento o texto comporta.
 
-## Etapa 1 — Colete o motivo textual
+Não transforme essa etapa em interrogatório. Pergunte apenas quando uma informação ausente realmente mudar a estrutura e não puder ser inferida com segurança.
 
-Use [`references/textual-motive.md`](references/textual-motive.md) para coletar ou inferir os parâmetros que governam a arquitetura.
+## Etapa 2 — Declare o resultado da leitura
 
-O núcleo mínimo é:
+Escreva de forma direta:
 
-1. **objeto textual**;
-2. **ato comunicativo dominante**;
-3. **transformação esperada do leitor**;
-4. **pergunta, tese, decisão ou tarefa central**;
-5. **público primário**;
-6. **ação/decisão esperada**;
-7. **gênero/artefato de destino**;
-8. **regime de evidência**;
-9. **escopo e fora de escopo**;
-10. **conteúdo obrigatório e restrições**;
-11. **riscos de interpretação**;
-12. **densidade/extensão esperada**.
+`o que o leitor sabe/pensa/consegue fazer antes → o que deve saber/pensar/conseguir fazer depois`
 
-Pergunte apenas quando uma ausência alterar materialmente a estrutura e não puder ser inferida com segurança. Caso contrário, registre a hipótese no artefato e prossiga.
+Depois resuma a sequência necessária em uma frase, por exemplo:
 
-## Etapa 2 — Formule a promessa de leitura
+`apresentar o problema, explicar suas causas, comparar alternativas por critérios explícitos e terminar com uma recomendação condicionada às evidências.`
 
-Converta o motivo em uma transformação explícita:
+Essa frase serve para verificar se cada seção e cada parágrafo realmente têm função.
 
-`estado inicial do leitor → operações necessárias → estado final esperado`
-
-Produza também uma **frase de controle da arquitetura**, por exemplo:
-
-`partir do problema observado, estabelecer suas causas, comparar alternativas segundo critérios explícitos e conduzir a uma recomendação qualificada.`
-
-Toda seção e todo parágrafo planejado deve contribuir para essa frase.
-
-## Etapa 3 — Escolha o padrão macro por motivo
+## Etapa 3 — Escolha uma sequência inicial adequada à finalidade
 
 Consulte [`references/motive-to-paragraph-patterns.md`](references/motive-to-paragraph-patterns.md).
 
-Use o ato comunicativo dominante para obter uma sequência-base e adapte-a segundo:
+Use a função principal do texto para escolher uma sequência inicial e adapte-a conforme:
 
-- gênero;
-- evidência disponível;
+- tipo de documento;
+- evidências disponíveis;
 - nível de controvérsia;
-- risco de interpretação;
+- riscos de interpretação;
 - conteúdo obrigatório;
 - extensão;
 - conhecimento prévio do público.
 
-Não trate os padrões como templates rígidos. A arquitetura deve ser justificável pelo motivo textual.
+A sequência é uma hipótese de trabalho, não um molde rígido.
 
-## Etapa 4 — Projete seções por função
+## Etapa 4 — Planeje as seções
 
-Uma seção não existe porque “esse assunto precisa aparecer”; ela existe porque precisa produzir uma mudança no leitor.
+Cada seção deve existir porque cumpre uma função necessária.
 
-Para cada seção defina:
+Para cada seção registre:
 
-- pergunta que responde;
-- função macro;
-- estado de entrada;
-- estado de saída;
-- evidência necessária;
-- dependências;
-- operações paragrafais previstas;
-- ponte para a seção seguinte;
-- critério de aceite.
+- **título provisório**;
+- **pergunta que responde**;
+- **objetivo da seção**;
+- **o que o leitor já precisa saber ao entrar**;
+- **o que deve estar estabelecido ao sair**;
+- **evidências necessárias**;
+- **parágrafos previstos e suas funções**;
+- **o que depende dessa seção depois**;
+- **como a seção prepara a próxima**;
+- **critério para considerar a seção pronta**.
 
-Elimine ou funda seções temáticas que não tenham saída funcional própria.
+Elimine ou una seções que apenas agrupam assunto, mas não produzem nenhum avanço real.
 
-## Etapa 5 — Construa a matriz paragrafal tipológica
+## Etapa 5 — Monte o plano de parágrafos
 
-Use as 18 tipologias de [`../design-paragraphs/references/paragraph-typology.md`](../design-paragraphs/references/paragraph-typology.md):
+Use os 18 tipos funcionais de [`../design-paragraphs/references/paragraph-typology.md`](../design-paragraphs/references/paragraph-typology.md).
 
-1. abertura de enquadramento;
-2. tese ou proposição;
-3. definição ou conceituação;
-4. explicação causal;
-5. sustentação evidencial;
-6. exemplificação ou ilustração;
-7. classificação ou enumeração analítica;
-8. comparação ou analogia;
-9. contraste ou concessão;
-10. refutação ou objeção–resposta;
-11. problema–resposta;
-12. descrição analítica;
-13. narrativa ou evento;
-14. procedimental ou instrucional;
-15. transição ou ponte;
-16. síntese ou integração;
-17. implicação ou recomendação;
-18. fechamento ou conclusão local.
+Para cada parágrafo, use um identificador autoexplicativo, por exemplo `secao-02-paragrafo-04`, e registre:
 
-Para cada parágrafo, atribua um ID estável `Sx.Py` e registre:
+- **função do parágrafo:** o que ele faz no texto;
+- **objetivo específico:** verbo + objeto, como `definir X`, `comparar A e B segundo C` ou `sustentar Y com a evidência Z`;
+- **ponto de partida:** o que já foi estabelecido antes;
+- **ideia central:** o que precisa ficar claro nesse parágrafo;
+- **como desenvolver:** razões, evidências, detalhes, etapas ou distinções necessárias;
+- **evidência ou material necessário:** fonte, dado, norma, exemplo ou outro insumo;
+- **contraste, ressalva, limite ou consequência:** somente quando realmente fizer parte da lógica;
+- **como encerrar e ligar ao próximo:** qual conclusão local ou pergunta deixa preparada;
+- **relação com o parágrafo anterior:** continuação, causa, contraste, exemplo, consequência etc.;
+- **o que depende deste parágrafo depois**;
+- **critério para considerar o parágrafo estruturalmente pronto**;
+- **exemplo clássico opcional:** somente quando ajudar a compreender a estrutura, identificado por autor e obra, e não apenas por código interno.
 
-- tipologia dominante;
-- missão em formato verbo + objeto;
-- âncora;
-- núcleo previsto;
-- desenvolvimento necessário;
-- evidência/insumo;
-- virada ou limite quando aplicável;
-- pouso/saída;
-- relação lógica com o parágrafo anterior;
-- dependência do próximo movimento;
-- critério de aceite;
-- exemplar `CL-*` somente quando sua eficácia estrutural justificar consulta.
+Não escreva o parágrafo final nesta etapa, a menos que o usuário também peça redação.
 
-Não redija o parágrafo final nesta etapa.
+## Etapa 6 — Confira as dependências entre ideias
 
-## Etapa 6 — Verifique dependências
+Pergunte, para cada parte:
 
-Modele o texto como uma cadeia de dependências argumentativas.
+- esta ideia depende de alguma definição anterior?
+- esta comparação depende de critérios já apresentados?
+- esta recomendação depende de diagnóstico, evidências e avaliação de alternativas?
+- esta resposta depende de uma objeção previamente explicada?
+- esta conclusão depende de fatos que ainda não apareceram?
 
-Exemplos:
+Se uma conclusão vier antes do que a sustenta, reordene o plano.
 
-- uma comparação depende da definição prévia dos critérios;
-- uma recomendação depende do diagnóstico + evidência + avaliação das alternativas;
-- uma refutação depende de uma objeção apresentada de forma justa;
-- uma explicação causal depende de evidência suficiente para não transformar correlação em causa;
-- uma síntese depende de elementos já estabelecidos.
+## Etapa 7 — Planeje as evidências
 
-Se um parágrafo depender de uma premissa ainda não construída, reordene a arquitetura.
+Para cada fonte, dado, norma, observação ou inferência, registre:
 
-## Etapa 7 — Faça o plano de evidências
+- o que ela sustenta;
+- em qual parágrafo será usada;
+- se já está disponível;
+- se sua ausência impede a redação;
+- que tipo de evidência é.
 
-Associe evidências a operações e afirmações previstas.
+Não deixe evidência sem finalidade nem afirmação importante sem suporte previsto.
 
-Para cada evidência identifique:
+Quando houver causalidade, inferência ou incerteza relevante, encaminhe essa parte a `write-with-evidence`.
 
-- o que sustenta;
-- onde será consumida;
-- se está disponível;
-- se é bloqueante;
-- sua natureza: fato, dado, norma, literatura, observação, inferência, hipótese ou opinião.
+## Etapa 8 — Planeje as ligações entre partes
 
-Não deixe evidência órfã nem parágrafo de sustentação sem fonte/insumo previsto.
-
-Quando causalidade, inferência ou força epistêmica forem materialmente relevantes, prepare handoff para `write-with-evidence`.
-
-## Etapa 8 — Projete transições e ritmo
-
-Defina a relação semântica entre blocos:
+Para cada mudança de parágrafo ou seção, identifique a relação real:
 
 - continuação;
-- especificação;
+- detalhamento;
 - causa;
 - consequência;
 - contraste;
-- concessão;
+- ressalva;
+- exemplo;
 - mudança de escala;
 - síntese;
-- transição de etapa;
-- implicação.
+- passagem para uma nova etapa;
+- implicação prática.
 
-Não prescreva conectores superficiais por padrão. Planeje **por que** o texto muda de operação.
+Não planeje conectores decorativos. Planeje **por que a próxima parte vem depois da anterior**.
 
-Calibre ritmo marcando:
+## Etapa 9 — Ajuste extensão e ritmo
 
-- pontos de alta densidade;
-- trechos de exemplificação/desaceleração;
-- decisões ou viradas que pedem parágrafos mais curtos;
-- causalidades ou condicionais que precisam de desenvolvimento maior;
-- conteúdo que funciona melhor como lista, tabela, figura ou outro artefato.
+Marque:
 
-## Etapa 9 — Consulte exemplares clássicos de forma seletiva
+- partes que precisam de maior desenvolvimento;
+- decisões, contrastes e conclusões que devem ser mais curtas e diretas;
+- pontos em que um exemplo facilita a compreensão;
+- conteúdos que funcionam melhor como lista, tabela, figura ou procedimento do que como parágrafo corrido.
 
-A arquitetura pode recomendar os assets de [`../design-paragraphs/assets/classic-exemplars.md`](../design-paragraphs/assets/classic-exemplars.md) quando a tipologia possuir eficácia alta ou média para o caso.
+## Etapa 10 — Gere o Plano de Arquitetura do Texto
 
-O exemplar serve para abstrair sequência estrutural — nunca para impor voz, léxico, ornamentação, posição política ou premissa histórica ao texto-alvo.
+Use [`templates/text-architecture-artifact.md`](templates/text-architecture-artifact.md).
 
-Registre apenas o ID `CL-*` na matriz paragrafal; a consulta detalhada fica para `design-paragraphs` durante a execução local.
+O plano deve conter, conforme a complexidade:
 
-## Etapa 10 — Gere o artefato de arquitetura textual
-
-Use [`templates/text-architecture-artifact.md`](templates/text-architecture-artifact.md) como contrato de saída.
-
-O artefato deve conter, proporcionalmente à complexidade:
-
-1. identificação;
-2. cartão do motivo textual;
-3. promessa de leitura;
-4. movimento macro;
-5. mapa e contratos de seções;
-6. matriz paragrafal tipológica;
-7. grafo de dependências argumentativas;
+1. identificação do documento;
+2. finalidade do texto;
+3. resultado esperado da leitura;
+4. sequência lógica do texto;
+5. mapa de seções;
+6. plano de parágrafos;
+7. dependências entre ideias;
 8. plano de evidências;
-9. plano de transições;
-10. ritmo e densidade;
+9. ligações entre parágrafos e seções;
+10. orientação de extensão e ritmo;
 11. lacunas, conflitos e riscos;
-12. handoff para redação;
-13. critério de prontidão.
+12. instruções para a redação;
+13. critérios para considerar a arquitetura pronta.
 
-Em tarefas pequenas, comprima o artefato sem eliminar os elementos estruturais necessários.
+Em tarefas pequenas, reduza a quantidade de campos, mas não perca as decisões estruturais importantes.
 
-## Etapa 11 — Execute QA da arquitetura
+## Etapa 11 — Revise a arquitetura
 
-Antes de declarar a arquitetura pronta, confirme:
+Antes de declarar o plano pronto, confirme:
 
-- o motivo textual explica por que o texto existe;
-- a transformação do leitor está explícita;
-- cada seção produz uma saída necessária;
-- cada parágrafo possui uma tipologia dominante;
-- a sequência paragrafal é justificável por dependência lógica;
-- conteúdo obrigatório possui posição funcional;
-- evidências possuem consumidores identificados;
-- não existem conclusões antes das premissas;
-- transições possuem relação semântica;
-- riscos e lacunas estão classificados;
-- a redação pode começar sem precisar inventar a estrutura durante a escrita.
+- a finalidade do texto explica por que ele existe;
+- o resultado esperado da leitura está claro;
+- cada seção tem objetivo próprio;
+- cada parágrafo tem uma função dominante necessária;
+- a ordem das ideias pode ser explicada;
+- o conteúdo obrigatório tem lugar definido;
+- as evidências têm uso definido;
+- nenhuma conclusão aparece antes do que a sustenta;
+- as ligações entre partes estão claras;
+- riscos e lacunas estão registrados;
+- a redação pode começar sem que o redator precise inventar a estrutura enquanto escreve.
+
+Use também [`references/architecture-qa.md`](references/architecture-qa.md).
 
 ## Saída esperada
 
-Por padrão, entregue o **Artefato de Arquitetura Textual**, e não apenas um outline.
+Por padrão, entregue o **Plano de Arquitetura do Texto**.
 
-Quando útil, inclua também um diagnóstico curto das principais decisões estruturais tomadas.
+Não use códigos ou rótulos internos como linguagem principal da resposta. Sempre prefira nomes que possam ser compreendidos sem consultar um glossário.
 
-## Handoff para `design-paragraphs`
+## Entrega para `design-paragraphs`
 
-O artefato deve permitir que `design-paragraphs` receba cada contrato `Sx.Py` e execute a construção/refatoração local usando:
+Para cada parágrafo planejado, `design-paragraphs` deve receber:
 
-- tipologia dominante;
-- missão;
-- âncora;
-- núcleo;
-- desenvolvimento;
-- evidência;
-- virada;
-- pouso;
+- identificação legível;
+- função do parágrafo;
+- objetivo específico;
+- ponto de partida;
+- ideia central;
+- desenvolvimento necessário;
+- evidências;
+- contraste, ressalva, limite ou consequência, quando houver;
+- forma de encerramento e ligação com o próximo;
 - critério de aceite;
-- exemplar estrutural opcional.
+- exemplo estrutural opcional.
 
-Se, durante a redação, um parágrafo não puder cumprir seu contrato sem mudar funções entre seções, o problema retorna a `architect-text`.
+Se, durante a redação, um parágrafo só puder funcionar mudando a função de seções inteiras, devolva o problema a `architect-text`.
 
-## Limites e handoffs
+## Limites e próximas etapas
 
-- **Direção editorial ainda indefinida:** `plan-content`.
-- **Construção/refatoração local de parágrafos:** `design-paragraphs`.
+- **Objetivo do conteúdo ainda indefinido:** `plan-content`.
+- **Construção ou refatoração de cada parágrafo:** `design-paragraphs`.
 - **Evidência, causalidade, inferência e incerteza:** `write-with-evidence`.
 - **Tom e força argumentativa:** `calibrate-rhetoric`.
 - **Legibilidade:** `improve-accessible-writing`.
-- **QA editorial final:** `review-editorial-quality`.
+- **Revisão editorial final:** `review-editorial-quality`.
 
-Não invente fatos, fontes, requisitos ou intenção do autor. Não transforme uma arquitetura em texto final quando o pedido for apenas de estruturação. Não use tipologia paragrafal como fim em si: cada operação precisa existir por causa do motivo textual e da transformação de leitura pretendida.
+Não invente fatos, fontes, requisitos ou intenção do autor. Não use terminologia especializada quando uma expressão direta e autoexplicativa transmitir a mesma decisão com mais clareza.
