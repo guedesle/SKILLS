@@ -1,0 +1,74 @@
+name: Mirror central skills into consumer
+
+on:
+  workflow_call:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: central-skills-${{ github.repository }}-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+      - name: Checkout consumer repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          path: consumer
+
+      - name: Checkout public central catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/guedesle/SKILLS.git central
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Resolve and copy registered mirrors
+        shell: bash
+        env:
+          CONSUMER_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          CONSUMER_BRANCH="$(git -C consumer branch --show-current)"
+          test -n "$CONSUMER_BRANCH"
+          python central/scripts/sync_consumer.py \
+            --central-root central \
+            --repository "$CONSUMER_REPOSITORY" \
+            --branch "$CONSUMER_BRANCH" \
+            --target-root consumer \
+            --paths-output "$RUNNER_TEMP/skills-managed-paths.txt"
+
+      - name: Commit only registered mirror paths when needed
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t MANAGED_PATHS < "$RUNNER_TEMP/skills-managed-paths.txt"
+          if [ "${#MANAGED_PATHS[@]}" -eq 0 ]; then
+            echo "No managed mirror paths resolved."
+            exit 1
+          fi
+
+          git -C consumer config user.name "skills-mirror-bot"
+          git -C consumer config user.email "skills-mirror-bot@users.noreply.github.com"
+          git -C consumer add -- "${MANAGED_PATHS[@]}"
+
+          if git -C consumer diff --cached --quiet; then
+            echo "Mirrors already synchronized."
+            exit 0
+          fi
+
+          git -C consumer commit -m "chore(skills): sync registered mirrors from guedesle/SKILLS"
+          BRANCH="$(git -C consumer branch --show-current)"
+
+          if ! git -C consumer push origin "HEAD:$BRANCH"; then
+            git -C consumer fetch origin "$BRANCH"
+            git -C consumer rebase "origin/$BRANCH"
+            git -C consumer push origin "HEAD:$BRANCH"
+          fi
