@@ -9,6 +9,7 @@ Repositório canônico das **skills gerais e reutilizáveis** do perfil. Novas s
 - [Índice de skills](#índice-de-skills)
 - [Como usar](#como-usar)
 - [Centralização e sincronização](#centralização-e-sincronização)
+- [Mirror de homologação](#mirror-de-homologação)
 - [Versionamento](#versionamento)
 - [Histórico do catálogo](#histórico-do-catálogo)
 
@@ -69,6 +70,8 @@ Repositório canônico das **skills gerais e reutilizáveis** do perfil. Novas s
 ### `write-technical-content`
 
 **v1.0.0 · canônica** — Estrutura especificações, requisitos, procedimentos, guias e documentação com linguagem verificável, critérios de aceite, exceções e rastreabilidade.
+
+**Mirror homologado:** `guedesle/download-edicoes-doe/.agents/skills/write-technical-content`, atualizado por workflow pull no próprio repositório consumidor.
 
 `Use $write-technical-content para converter estas decisões em requisitos testáveis.`
 
@@ -167,32 +170,51 @@ guedesle/SKILLS / skills/<nome>
         ↓
 registry.json + README.md
         ↓
-validação
+validação do catálogo
         ↓
-espelhos explicitamente registrados
+mirror registrado consulta o catálogo público
+        ↓
+copia somente o path gerenciado e commita se houver mudança
 ```
 
 Regras:
 
 1. **Central primeiro.** Mudança de comportamento geral nasce neste repositório.
-2. **Sem sobrescrever adaptações locais.** Só são atualizados targets presentes em `mirrors` no [`registry.json`](registry.json).
-3. **Skills específicas continuam locais.** Quando uma parte for reutilizável, ela deve ser extraída para uma skill geral central.
-4. **Nada fora do path gerenciado é apagado.**
-5. **Documentação e versão são parte da entrega.** Uma skill nova não está completa sem índice, descrição e versão.
+2. **Pull é o modo preferido.** Como `guedesle/SKILLS` é público, mirrors podem buscar a versão canônica sem PAT cross-repository.
+3. **Sem sobrescrever adaptações locais.** Só são atualizados targets presentes em `mirrors` no [`registry.json`](registry.json).
+4. **Skills específicas continuam locais.** Quando uma parte for reutilizável, ela deve ser extraída para uma skill geral central.
+5. **Nada fora do path gerenciado é apagado.**
+6. **Documentação e versão são parte da entrega.** Uma skill nova não está completa sem índice, descrição e versão.
 
-Validação:
+Validação central:
 
 ```bash
 python scripts/sync_skills.py --check
 ```
 
-Distribuição para os espelhos registrados:
+O script também continua suportando `mode: push` para casos excepcionais:
 
 ```bash
 python scripts/sync_skills.py --apply
 ```
 
-A automação está em [`.github/workflows/sync-skills.yml`](.github/workflows/sync-skills.yml). Para permitir pushes automáticos entre repositórios, configure o secret `SKILLS_SYNC_TOKEN` com acesso apenas aos repositórios necessários e a variável `SKILLS_AUTO_SYNC=true`. Sem essa configuração, o workflow permanece em modo de validação.
+Nesse modo push, autenticação cross-repository é necessária. Para o modo recomendado `pull`, cada repositório consumidor usa apenas seu próprio `GITHUB_TOKEN` com `contents: write`, evitando um `SKILLS_SYNC_TOKEN` global.
+
+A validação do catálogo está em [`.github/workflows/sync-skills.yml`](.github/workflows/sync-skills.yml).
+
+## Mirror de homologação
+
+O primeiro mirror homologado é:
+
+- **skill:** `write-technical-content` `v1.0.0`;
+- **consumidor:** `guedesle/download-edicoes-doe`;
+- **path:** `.agents/skills/write-technical-content`;
+- **workflow consumidor:** `.github/workflows/sync-central-skills.yml`;
+- **cadência:** a cada hora no minuto 17, além de execução manual;
+- **segurança:** somente o path da skill é adicionado ao commit;
+- **idempotência:** uma segunda execução sem alteração central termina com `Mirror already synchronized.` e não cria novo commit.
+
+O commit inicial de sincronização alterou exclusivamente `.agents/skills/write-technical-content/SKILL.md`.
 
 Consulte também [`AGENTS.md`](AGENTS.md), [`general-skills-status.md`](general-skills-status.md) e [`skills-central-governance`](skills/skills-central-governance/SKILL.md).
 
@@ -207,6 +229,16 @@ O catálogo usa **SemVer**:
 A versão aparece obrigatoriamente neste README e no [`registry.json`](registry.json).
 
 ## Histórico do catálogo
+
+### 2026-08-16 — mirror pull homologado
+
+- `guedesle/SKILLS` confirmado como repositório público;
+- sincronização central validada em GitHub Actions;
+- `write-technical-content` registrada com mirror de homologação em `guedesle/download-edicoes-doe`;
+- criado workflow pull no consumidor, sem PAT cross-repository;
+- primeira propagação concluída com commit restrito ao path gerenciado;
+- rerun idempotente confirmado sem novo commit;
+- sincronizador central atualizado para distinguir mirrors `pull` e `push`.
 
 ### 2026-08-14 — baseline central `1.0.0`
 
