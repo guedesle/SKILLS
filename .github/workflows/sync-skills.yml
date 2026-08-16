@@ -9,6 +9,8 @@ on:
       - "registry.json"
       - "scripts/sync_skills.py"
       - "scripts/sync_consumer.py"
+      - "scripts/bootstrap_consumers.py"
+      - "templates/sync-central-skills.yml"
       - ".github/workflows/mirror-consumer.yml"
       - ".github/workflows/sync-skills.yml"
 
