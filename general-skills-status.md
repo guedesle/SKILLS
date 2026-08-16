@@ -13,8 +13,8 @@ Skills específicas de projeto não são promovidas automaticamente. Quando uma 
 | Skill | Categoria | Versão | Estado |
 |---|---|---:|---|
 | `plan-content` | Editorial | 1.0.0 | Canônica |
-| `architect-text` | Editorial | 1.1.0 | Canônica + artefato de arquitetura paragrafal |
-| `design-paragraphs` | Editorial | 1.1.0 | Canônica + tipologia e corpus de exemplares |
+| `architect-text` | Editorial | 1.2.0 | Canônica + Plano de Arquitetura do Texto + nomenclatura autoexplicativa |
+| `design-paragraphs` | Editorial | 1.2.0 | Canônica + 18 funções de parágrafo + nomenclatura autoexplicativa + corpus de exemplos |
 | `write-with-evidence` | Editorial | 1.0.0 | Canônica |
 | `write-technical-content` | Editorial/Técnica | 1.0.0 | Canônica + mirror homologado |
 | `calibrate-rhetoric` | Editorial | 1.0.0 | Canônica |
@@ -30,21 +30,39 @@ Skills específicas de projeto não são promovidas automaticamente. Quando uma 
 
 As nove skills editoriais foram generalizadas a partir das capacidades do `editor-agent`, removendo dependências de runtime, identidade específica e schemas exclusivos. `architect-text` preserva a proveniência da skill local `editor-structure`.
 
-`architect-text` foi elevada para **1.1.0** e agora trata o **motivo textual** como contrato de entrada da arquitetura. A skill coleta ou infere intenção, transformação do leitor, público, gênero, evidência, escopo, restrições e riscos; transforma esses parâmetros em seções funcionais e em uma matriz paragrafal que consome a tipologia de `design-paragraphs`; e produz um Artefato de Arquitetura Textual com IDs `Sx.Py`, dependências argumentativas, plano de evidências, transições, ritmo e critérios de aceite.
+`architect-text` está em **1.2.0**. A skill coleta a **finalidade do texto**, define o **resultado esperado da leitura**, organiza a **sequência lógica do texto**, planeja seções e parágrafos e produz o **Plano de Arquitetura do Texto**. Identificadores apresentados ao usuário são descritivos, como **Seção 2 · Parágrafo 4**, e não códigos opacos como `S2.P4`.
 
-`design-paragraphs` foi elevada para **1.1.0** com uma tipologia operacional de 18 funções, contratos assertivos de construção/refatoração e um corpus de exemplares clássicos de domínio público. Os assets registram fonte, repositório, arquivo e blob SHA e são usados apenas para abstrair arquitetura paragrafal; a skill proíbe tratar prestígio literário, posições históricas ou voz autoral como modelo automático para o texto-alvo.
+`design-paragraphs` está em **1.2.0**. A skill mantém 18 funções de parágrafo e o corpus de exemplos clássicos, mas passa a usar nomes autoexplicativos como **ponto de partida**, **ideia central**, **como desenvolver**, **contraste/ressalva/limite** e **como encerrar e ligar ao próximo**. Os exemplos clássicos devem ser apresentados por autor e obra; códigos `CL-*` ficam apenas como referência interna.
 
 `graphify` foi generalizada a partir do workflow existente no `SieDOE`, mantendo a regra essencial: usar o grafo para descoberta e confirmar detalhes diretamente no código antes de editar.
 
 `github-project-repo-sync` e `github-project-drift-audit` foram promovidas a partir das skills criadas no PFC IBMEC. A versão central remove nomes e IDs exclusivos do PFC e preserva o padrão desired → reconcile/audit → observed/live.
 
+## Política de nomenclatura editorial
+
+Nas skills editoriais, nomes de campos e etapas devem ser compreensíveis sem glossário. Termos acadêmicos, metafóricos, abreviações e códigos podem existir internamente para rastreabilidade, mas não devem ser a linguagem principal mostrada ao usuário quando houver uma expressão direta equivalente.
+
+Exemplos de substituição:
+
+- `motivo textual` → **finalidade do texto**;
+- `ato comunicativo dominante` → **função principal do texto**;
+- `transformação do leitor` → **resultado esperado da leitura**;
+- `movimento macro` → **sequência lógica do texto**;
+- `matriz paragrafal` → **plano de parágrafos**;
+- `S2.P4` → **Seção 2 · Parágrafo 4**;
+- `âncora` → **ponto de partida**;
+- `núcleo` → **ideia central**;
+- `virada` → **contraste, ressalva, limite ou consequência**;
+- `pouso` → **como encerrar e ligar ao próximo**;
+- `handoff` → **instruções para a próxima etapa**.
+
 ## Critério de maturidade
 
 **Canônica** significa que a skill possui definição central, versão registrada e documentação navegável. Isso não significa, por si só, que todas as skills tenham passado por uma bateria comparativa de evals em produção.
 
-**Artefato de arquitetura paragrafal** significa que `architect-text` possui contrato de entrada por motivo textual, padrões de composição por ato comunicativo e um template explícito para entregar seções, operações paragrafais, dependências e handoff reproduzível.
+**Plano de Arquitetura do Texto** significa que `architect-text` possui entrada estruturada pela finalidade do texto e um modelo explícito para entregar seções, funções de parágrafo, dependências, evidências, ligações e instruções de redação.
 
-**Tipologia e corpus de exemplares** significa que a skill possui referência operacional separada do runtime principal, assets rastreáveis e critérios explícitos para decidir quando exemplos históricos ajudam ou atrapalham a tarefa.
+**Tipologia e corpus de exemplos** significa que `design-paragraphs` possui referência operacional separada, exemplos rastreáveis e critérios explícitos para decidir quando exemplos históricos ajudam ou atrapalham a tarefa.
 
 **Mirror homologado** significa que a definição canônica foi propagada automaticamente para um repositório consumidor por um path explicitamente registrado, com GitHub Actions validado e sem alteração de conteúdo fora dos paths gerenciados.
 
@@ -78,4 +96,4 @@ A segunda skill foi adicionada apenas ao `registry.json`, sem lógica nova no wo
 
 ## Próxima evolução de qualidade
 
-Para `architect-text`, criar evals que comparem arquiteturas produzidas a partir do mesmo tema com motivos textuais diferentes, verificando se a mudança de intenção realmente altera seções, sequência tipológica e dependências. Para `design-paragraphs`, executar evals comparativos por tipologia: parágrafo original → diagnóstico → refatoração sem exemplar → refatoração com exemplar estrutural → julgamento de clareza, fidelidade, progressão e risco de imitação. Para as demais skills, executar evals controlados por família de uso e registrar resultados por versão.
+Para `architect-text`, criar avaliações que comparem estruturas produzidas a partir do mesmo tema com finalidades diferentes, verificando se a mudança de objetivo altera realmente seções, funções dos parágrafos e dependências. Para `design-paragraphs`, comparar refatorações com e sem exemplos estruturais, julgando clareza, fidelidade, progressão e risco de imitação. Para as demais skills, executar avaliações controladas por família de uso e registrar resultados por versão.

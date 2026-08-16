@@ -1,247 +1,250 @@
-# Tipologia operacional de parágrafos
+# Tipos de parágrafo por função
 
-Esta referência define contratos de construção e refatoração para `design-paragraphs`. A tipologia descreve **operações discursivas**, não gêneros literários. Um parágrafo deve ter uma função dominante; funções secundárias são aceitáveis apenas quando servem à operação principal sem criar competição interna.
+Esta referência descreve **o que um parágrafo precisa fazer** e como construí-lo. Os nomes priorizam compreensão imediata; termos acadêmicos ficam apenas como equivalentes auxiliares quando úteis.
 
-## Modelo comum
+## Estrutura comum de um parágrafo
 
-Use cinco posições abstratas quando forem úteis:
+Quando ajudar, descreva o parágrafo por estes elementos:
 
-1. **Âncora** — conecta o parágrafo ao contexto, problema ou parágrafo anterior.
-2. **Núcleo** — declara a operação dominante: tese, definição, causa, objeção, evento etc.
-3. **Desenvolvimento** — apresenta razões, evidências, detalhes, etapas ou distinções.
-4. **Virada** — introduz contraste, limite, consequência ou mudança de direção quando necessária.
-5. **Pouso** — encerra a unidade produzindo consequência, síntese local ou ponte para o próximo bloco.
+1. **Função** — o que o parágrafo precisa fazer;
+2. **Ponto de partida** — o que já está estabelecido antes dele;
+3. **Ideia central** — o que precisa ficar claro ao final;
+4. **Como desenvolver** — razões, evidências, exemplos, detalhes, etapas ou distinções necessárias;
+5. **Contraste, ressalva, limite ou consequência** — quando houver mudança lógica relevante;
+6. **Como encerrar e ligar ao próximo** — que conclusão local ou necessidade deixa preparada.
 
-Nem todo tipo usa as cinco posições. Não preencha slots por obrigação; use-os para tornar explícita a lógica do parágrafo.
+Não transforme esses itens em formulário obrigatório. Use apenas o que realmente ajuda a construir ou revisar o parágrafo.
 
-## Escala de eficácia dos exemplares clássicos
+## Uso de exemplos clássicos
 
-- **Alta** — a arquitetura do parágrafo clássico é diretamente transferível para escrita contemporânea após abstração estrutural.
-- **Média** — o exemplar ajuda a visualizar progressão e ritmo, mas precisa de adaptação forte para textos técnicos, institucionais ou digitais.
-- **Baixa** — o clássico tende a induzir escolhas inadequadas ao objetivo; prefira modelos contemporâneos do gênero.
+A utilidade dos exemplos clássicos é classificada como:
 
-A escala avalia **utilidade estrutural**, não qualidade literária.
+- **Alta** — a organização das ideias pode ser reaproveitada com pouca adaptação estrutural;
+- **Média** — ajuda a enxergar progressão, mas exige adaptação forte ao gênero atual;
+- **Baixa** — pode induzir uma forma inadequada; prefira modelos atuais do gênero.
 
-## 1. Abertura de enquadramento
+Quando apresentar um exemplo ao usuário, prefira **autor + obra + função observada**. Códigos `CL-*` podem ser mantidos apenas para rastreabilidade interna.
 
-**Objetivo:** estabelecer rapidamente objeto, situação, tensão ou pergunta que governará o trecho seguinte.
+## 1. Apresentar o assunto e o recorte
 
-**Construa assim:** contexto mínimo → elemento de interesse/tensão → recorte do que será tratado.
+**Função:** dizer rapidamente de que assunto se trata, qual é o recorte e por que o texto seguirá adiante.
 
-**Na refatoração:** corte preâmbulos genéricos; antecipe o objeto; mova contexto histórico secundário para depois do núcleo; termine indicando por que o tema merece continuação.
+**Construa assim:** contexto mínimo → elemento relevante ou problema → recorte do que será tratado.
 
-**Teste de aceite:** após uma leitura, o leitor sabe de que assunto se trata, em que recorte e qual impulso leva ao próximo parágrafo.
+**Na revisão:** corte preâmbulos genéricos; apresente o objeto mais cedo; mova contexto histórico secundário para depois da ideia principal.
 
-**Exemplar clássico:** **Alta**. Bons modelos: `CL-01`, `CL-04`. Extraia a entrada imediata no objeto e a capacidade de instalar tensão; não copie ornamentação ou voz de época.
+**Está pronto quando:** o leitor sabe qual é o assunto, qual parte será tratada e por que vale continuar.
 
-## 2. Tese ou proposição
+**Exemplos clássicos:** utilidade **Alta**. Machado de Assis, *Memórias Póstumas de Brás Cubas*, cap. I (`CL-01`), e Eça de Queirós, *Os Maias*, cap. I (`CL-04`).
 
-**Objetivo:** afirmar uma ideia que o restante do texto sustentará, qualificará ou testará.
+## 2. Declarar ou defender uma ideia principal
 
-**Construa assim:** proposição explícita → razão ou critério principal → consequência do que foi afirmado.
+**Função:** afirmar a ideia que o restante do texto irá sustentar, qualificar ou testar.
 
-**Na refatoração:** elimine teses implícitas quando a precisão exigir compromisso; separe duas teses independentes; converta abstrações vagas em proposições verificáveis ou discutíveis.
+**Construa assim:** ideia principal → razão ou critério → consequência do que foi afirmado.
 
-**Teste de aceite:** é possível resumir a posição central em uma sentença sem perder seu escopo ou qualificadores.
+**Na revisão:** torne a posição explícita quando necessário; separe duas ideias independentes; substitua abstrações vagas por afirmações discutíveis ou verificáveis.
 
-**Exemplar clássico:** **Alta**. `CL-01` mostra decisão justificada; `CL-03` mostra proposição seguida de limite; `CL-10` mostra implicação derivada de uma premissa.
+**Está pronto quando:** a posição pode ser resumida em uma frase sem perder escopo ou ressalvas.
 
-## 3. Definição ou conceituação
+**Exemplos clássicos:** utilidade **Alta**. Machado de Assis, *Memórias Póstumas* (`CL-01`), *Dom Casmurro* (`CL-03`) e Madison, *Federalist No. 51* (`CL-10`).
 
-**Objetivo:** fixar o sentido operacional de um termo, categoria ou fenômeno.
+## 3. Definir um conceito
 
-**Construa assim:** termo → classe ou domínio → características distintivas → fronteira/exclusão quando necessária.
+**Função:** explicar o significado de um termo, categoria ou fenômeno e, quando necessário, seus limites.
 
-**Na refatoração:** retire exemplos que substituem a definição; explicite o critério que diferencia o conceito de vizinhos; preserve incerteza quando a própria categoria for contestada.
+**Construa assim:** termo → categoria geral → características que o distinguem → o que fica de fora.
 
-**Teste de aceite:** o leitor consegue decidir, com base no parágrafo, o que entra e o que não entra na categoria.
+**Na revisão:** não deixe o exemplo substituir a definição; explicite o critério que separa o conceito de conceitos próximos; preserve incerteza quando a categoria for discutível.
 
-**Exemplar clássico:** **Alta**. `CL-06` é útil para mostrar definição sob incerteza; `CL-07` é um modelo compacto de definição por atributos e limite normativo.
+**Está pronto quando:** o leitor consegue decidir o que entra e o que não entra na categoria.
 
-## 4. Explicação causal
+**Exemplos clássicos:** utilidade **Alta**. Darwin, *On the Origin of Species*, cap. II (`CL-06`), e Madison, *Federalist No. 10* (`CL-07`).
 
-**Objetivo:** explicar por que algo ocorreu ou como uma condição produz um efeito.
+## 4. Explicar causa e efeito
 
-**Construa assim:** fenômeno → causa/condição → mecanismo → efeito → limite ou alternativa relevante.
+**Função:** explicar por que algo acontece ou como uma condição produz um resultado.
 
-**Na refatoração:** não transforme correlação em causalidade; substitua conectores vagos por mecanismo explícito; diferencie causa necessária, suficiente, contribuinte e contexto.
+**Construa assim:** fenômeno → causa ou condição → mecanismo → efeito → limite ou alternativa relevante.
 
-**Teste de aceite:** cada salto causal possui um mecanismo ou evidência identificável e os qualificadores de certeza foram preservados.
+**Na revisão:** não transforme correlação em causa; explique o mecanismo; diferencie causa principal, fator contribuinte e contexto quando necessário.
 
-**Exemplar clássico:** **Alta** para arquitetura. `CL-05` e `CL-09` ajudam a observar encadeamento de razão e consequência. Para conteúdo científico atual, use evidência contemporânea, não a autoridade do clássico.
+**Está pronto quando:** cada passagem de causa para efeito possui explicação ou evidência suficiente.
 
-## 5. Sustentação evidencial
+**Exemplos clássicos:** utilidade **Alta** para organização. Darwin, *On the Origin of Species* (`CL-05`) e Madison, *Federalist No. 10* (`CL-09`). O conteúdo factual atual deve vir de fontes atuais.
 
-**Objetivo:** ligar uma afirmação a evidências e explicitar o que elas permitem concluir.
+## 5. Sustentar uma afirmação com evidências
 
-**Construa assim:** afirmação local → evidência → interpretação → grau de suporte → limite/ressalva.
+**Função:** ligar uma afirmação a dados, documentos, normas, fatos ou outras evidências e explicar o que elas permitem concluir.
 
-**Na refatoração:** aproxime evidência da afirmação correspondente; separe dado de inferência; elimine acúmulos de fatos sem interpretação; não aumente o grau de certeza.
+**Construa assim:** afirmação → evidência → interpretação → grau de suporte → ressalva.
 
-**Teste de aceite:** o leitor distingue claramente o que é dado, o que é inferência e qual conclusão é autorizada.
+**Na revisão:** coloque a evidência perto da afirmação; diferencie dado de interpretação; não aumente a certeza além do que a fonte permite.
 
-**Exemplar clássico:** **Alta** para progressão, especialmente `CL-05` e passagens argumentativas de Darwin. A validade factual do texto moderno deve vir das fontes atuais do próprio trabalho.
+**Está pronto quando:** o leitor distingue o que é evidência, o que é interpretação e qual conclusão é autorizada.
 
-## 6. Exemplificação ou ilustração
+**Exemplos clássicos:** utilidade **Alta** para progressão. Darwin, *On the Origin of Species* (`CL-05`, `CL-06`).
 
-**Objetivo:** tornar concreto um princípio, regra ou fenômeno sem deixar o exemplo substituir a generalização.
+## 6. Dar um exemplo
 
-**Construa assim:** ideia abstrata → exemplo pertinente → traço observado → retorno explícito à ideia.
+**Função:** tornar concreta uma ideia abstrata sem fazer o exemplo substituir a regra ou a afirmação principal.
 
-**Na refatoração:** retire detalhes narrativos que não provam nada; explique por que o caso é representativo; rotule exceções como exceções.
+**Construa assim:** ideia → exemplo → característica relevante observada → retorno à ideia.
 
-**Teste de aceite:** remover o exemplo empobrece a compreensão, mas não destrói a proposição central.
+**Na revisão:** retire detalhes que não ajudam; explique por que o exemplo é pertinente; identifique exceções como exceções.
 
-**Exemplar clássico:** **Média**. A literatura oferece exemplos memoráveis, porém pode estimular detalhe excessivo. Use `CL-04` para observar seleção de detalhes e `CL-09` para analogia curta com retorno ao argumento.
+**Está pronto quando:** o exemplo melhora a compreensão, mas a ideia principal continua de pé sem ele.
 
-## 7. Classificação ou enumeração analítica
+**Exemplos clássicos:** utilidade **Média**. Eça de Queirós, *Os Maias* (`CL-04`), e Madison, *Federalist No. 10* (`CL-09`).
 
-**Objetivo:** decompor um domínio segundo um critério único e útil.
+## 7. Organizar informações em categorias
 
-**Construa assim:** universo → critério de divisão → classes → diferença relevante entre elas → consequência da classificação.
+**Função:** dividir um conjunto segundo um critério claro.
 
-**Na refatoração:** não misture critérios na mesma enumeração; torne as classes paralelas; elimine categorias sobrepostas quando o propósito exigir exclusividade.
+**Construa assim:** conjunto → critério de divisão → categorias → diferenças relevantes → consequência da classificação.
 
-**Teste de aceite:** o leitor sabe por que os itens estão no mesmo conjunto e segundo qual critério foram separados.
+**Na revisão:** use um critério por vez; mantenha categorias paralelas; evite sobreposição quando ela prejudicar o objetivo.
 
-**Exemplar clássico:** **Alta**. `CL-08` demonstra decomposição binária recursiva com critério explícito.
+**Está pronto quando:** o leitor sabe por que os itens pertencem ao mesmo conjunto e por que foram separados daquela forma.
 
-## 8. Comparação ou analogia
+**Exemplo clássico:** utilidade **Alta**. Madison, *Federalist No. 10* (`CL-08`).
 
-**Objetivo:** esclarecer uma relação por semelhança e diferença controladas.
+## 8. Comparar ou usar uma analogia
 
-**Construa assim:** eixo comum → elemento A → elemento B → semelhança/diferença relevante → limite da comparação.
+**Função:** esclarecer uma relação por semelhanças e diferenças controladas.
 
-**Na refatoração:** declare o eixo comparativo; corte paralelos ornamentais; explicite onde a analogia deixa de valer quando houver risco de extrapolação.
+**Construa assim:** critério comum → elemento A → elemento B → semelhança ou diferença relevante → limite da comparação.
 
-**Teste de aceite:** a comparação produz conhecimento adicional e não depende apenas de efeito retórico.
+**Na revisão:** declare o critério comparativo; corte paralelos ornamentais; diga onde a analogia deixa de valer quando houver risco de extrapolação.
 
-**Exemplar clássico:** **Alta**. `CL-09` é especialmente útil porque a analogia é curta, funcional e imediatamente reconectada ao argumento.
+**Está pronto quando:** a comparação produz informação útil e não depende apenas de efeito retórico.
 
-## 9. Contraste ou concessão
+**Exemplo clássico:** utilidade **Alta**. Madison, *Federalist No. 10* (`CL-09`).
 
-**Objetivo:** reconhecer uma expectativa, objeção parcial ou alternativa e mostrar por que a direção principal ainda se sustenta.
+## 9. Mostrar contraste ou fazer uma ressalva
 
-**Construa assim:** posição/expectativa A → concessão válida → marcador de virada → posição B → consequência.
+**Função:** reconhecer uma expectativa, limite ou ponto válido de outra posição e mostrar por que a ideia principal ainda se sustenta ou precisa ser ajustada.
 
-**Na refatoração:** preserve a parte válida da posição oposta; evite `mas` sem mudança lógica real; coloque a informação decisiva depois da virada quando a ênfase exigir isso.
+**Construa assim:** posição ou expectativa inicial → parte válida → contraste ou ressalva → posição ajustada → consequência.
 
-**Teste de aceite:** o leitor consegue identificar o que foi concedido e o que, apesar disso, continua válido.
+**Na revisão:** preserve o que é válido na posição anterior; não use “mas” sem mudança lógica real; coloque a informação decisiva depois do contraste quando a ênfase exigir.
 
-**Exemplar clássico:** **Alta**. `CL-01`, `CL-03` e `CL-09` exibem viradas claras sem apagar a premissa anterior.
+**Está pronto quando:** o leitor sabe o que foi reconhecido e o que continua válido apesar disso.
 
-## 10. Refutação ou objeção–resposta
+**Exemplos clássicos:** utilidade **Alta**. Machado de Assis (`CL-01`, `CL-03`) e Madison (`CL-09`).
 
-**Objetivo:** apresentar uma objeção relevante de forma justa e respondê-la com razão, evidência ou distinção.
+## 10. Apresentar uma objeção e responder
 
-**Construa assim:** objeção forte → parcela válida → falha/limite → resposta → efeito sobre a tese.
+**Função:** mostrar uma objeção relevante de forma justa e responder com razão, evidência ou distinção.
 
-**Na refatoração:** fortaleça objeções caricaturadas; não responda a uma versão mais fraca do argumento; identifique exatamente qual premissa é rejeitada.
+**Construa assim:** objeção forte → parte válida → ponto que falha ou limita → resposta → efeito sobre a ideia principal.
 
-**Teste de aceite:** um leitor que sustenta a objeção reconheceria sua posição antes de discordar da resposta.
+**Na revisão:** não enfraqueça artificialmente a objeção; identifique exatamente qual premissa é rejeitada ou limitada.
 
-**Exemplar clássico:** **Alta**. `CL-09` mostra uma opção apresentada, testada e rejeitada por consequência indesejável.
+**Está pronto quando:** alguém que sustenta a objeção reconheceria sua posição antes de discordar da resposta.
 
-## 11. Problema–resposta
+**Exemplo clássico:** utilidade **Alta**. Madison, *Federalist No. 10* (`CL-09`).
 
-**Objetivo:** transformar um estado indesejado em decisão, alternativa ou solução avaliável.
+## 11. Apresentar um problema e uma resposta
 
-**Construa assim:** problema → impacto → causa ou restrição → resposta proposta → critério de sucesso/limite.
+**Função:** transformar uma situação indesejada em uma resposta, alternativa ou solução que possa ser avaliada.
 
-**Na refatoração:** não introduza solução antes de delimitar o problema; evite respostas sem critério de êxito; se houver múltiplas soluções, classifique-as antes de escolher.
+**Construa assim:** problema → impacto → causa ou restrição → resposta proposta → critério de sucesso ou limite.
 
-**Teste de aceite:** o parágrafo deixa claro qual problema a resposta resolve e como saber se a resposta funciona.
+**Na revisão:** delimite o problema antes da solução; não proponha resposta sem critério de sucesso; organize alternativas antes de escolher quando houver várias.
 
-**Exemplar clássico:** **Média/Alta**. `CL-08` ajuda a decompor famílias de solução; combine-o com critérios contemporâneos quando o texto for técnico ou administrativo.
+**Está pronto quando:** o leitor sabe qual problema está sendo resolvido e como verificar se a resposta funciona.
 
-## 12. Descrição analítica
+**Exemplo clássico:** utilidade **Média/Alta**. Madison, *Federalist No. 10* (`CL-08`).
 
-**Objetivo:** descrever um objeto, cenário, sistema ou estado selecionando características que sustentam uma interpretação.
+## 12. Descrever de modo analítico
 
-**Construa assim:** identificação → dimensão principal → detalhes selecionados → relação entre detalhes → significado funcional.
+**Função:** descrever um objeto, sistema, cenário ou estado selecionando características que ajudam a compreendê-lo.
 
-**Na refatoração:** corte adjetivos sem função; organize detalhes por eixo espacial, funcional ou hierárquico; faça cada detalhe contribuir para a leitura do todo.
+**Construa assim:** identificação → aspecto principal → detalhes relevantes → relação entre os detalhes → significado funcional.
 
-**Teste de aceite:** os detalhes não são uma lista arbitrária e convergem para uma percepção ou conclusão útil.
+**Na revisão:** retire adjetivos sem função; organize detalhes por um critério espacial, funcional ou hierárquico; faça cada detalhe contribuir para a compreensão do todo.
 
-**Exemplar clássico:** **Alta**. `CL-04` mostra identificação, contraste, detalhes arquitetônicos e explicação do nome dentro da mesma progressão observacional.
+**Está pronto quando:** os detalhes formam uma leitura coerente, e não uma lista arbitrária.
 
-## 13. Narrativa ou evento
+**Exemplo clássico:** utilidade **Alta**. Eça de Queirós, *Os Maias* (`CL-04`).
 
-**Objetivo:** apresentar uma mudança no tempo em que a sequência de acontecimentos produz consequência relevante.
+## 13. Relatar acontecimentos em sequência
 
-**Construa assim:** situação inicial → evento → reação/mudança → consequência → ponto de chegada.
+**Função:** apresentar mudanças no tempo em que a ordem dos acontecimentos ajuda a explicar o resultado.
 
-**Na refatoração:** elimine passos sem consequência; preserve ordem temporal quando ela for causal; antecipe o evento principal se o contexto estiver longo demais.
+**Construa assim:** situação inicial → acontecimento → mudança ou reação → consequência → ponto de chegada.
 
-**Teste de aceite:** cada unidade temporal altera estado, expectativa, decisão ou conhecimento do leitor.
+**Na revisão:** retire etapas sem consequência; preserve a ordem temporal quando ela também for causal; antecipe o acontecimento principal se o contexto estiver longo demais.
 
-**Exemplar clássico:** **Alta**. `CL-02` e a abertura de *Dom Casmurro* mostram cena curta, evento e consequência nominal/interpretativa. Em texto institucional, use a arquitetura sem teatralização.
+**Está pronto quando:** cada etapa altera o estado, a expectativa, a decisão ou o conhecimento do leitor.
 
-## 14. Procedimental ou instrucional
+**Exemplo clássico:** utilidade **Alta**. Machado de Assis, *Dom Casmurro* (`CL-02`).
 
-**Objetivo:** orientar execução correta e verificável de uma ação.
+## 14. Ensinar um procedimento
 
-**Construa assim:** condição/pré-requisito → ação → parâmetros → verificação → exceção/recuperação quando necessária.
+**Função:** permitir que alguém execute uma ação corretamente e verifique o resultado.
 
-**Na refatoração:** troque narrativa por verbos de ação; não esconda pré-condições; se as etapas forem independentes e numerosas, converta o parágrafo em lista ou procedimento estruturado.
+**Construa assim:** pré-requisito → ação → parâmetros necessários → verificação → exceção ou recuperação.
 
-**Teste de aceite:** uma pessoa qualificada consegue executar a ação sem inferir passos críticos ausentes e sabe como verificar o resultado.
+**Na revisão:** use verbos de ação; não esconda pré-requisitos; converta várias etapas independentes em lista ou procedimento estruturado.
 
-**Exemplar clássico:** **Baixa**. Não use prosa literária como modelo padrão. Prefira documentação, normas ou procedimentos atuais; clássicos podem, no máximo, ilustrar ordem lógica.
+**Está pronto quando:** uma pessoa qualificada consegue executar sem adivinhar passos críticos e sabe como conferir o resultado.
 
-## 15. Transição ou ponte
+**Exemplos clássicos:** utilidade **Baixa**. Prefira documentação, normas e procedimentos atuais.
 
-**Objetivo:** encerrar uma operação e preparar outra sem criar um parágrafo vazio de conteúdo.
+## 15. Ligar uma parte à seguinte
 
-**Construa assim:** retomada mínima → relação lógica → mudança de foco → promessa concreta do próximo movimento.
+**Função:** encerrar uma ideia e preparar a próxima mostrando a relação entre elas.
 
-**Na refatoração:** remova frases como “a seguir veremos” quando nada acrescentam; faça a ponte nomear a relação entre blocos; una ao parágrafo anterior ou seguinte se não houver conteúdo próprio.
+**Construa assim:** retomada mínima → relação entre as partes → mudança de foco → necessidade da próxima parte.
 
-**Teste de aceite:** a transição explica **por que** o texto muda de assunto, não apenas **que** mudará.
+**Na revisão:** retire frases como “a seguir veremos” quando nada acrescentam; explique por que a próxima parte é necessária; una a transição ao parágrafo anterior ou seguinte quando ela não tiver conteúdo próprio.
 
-**Exemplar clássico:** **Alta**. `CL-02` é um modelo claro de retrospecto + pivô + nova pergunta/motivo.
+**Está pronto quando:** o leitor entende por que o texto muda de assunto ou de etapa.
 
-## 16. Síntese ou integração
+**Exemplo clássico:** utilidade **Alta**. Machado de Assis, *Dom Casmurro* (`CL-02`).
 
-**Objetivo:** combinar elementos anteriores em uma conclusão de nível superior, sem apenas repeti-los.
+## 16. Integrar ideias e produzir uma síntese
 
-**Construa assim:** elementos relevantes → relação entre eles → generalização controlada → limite ou implicação.
+**Função:** combinar elementos anteriores e produzir uma conclusão que não existia em nenhum deles isoladamente.
 
-**Na refatoração:** elimine paráfrase serial; procure a relação que os elementos juntos revelam; preserve divergências que não podem ser reconciliadas.
+**Construa assim:** elementos relevantes → relação entre eles → conclusão integrada → limite ou implicação.
 
-**Teste de aceite:** o parágrafo produz uma leitura nova que não existia em nenhuma frase isolada anterior.
+**Na revisão:** elimine repetição em série; mostre o que os elementos revelam quando considerados juntos; preserve divergências que não podem ser resolvidas.
 
-**Exemplar clássico:** **Média**. `CL-03` e `CL-10` ajudam na passagem de elementos particulares para uma consequência geral, mas textos analíticos modernos exigem maior rastreabilidade.
+**Está pronto quando:** o parágrafo produz uma leitura nova em vez de apenas resumir o que já foi dito.
 
-## 17. Implicação ou recomendação
+**Exemplos clássicos:** utilidade **Média**. Machado de Assis, *Dom Casmurro* (`CL-03`), e Madison, *Federalist No. 51* (`CL-10`).
 
-**Objetivo:** converter achado, diagnóstico ou princípio em consequência prática ou decisão.
+## 17. Mostrar uma implicação ou recomendar uma ação
 
-**Construa assim:** achado/premissa → implicação → ação recomendada → condição/risco → critério de decisão.
+**Função:** transformar um achado, diagnóstico ou princípio em consequência prática ou decisão.
 
-**Na refatoração:** não faça recomendação sem base explícita; diferencie “decorre dos dados” de “é uma escolha de política”; explicite condições que mudariam a recomendação.
+**Construa assim:** achado ou premissa → implicação → ação recomendada → condição ou risco → critério de decisão.
 
-**Teste de aceite:** o leitor entende de qual evidência nasce a ação e sob quais condições ela deve ou não ser adotada.
+**Na revisão:** não recomende sem base explícita; diferencie o que decorre da evidência do que é escolha; diga o que faria a recomendação mudar.
 
-**Exemplar clássico:** **Média**. `CL-10` demonstra passagem de premissa sobre comportamento humano a requisito institucional; use a técnica, não a autoridade histórica, como modelo.
+**Está pronto quando:** o leitor entende de onde nasce a ação e em quais condições ela deve ou não ser adotada.
 
-## 18. Fechamento ou conclusão local
+**Exemplo clássico:** utilidade **Média**. Madison, *Federalist No. 51* (`CL-10`).
 
-**Objetivo:** encerrar uma unidade produzindo resolução, consequência ou abertura controlada para o próximo nível do texto.
+## 18. Encerrar uma parte do texto
 
-**Construa assim:** núcleo recuperado → resultado acumulado → consequência final ou limite → frase de pouso.
+**Função:** fechar uma seção ou bloco, deixando claro o resultado alcançado e, quando necessário, preparando o próximo nível do texto.
 
-**Na refatoração:** corte resumos redundantes; não introduza evidência nova decisiva na última frase; evite grandiloquência não sustentada.
+**Construa assim:** ideia principal recuperada → resultado acumulado → consequência ou limite → encerramento.
 
-**Teste de aceite:** o parágrafo pode ser a última unidade da seção sem deixar a operação principal incompleta.
+**Na revisão:** não introduza evidência decisiva nova no final; evite frases grandiosas sem suporte; deixe claro o que ficou estabelecido.
 
-**Exemplar clássico:** **Alta** para cadência e resolução, especialmente `CL-03` e `CL-10`. Reduza o efeito aforístico quando o gênero exigir neutralidade.
+**Está pronto quando:** o leitor sabe o que a parte concluiu e se o texto termina ali ou precisa seguir.
 
-## Regras para conflitos de tipologia
+**Exemplos clássicos:** utilidade **Alta**. Machado de Assis, *Dom Casmurro* (`CL-03`), e Madison, *Federalist No. 51* (`CL-10`).
 
-1. Se duas funções disputam o núcleo, divida o parágrafo.
-2. Se uma função apenas prepara outra, trate-a como posição interna, não como segundo tipo dominante.
-3. Se a divisão quebrar uma cadeia causal ou uma objeção–resposta curta, mantenha o bloco unido e torne a relação explícita.
-4. Se o parágrafo tiver mais de uma mudança forte de direção, reavalie a arquitetura da seção.
-5. Se a correção exigir mover vários parágrafos ou redefinir a função da seção, faça handoff para `architect-text`.
+## Regra geral de escolha
+
+Escolha o tipo de parágrafo perguntando:
+
+**“O que este parágrafo precisa fazer exatamente aqui?”**
+
+Se a resposta exigir duas ações principais independentes, provavelmente são necessários dois parágrafos.
