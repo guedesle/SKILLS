@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Sincroniza skills canônicas de guedesle/SKILLS para espelhos registrados.
+"""Valida e, para mirrors push, sincroniza skills canônicas de guedesle/SKILLS.
 
 Uso:
   python scripts/sync_skills.py --check
   python scripts/sync_skills.py --apply
 
-O script só altera caminhos explicitamente declarados em registry.json e nunca remove
-conteúdo fora desses caminhos.
+Mirrors `mode: pull` são atualizados pelo workflow do repositório consumidor e não
+exigem PAT cross-repository no catálogo central. Mirrors `mode: push` continuam
+suportados explicitamente.
 """
 
 from __future__ import annotations
@@ -22,6 +23,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "registry.json"
+VALID_MIRROR_MODES = {"pull", "push"}
 
 
 def run(cmd: list[str], cwd: Path | None = None, check: bool = True) -> subprocess.CompletedProcess:
@@ -56,6 +58,7 @@ def validate_registry(data: dict) -> list[str]:
         if path in paths:
             errors.append(f"Path canônico duplicado: {path}")
         paths.add(path)
+
         file_path = ROOT / path
         if not file_path.is_file():
             errors.append(f"Arquivo canônico ausente: {path}")
@@ -63,8 +66,13 @@ def validate_registry(data: dict) -> list[str]:
             errors.append(f"Path canônico deve terminar em SKILL.md: {path}")
 
         for mirror in skill.get("mirrors", []):
+            mode = mirror.get("mode", "push")
+            if mode not in VALID_MIRROR_MODES:
+                errors.append(f"Modo de espelho inválido em {name}: {mode}")
             if not mirror.get("repository") or not mirror.get("path"):
                 errors.append(f"Espelho inválido em {name}: {mirror!r}")
+            if mode == "pull" and not mirror.get("workflow"):
+                errors.append(f"Mirror pull sem workflow declarado em {name}: {mirror!r}")
 
     return errors
 
@@ -78,7 +86,7 @@ def copy_skill(source_skill_file: Path, target_repo: Path, target_path: str) -> 
     shutil.copytree(source_dir, destination)
 
 
-def sync_mirror(skill: dict, mirror: dict, apply: bool) -> dict:
+def sync_push_mirror(skill: dict, mirror: dict, apply: bool) -> dict:
     repository = mirror["repository"]
     branch = mirror.get("branch", "main")
     target_path = mirror["path"]
@@ -97,6 +105,7 @@ def sync_mirror(skill: dict, mirror: dict, apply: bool) -> dict:
             "repository": repository,
             "branch": branch,
             "path": target_path,
+            "mode": "push",
             "changed": changed,
             "applied": False,
         }
@@ -105,12 +114,7 @@ def sync_mirror(skill: dict, mirror: dict, apply: bool) -> dict:
 
         run(["git", "add", "--", target_path], cwd=repo_dir)
         run(
-            [
-                "git",
-                "commit",
-                "-m",
-                f"chore(skills): sincronizar {skill['name']} v{skill['version']}",
-            ],
+            ["git", "commit", "-m", f"chore(skills): sincronizar {skill['name']} v{skill['version']}"],
             cwd=repo_dir,
         )
         run(["git", "push", "origin", branch], cwd=repo_dir)
@@ -121,8 +125,8 @@ def sync_mirror(skill: dict, mirror: dict, apply: bool) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser()
     mode = parser.add_mutually_exclusive_group(required=True)
-    mode.add_argument("--check", action="store_true", help="Valida registro e mostra drift sem push.")
-    mode.add_argument("--apply", action="store_true", help="Sincroniza os espelhos registrados e faz push.")
+    mode.add_argument("--check", action="store_true", help="Valida registro e configuração dos mirrors.")
+    mode.add_argument("--apply", action="store_true", help="Aplica somente mirrors mode=push.")
     parser.add_argument("--skill", action="append", default=[], help="Limita a uma ou mais skills pelo nome.")
     args = parser.parse_args()
 
@@ -140,9 +144,18 @@ def main() -> int:
         print(f"ERRO: skills não registradas: {', '.join(sorted(unknown))}", file=sys.stderr)
         return 2
 
-    if args.apply:
+    selected_mirrors: list[tuple[dict, dict]] = []
+    for skill in data.get("skills", []):
+        if selected and skill["name"] not in selected:
+            continue
+        for mirror in skill.get("mirrors", []):
+            selected_mirrors.append((skill, mirror))
+
+    push_mirrors = [(skill, mirror) for skill, mirror in selected_mirrors if mirror.get("mode", "push") == "push"]
+
+    if args.apply and push_mirrors:
         if shutil.which("gh") is None or shutil.which("git") is None:
-            print("ERRO: --apply requer gh e git no PATH.", file=sys.stderr)
+            print("ERRO: --apply para mirrors push requer gh e git no PATH.", file=sys.stderr)
             return 2
         if not os.environ.get("GH_TOKEN"):
             auth = run(["gh", "auth", "status"], check=False)
@@ -151,21 +164,38 @@ def main() -> int:
                 return 2
 
     results: list[dict] = []
-    mirror_count = 0
-    for skill in data.get("skills", []):
-        if selected and skill["name"] not in selected:
-            continue
-        for mirror in skill.get("mirrors", []):
-            mirror_count += 1
-            results.append(sync_mirror(skill, mirror, apply=args.apply))
+    for skill, mirror in selected_mirrors:
+        mirror_mode = mirror.get("mode", "push")
+        if mirror_mode == "pull":
+            results.append(
+                {
+                    "skill": skill["name"],
+                    "version": skill["version"],
+                    "repository": mirror["repository"],
+                    "branch": mirror.get("branch", "main"),
+                    "path": mirror["path"],
+                    "mode": "pull",
+                    "workflow": mirror["workflow"],
+                    "changed": False,
+                    "applied": False,
+                }
+            )
+        else:
+            results.append(sync_push_mirror(skill, mirror, apply=args.apply))
 
     print(f"Registro válido: {len(data.get('skills', []))} skills canônicas.")
-    print(f"Espelhos selecionados: {mirror_count}.")
+    print(f"Espelhos selecionados: {len(selected_mirrors)}.")
     for result in results:
+        if result["mode"] == "pull":
+            print(
+                f"PULL: {result['skill']} <- {result['repository']}:{result['path']} "
+                f"via {result['workflow']}"
+            )
+            continue
         state = "ATUALIZADO" if result["applied"] else ("DRIFT" if result["changed"] else "OK")
         print(f"{state}: {result['skill']} -> {result['repository']}:{result['path']}")
 
-    if args.check and any(r["changed"] for r in results):
+    if args.check and any(r["mode"] == "push" and r["changed"] for r in results):
         return 1
     return 0
 
