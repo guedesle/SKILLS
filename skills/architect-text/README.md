@@ -1,35 +1,39 @@
-# `architect-text` — arquitetura textual orientada por motivo
+# `architect-text` — planejamento da estrutura do texto
 
 Navegação da skill:
 
-- [`SKILL.md`](SKILL.md) — procedimento operacional;
-- [`references/textual-motive.md`](references/textual-motive.md) — parâmetros que explicam por que o texto existe e que transformação deve produzir;
-- [`references/motive-to-paragraph-patterns.md`](references/motive-to-paragraph-patterns.md) — padrões heurísticos de sequência paragrafal por ato comunicativo;
-- [`templates/text-architecture-artifact.md`](templates/text-architecture-artifact.md) — contrato de saída canônico;
-- [`references/architecture-qa.md`](references/architecture-qa.md) — QA e teste contrafactual da arquitetura;
-- [`../design-paragraphs/references/paragraph-typology.md`](../design-paragraphs/references/paragraph-typology.md) — tipologia operacional consumida pela arquitetura;
-- [`../design-paragraphs/assets/classic-exemplars.md`](../design-paragraphs/assets/classic-exemplars.md) — exemplares estruturais opcionais para o handoff paragrafal.
+- [`SKILL.md`](SKILL.md) — procedimento principal;
+- [`references/textual-motive.md`](references/textual-motive.md) — finalidade do texto e informações necessárias antes de estruturar;
+- [`references/motive-to-paragraph-patterns.md`](references/motive-to-paragraph-patterns.md) — sequências iniciais de parágrafos conforme a finalidade;
+- [`templates/text-architecture-artifact.md`](templates/text-architecture-artifact.md) — modelo do Plano de Arquitetura do Texto;
+- [`references/architecture-qa.md`](references/architecture-qa.md) — revisão da arquitetura antes da redação;
+- [`../design-paragraphs/references/paragraph-typology.md`](../design-paragraphs/references/paragraph-typology.md) — tipos de parágrafo por função;
+- [`../design-paragraphs/assets/classic-exemplars.md`](../design-paragraphs/assets/classic-exemplars.md) — exemplos clássicos opcionais para estudar estrutura.
 
 Fluxo:
 
 ```text
-motivo textual
+finalidade do texto
   ↓
-promessa de leitura
+resultado esperado da leitura
   ↓
-movimento macro
+sequência lógica do texto
   ↓
-seções funcionais
+seções e seus objetivos
   ↓
-matriz paragrafal Sx.Py
+parágrafos e suas funções
   ↓
-dependências + evidências + transições
+dependências entre ideias + evidências + ligações
   ↓
-QA da arquitetura
+revisão da estrutura
   ↓
-Artefato de Arquitetura Textual
+Plano de Arquitetura do Texto
   ↓
 design-paragraphs / redação
 ```
 
-A arquitetura está pronta quando a redação pode começar sem que o redator precise decidir durante a escrita **qual é a função de cada seção ou parágrafo e por que eles aparecem naquela ordem**.
+A arquitetura está pronta quando a redação pode começar sem que o redator precise decidir durante a escrita **qual é a função de cada seção ou parágrafo, que evidência precisa usar e por que cada parte aparece naquela ordem**.
+
+## Vocabulário
+
+A versão 1.2.0 adota nomenclatura autoexplicativa. Termos internos ou acadêmicos não devem aparecer como linguagem principal dos artefatos quando houver uma expressão direta em português corrente.
