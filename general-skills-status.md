@@ -1,10 +1,10 @@
 # Estado das skills gerais
 
-Atualizado em 14 de agosto de 2026.
+Atualizado em 16 de agosto de 2026.
 
 ## Fonte canônica
 
-O repositório `guedesle/SKILLS` passa a ser a fonte de verdade para skills gerais/reutilizáveis do perfil. O inventário operacional está em [`registry.json`](registry.json) e a navegação/versões em [`README.md`](README.md).
+`guedesle/SKILLS` é a fonte de verdade para skills gerais/reutilizáveis. O inventário operacional está em [`registry.json`](registry.json), atualmente em `schema_version: 2`, e a navegação/versões em [`README.md`](README.md).
 
 Skills específicas de projeto não são promovidas automaticamente. Quando uma capacidade local possui valor transversal, uma versão geral é extraída para este catálogo e a origem fica registrada.
 
@@ -16,9 +16,9 @@ Skills específicas de projeto não são promovidas automaticamente. Quando uma 
 | `architect-text` | Editorial | 1.0.0 | Canônica |
 | `design-paragraphs` | Editorial | 1.0.0 | Canônica |
 | `write-with-evidence` | Editorial | 1.0.0 | Canônica |
-| `write-technical-content` | Editorial/Técnica | 1.0.0 | Canônica |
+| `write-technical-content` | Editorial/Técnica | 1.0.0 | Canônica + mirror homologado |
 | `calibrate-rhetoric` | Editorial | 1.0.0 | Canônica |
-| `review-editorial-quality` | QA | 1.0.0 | Canônica |
+| `review-editorial-quality` | QA | 1.0.0 | Canônica + mirror homologado |
 | `improve-accessible-writing` | Acessibilidade | 1.0.0 | Canônica |
 | `assess-editorial-alignment` | Governança editorial | 1.0.0 | Canônica |
 | `graphify` | Engenharia de software | 1.0.0 | Canônica |
@@ -38,16 +38,35 @@ As nove skills editoriais foram generalizadas a partir das capacidades do `edito
 
 **Canônica** significa que a skill possui definição central, versão registrada e documentação navegável. Isso não significa, por si só, que todas as skills tenham passado por uma bateria comparativa de evals em produção.
 
+**Mirror homologado** significa que a definição canônica foi propagada automaticamente para um repositório consumidor por um path explicitamente registrado, com GitHub Actions validado e sem alteração de conteúdo fora dos paths gerenciados.
+
 ## Política de sincronização
 
 - central: `skills/<nome>/SKILL.md`;
-- inventário/versionamento: `registry.json`;
+- inventário/versionamento/mappings: `registry.json`;
 - documentação: `README.md`;
-- validação: `python scripts/sync_skills.py --check`;
-- distribuição para espelhos registrados: `python scripts/sync_skills.py --apply`;
-- automação: `.github/workflows/sync-skills.yml`.
+- validação estrutural: `python scripts/sync_skills.py --check`;
+- runtime pull genérico: `.github/workflows/mirror-consumer.yml` + `scripts/sync_consumer.py`;
+- caller padrão de consumidores: `templates/sync-central-skills.yml`;
+- bootstrap padronizado de consumidor novo: `scripts/bootstrap_consumers.py`;
+- fallback push explícito: `python scripts/sync_skills.py --apply`.
 
-Espelhos só são atualizados quando declarados explicitamente em `registry.json`. Variantes locais legadas registradas em `legacy_source` servem para proveniência e não são sobrescritas automaticamente.
+No modo preferido `pull`, um repositório consumidor recebe o caller padrão uma única vez. A partir daí, novas skills destinadas ao mesmo consumidor são adicionadas somente como mappings no `registry.json`; o workflow compartilhado resolve automaticamente todas as skills daquele repositório e branch.
+
+O bootstrap de um consumidor totalmente novo ainda exige uma credencial ou integração com permissão para criar/atualizar o arquivo de workflow naquele repositório. Depois do bootstrap, o mirror usa o `GITHUB_TOKEN` do próprio consumidor e não requer PAT global.
+
+Espelhos só são atualizados quando declarados explicitamente em `registry.json`. Variantes locais registradas em `legacy_source` servem para proveniência e não são sobrescritas automaticamente.
+
+## Homologação atual
+
+Consumidor: `guedesle/download-edicoes-doe`, branch `main`.
+
+Mappings ativos:
+
+- `write-technical-content` → `.agents/skills/write-technical-content`;
+- `review-editorial-quality` → `.agents/skills/review-editorial-quality`.
+
+A segunda skill foi adicionada apenas ao `registry.json`, sem lógica nova no workflow consumidor, comprovando o modelo multi-skill genérico. O workflow central também executa compilação dos utilitários e smoke test do resolvedor pull para esses dois mappings.
 
 ## Próxima evolução de qualidade
 
