@@ -3,13 +3,14 @@
   "repository": "guedesle/SKILLS",
   "canonical_path_pattern": "skills/{name}/SKILL.md",
   "versioning": "semver",
-  "sync_model": "central-to-registered-mirrors",
-  "updated_at": "2026-08-14",
+  "sync_model": "central-with-registered-pull-or-push-mirrors",
+  "updated_at": "2026-08-16",
   "policy": {
     "central_is_source_of_truth": true,
     "general_skills_must_be_registered": true,
     "project_specific_skills_are_not_auto_promoted": true,
-    "mirror_updates_are_non_destructive_outside_managed_paths": true
+    "mirror_updates_are_non_destructive_outside_managed_paths": true,
+    "prefer_pull_mirrors_when_central_repository_is_public": true
   },
   "skills": [
     {
@@ -55,7 +56,16 @@
       "category": "editorial",
       "path": "skills/write-technical-content/SKILL.md",
       "origin": "editor-agent / Domínio 06 — Redação Técnica",
-      "mirrors": []
+      "mirrors": [
+        {
+          "repository": "guedesle/download-edicoes-doe",
+          "branch": "main",
+          "path": ".agents/skills/write-technical-content",
+          "mode": "pull",
+          "workflow": ".github/workflows/sync-central-skills.yml",
+          "purpose": "homologation"
+        }
+      ]
     },
     {
       "name": "calibrate-rhetoric",
