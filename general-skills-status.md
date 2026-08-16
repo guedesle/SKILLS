@@ -13,7 +13,7 @@ Skills específicas de projeto não são promovidas automaticamente. Quando uma 
 | Skill | Categoria | Versão | Estado |
 |---|---|---:|---|
 | `plan-content` | Editorial | 1.0.0 | Canônica |
-| `architect-text` | Editorial | 1.0.0 | Canônica |
+| `architect-text` | Editorial | 1.1.0 | Canônica + artefato de arquitetura paragrafal |
 | `design-paragraphs` | Editorial | 1.1.0 | Canônica + tipologia e corpus de exemplares |
 | `write-with-evidence` | Editorial | 1.0.0 | Canônica |
 | `write-technical-content` | Editorial/Técnica | 1.0.0 | Canônica + mirror homologado |
@@ -30,6 +30,8 @@ Skills específicas de projeto não são promovidas automaticamente. Quando uma 
 
 As nove skills editoriais foram generalizadas a partir das capacidades do `editor-agent`, removendo dependências de runtime, identidade específica e schemas exclusivos. `architect-text` preserva a proveniência da skill local `editor-structure`.
 
+`architect-text` foi elevada para **1.1.0** e agora trata o **motivo textual** como contrato de entrada da arquitetura. A skill coleta ou infere intenção, transformação do leitor, público, gênero, evidência, escopo, restrições e riscos; transforma esses parâmetros em seções funcionais e em uma matriz paragrafal que consome a tipologia de `design-paragraphs`; e produz um Artefato de Arquitetura Textual com IDs `Sx.Py`, dependências argumentativas, plano de evidências, transições, ritmo e critérios de aceite.
+
 `design-paragraphs` foi elevada para **1.1.0** com uma tipologia operacional de 18 funções, contratos assertivos de construção/refatoração e um corpus de exemplares clássicos de domínio público. Os assets registram fonte, repositório, arquivo e blob SHA e são usados apenas para abstrair arquitetura paragrafal; a skill proíbe tratar prestígio literário, posições históricas ou voz autoral como modelo automático para o texto-alvo.
 
 `graphify` foi generalizada a partir do workflow existente no `SieDOE`, mantendo a regra essencial: usar o grafo para descoberta e confirmar detalhes diretamente no código antes de editar.
@@ -39,6 +41,8 @@ As nove skills editoriais foram generalizadas a partir das capacidades do `edito
 ## Critério de maturidade
 
 **Canônica** significa que a skill possui definição central, versão registrada e documentação navegável. Isso não significa, por si só, que todas as skills tenham passado por uma bateria comparativa de evals em produção.
+
+**Artefato de arquitetura paragrafal** significa que `architect-text` possui contrato de entrada por motivo textual, padrões de composição por ato comunicativo e um template explícito para entregar seções, operações paragrafais, dependências e handoff reproduzível.
 
 **Tipologia e corpus de exemplares** significa que a skill possui referência operacional separada do runtime principal, assets rastreáveis e critérios explícitos para decidir quando exemplos históricos ajudam ou atrapalham a tarefa.
 
@@ -74,4 +78,4 @@ A segunda skill foi adicionada apenas ao `registry.json`, sem lógica nova no wo
 
 ## Próxima evolução de qualidade
 
-Para `design-paragraphs`, a próxima etapa recomendada é criar evals comparativos por tipologia: parágrafo original → diagnóstico → refatoração sem exemplar → refatoração com exemplar estrutural → julgamento de clareza, fidelidade, progressão e risco de imitação. Para as demais skills, executar evals controlados por família de uso e registrar resultados por versão, sem alterar a versão canônica sem evidência de melhoria ou correção.
+Para `architect-text`, criar evals que comparem arquiteturas produzidas a partir do mesmo tema com motivos textuais diferentes, verificando se a mudança de intenção realmente altera seções, sequência tipológica e dependências. Para `design-paragraphs`, executar evals comparativos por tipologia: parágrafo original → diagnóstico → refatoração sem exemplar → refatoração com exemplar estrutural → julgamento de clareza, fidelidade, progressão e risco de imitação. Para as demais skills, executar evals controlados por família de uso e registrar resultados por versão.
