@@ -86,7 +86,15 @@
       "category": "editorial",
       "path": "skills/review-editorial-quality/SKILL.md",
       "origin": "editor-agent / Domínio 10 — QA",
-      "mirrors": []
+      "mirrors": [
+        {
+          "repository": "guedesle/download-edicoes-doe",
+          "branch": "main",
+          "path": ".agents/skills/review-editorial-quality",
+          "mode": "pull",
+          "purpose": "homologation-generic-multi-skill"
+        }
+      ]
     },
     {
       "name": "improve-accessible-writing",
