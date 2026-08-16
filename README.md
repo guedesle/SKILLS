@@ -6,6 +6,7 @@ Repositório canônico das **skills gerais e reutilizáveis**. A fonte de verdad
 
 - [Índice](#índice-de-skills)
 - [Como usar](#como-usar)
+- [Instalação em OpenCode, Codex e Claude Code](#instalação-em-opencode-codex-e-claude-code)
 - [Sincronização](#sincronização)
 - [Mirrors genéricos](#mirrors-genéricos)
 - [Homologação](#homologação)
@@ -81,6 +82,343 @@ Use $graphify para entender as dependências deste módulo.
 Use $github-project-drift-audit para auditar o Project sem mutações.
 ```
 
+## Instalação em OpenCode, Codex e Claude Code
+
+As skills deste catálogo usam o formato aberto **Agent Skills**: cada capacidade vive em um diretório próprio, tendo `SKILL.md` como ponto de entrada e podendo incluir `scripts/`, `references/`, `assets/` e outros recursos auxiliares. O catálogo pode ser instalado globalmente no perfil do usuário ou localmente em um projeto.
+
+> **Recomendação:** clone este repositório uma única vez e faça cada host apontar para os diretórios em `SKILLS/skills`. Assim, `git pull` atualiza a fonte canônica sem criar cópias divergentes.
+
+### 1. Pré-requisitos
+
+Instale o **Git** e pelo menos um dos hosts abaixo.
+
+#### OpenCode
+
+Instalação multiplataforma por npm:
+
+```bash
+npm install -g opencode-ai
+```
+
+No Windows, a documentação do OpenCode recomenda WSL para a experiência mais completa, mas também há instalação nativa por npm, Chocolatey ou Scoop.
+
+Verifique:
+
+```bash
+opencode --version
+```
+
+#### Codex
+
+Instale o Codex CLI:
+
+```bash
+npm install -g @openai/codex
+```
+
+Depois execute:
+
+```bash
+codex
+```
+
+Na primeira execução, conclua a autenticação apresentada pelo CLI.
+
+#### Claude Code
+
+No Windows, uma opção simples é o WinGet:
+
+```powershell
+winget install Anthropic.ClaudeCode
+```
+
+A instalação nativa oficial também pode ser executada no PowerShell:
+
+```powershell
+irm https://claude.ai/install.ps1 | iex
+```
+
+No macOS, Linux ou WSL:
+
+```bash
+curl -fsSL https://claude.ai/install.sh | bash
+```
+
+Verifique:
+
+```bash
+claude --version
+```
+
+### 2. Clone a fonte canônica
+
+#### Windows / PowerShell
+
+```powershell
+cd $HOME
+git clone https://github.com/guedesle/SKILLS.git
+cd $HOME\SKILLS
+git status
+```
+
+#### macOS / Linux / WSL
+
+```bash
+cd "$HOME"
+git clone https://github.com/guedesle/SKILLS.git
+cd "$HOME/SKILLS"
+git status
+```
+
+Se o repositório já existir, atualize-o em vez de clonar novamente:
+
+```bash
+git -C "$HOME/SKILLS" pull --ff-only
+```
+
+A validação do catálogo é opcional para uso local, mas recomendada após atualização:
+
+```bash
+python "$HOME/SKILLS/scripts/sync_skills.py" --check
+```
+
+### 3. Instalação global no OpenCode
+
+O OpenCode reconhece skills globais em:
+
+```text
+~/.config/opencode/skills/<nome>/SKILL.md
+```
+
+Ele também reconhece os diretórios compatíveis `~/.agents/skills/` e `~/.claude/skills/`.
+
+#### Windows / PowerShell — junctions
+
+```powershell
+$Repo = Join-Path $HOME "SKILLS"
+$Target = Join-Path $HOME ".config\opencode\skills"
+New-Item -ItemType Directory -Force -Path $Target | Out-Null
+
+Get-ChildItem (Join-Path $Repo "skills") -Directory | ForEach-Object {
+    $Link = Join-Path $Target $_.Name
+    if (-not (Test-Path $Link)) {
+        New-Item -ItemType Junction -Path $Link -Target $_.FullName | Out-Null
+        Write-Host "Instalada: $($_.Name)"
+    } else {
+        Write-Host "Já existe: $($_.Name)"
+    }
+}
+```
+
+#### macOS / Linux / WSL — symlinks
+
+```bash
+mkdir -p "$HOME/.config/opencode/skills"
+for skill in "$HOME/SKILLS"/skills/*; do
+  [ -d "$skill" ] || continue
+  ln -sfn "$skill" "$HOME/.config/opencode/skills/$(basename "$skill")"
+done
+```
+
+Inicie o OpenCode:
+
+```bash
+opencode
+```
+
+A ativação é feita sob demanda pelo mecanismo nativo de skills. Teste com uma solicitação que corresponda claramente à descrição de uma skill, por exemplo:
+
+```text
+Use architect-text para arquitetar este texto antes da redação.
+```
+
+> Se OpenCode, Codex e Claude Code estiverem instalados na mesma máquina, o OpenCode também poderá descobrir skills presentes em `~/.agents/skills` e `~/.claude/skills`. Evite manter uma terceira cópia manual divergente em `.config/opencode/skills`; use links para esta mesma fonte canônica.
+
+### 4. Instalação global no Codex
+
+O Codex carrega skills de usuário em:
+
+```text
+$HOME/.agents/skills/<nome>/SKILL.md
+```
+
+Também reconhece `.agents/skills` do diretório atual e de diretórios pais até a raiz do repositório.
+
+#### Windows / PowerShell — junctions
+
+```powershell
+$Repo = Join-Path $HOME "SKILLS"
+$Target = Join-Path $HOME ".agents\skills"
+New-Item -ItemType Directory -Force -Path $Target | Out-Null
+
+Get-ChildItem (Join-Path $Repo "skills") -Directory | ForEach-Object {
+    $Link = Join-Path $Target $_.Name
+    if (-not (Test-Path $Link)) {
+        New-Item -ItemType Junction -Path $Link -Target $_.FullName | Out-Null
+        Write-Host "Instalada: $($_.Name)"
+    } else {
+        Write-Host "Já existe: $($_.Name)"
+    }
+}
+```
+
+#### macOS / Linux / WSL — symlinks
+
+```bash
+mkdir -p "$HOME/.agents/skills"
+for skill in "$HOME/SKILLS"/skills/*; do
+  [ -d "$skill" ] || continue
+  ln -sfn "$skill" "$HOME/.agents/skills/$(basename "$skill")"
+done
+```
+
+Inicie o Codex e confirme a descoberta:
+
+```bash
+codex
+```
+
+No Codex CLI ou na extensão de IDE, use `/skills` para consultar as skills disponíveis ou invoque uma diretamente com `$`:
+
+```text
+$architect-text transforme este briefing em uma arquitetura textual.
+```
+
+O Codex detecta alterações em skills automaticamente; se uma atualização não aparecer, reinicie a sessão.
+
+### 5. Instalação global no Claude Code
+
+O Claude Code carrega skills pessoais de:
+
+```text
+~/.claude/skills/<nome>/SKILL.md
+```
+
+#### Windows / PowerShell — junctions
+
+```powershell
+$Repo = Join-Path $HOME "SKILLS"
+$Target = Join-Path $HOME ".claude\skills"
+New-Item -ItemType Directory -Force -Path $Target | Out-Null
+
+Get-ChildItem (Join-Path $Repo "skills") -Directory | ForEach-Object {
+    $Link = Join-Path $Target $_.Name
+    if (-not (Test-Path $Link)) {
+        New-Item -ItemType Junction -Path $Link -Target $_.FullName | Out-Null
+        Write-Host "Instalada: $($_.Name)"
+    } else {
+        Write-Host "Já existe: $($_.Name)"
+    }
+}
+```
+
+#### macOS / Linux / WSL — symlinks
+
+```bash
+mkdir -p "$HOME/.claude/skills"
+for skill in "$HOME/SKILLS"/skills/*; do
+  [ -d "$skill" ] || continue
+  ln -sfn "$skill" "$HOME/.claude/skills/$(basename "$skill")"
+done
+```
+
+Inicie o Claude Code:
+
+```bash
+claude
+```
+
+O Claude pode selecionar uma skill automaticamente pela `description` ou você pode invocá-la diretamente pelo nome do diretório:
+
+```text
+/architect-text
+```
+
+Alterações em `SKILL.md` são detectadas durante a sessão quando o diretório já estava sendo monitorado. Se o diretório global de skills tiver sido criado depois que o Claude Code iniciou, reinicie a sessão uma vez.
+
+### 6. Instalação local em um projeto
+
+Use instalação local quando uma skill deve acompanhar somente um repositório.
+
+| Host | Diretório de projeto recomendado |
+|---|---|
+| OpenCode | `.opencode/skills/<nome>/SKILL.md` |
+| Codex | `.agents/skills/<nome>/SKILL.md` |
+| Claude Code | `.claude/skills/<nome>/SKILL.md` |
+
+O OpenCode também aceita, por compatibilidade, `.agents/skills` e `.claude/skills`. Para repositórios que já participam do mecanismo central de mirrors deste catálogo, **prefira o `registry.json` + workflow de sincronização** em vez de cópias manuais.
+
+Exemplo de instalação local de uma única skill no Codex:
+
+```text
+<projeto>/.agents/skills/architect-text/SKILL.md
+```
+
+Exemplo no Claude Code:
+
+```text
+<projeto>/.claude/skills/architect-text/SKILL.md
+```
+
+Exemplo no OpenCode:
+
+```text
+<projeto>/.opencode/skills/architect-text/SKILL.md
+```
+
+### 7. Atualização
+
+Como os hosts apontam para a fonte canônica, basta atualizar o clone:
+
+#### Windows / PowerShell
+
+```powershell
+git -C "$HOME\SKILLS" pull --ff-only
+python "$HOME\SKILLS\scripts\sync_skills.py" --check
+```
+
+#### macOS / Linux / WSL
+
+```bash
+git -C "$HOME/SKILLS" pull --ff-only
+python "$HOME/SKILLS/scripts/sync_skills.py" --check
+```
+
+Não é necessário recriar junctions ou symlinks depois de um `git pull` normal.
+
+### 8. Diagnóstico rápido
+
+Se uma skill não aparecer:
+
+1. confirme que existe `SKILL.md` exatamente com esse nome e caixa;
+2. confirme que o frontmatter YAML contém pelo menos `name` e `description` quando exigido pelo host;
+3. confirme que o nome do diretório e o `name` são compatíveis;
+4. confira se o link/junction aponta para `SKILLS/skills/<nome>`;
+5. reinicie o host se o diretório de skills tiver sido criado depois do início da sessão;
+6. no OpenCode, confira permissões da ferramenta `skill` caso tenha personalizado `opencode.json`;
+7. no Codex, use `/skills`; no Claude Code, tente a invocação explícita `/<nome>`.
+
+No PowerShell, inspecione um link com:
+
+```powershell
+Get-Item "$HOME\.agents\skills\architect-text" | Format-List FullName,LinkType,Target
+```
+
+No macOS/Linux/WSL:
+
+```bash
+readlink "$HOME/.agents/skills/architect-text"
+```
+
+### 9. Referências oficiais
+
+- [OpenCode — Agent Skills](https://opencode.ai/docs/skills)
+- [OpenCode — instalação](https://opencode.ai/docs)
+- [OpenAI — Build skills para ChatGPT e Codex](https://learn.chatgpt.com/docs/build-skills)
+- [OpenAI — Codex](https://openai.com/codex/)
+- [Claude Code — Extend Claude with skills](https://code.claude.com/docs/en/skills)
+- [Claude Code — instalação](https://code.claude.com/docs/en/setup)
+
 ## Sincronização
 
 Fluxo padrão:
@@ -132,6 +470,12 @@ Consulte também [`AGENTS.md`](AGENTS.md), [`general-skills-status.md`](general-
 O catálogo usa SemVer: **PATCH** para correções compatíveis, **MINOR** para nova capacidade compatível e **MAJOR** para mudança incompatível de contrato. A versão deve constar no README e no `registry.json`.
 
 ## Histórico
+
+### 2026-08-16 — instalação multi-host
+- documentada instalação global e por projeto em OpenCode, Codex e Claude Code;
+- adicionados comandos para Windows/PowerShell e macOS/Linux/WSL;
+- adotado clone canônico + junctions/symlinks para evitar cópias divergentes;
+- incluídos procedimentos de atualização, verificação, diagnóstico e referências oficiais de cada host.
 
 ### 2026-08-16 — `architect-text` 1.1.0
 - motivo textual formalizado como contrato de entrada da arquitetura;
