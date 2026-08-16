@@ -18,7 +18,7 @@ Repositório canônico das **skills gerais e reutilizáveis**. A fonte de verdad
 |---|---:|---|---|
 | [`plan-content`](#plan-content) | **1.0.0** | Editorial | Briefing, tese, escopo, outline e riscos |
 | [`architect-text`](#architect-text) | **1.0.0** | Editorial | Arquitetura textual e contratos de seção |
-| [`design-paragraphs`](#design-paragraphs) | **1.0.0** | Editorial | Progressão, transição, ritmo e densidade |
+| [`design-paragraphs`](#design-paragraphs) | **1.1.0** | Editorial | 18 tipologias, contratos de refatoração, progressão e exemplares clássicos |
 | [`write-with-evidence`](#write-with-evidence) | **1.0.0** | Editorial | Evidência, inferência, causalidade e incerteza |
 | [`write-technical-content`](#write-technical-content) | **1.0.0** | Técnica | Requisitos, procedimentos e documentação |
 | [`calibrate-rhetoric`](#calibrate-rhetoric) | **1.0.0** | Editorial | Tom e força argumentativa |
@@ -37,7 +37,7 @@ Transforma objetivo e contexto em briefing operacional, escopo, outline, evidên
 Organiza conteúdo em mapa de seções, contratos de seção, matriz paragrafal e progressão temática. Origem: generalização do `editor-agent`. [SKILL.md](skills/architect-text/SKILL.md) · [↑ Índice](#índice-de-skills)
 
 ### `design-paragraphs`
-Projeta e revisa função, progressão, transições, ritmo e densidade de parágrafos. [SKILL.md](skills/design-paragraphs/SKILL.md) · [↑ Índice](#índice-de-skills)
+Projeta e refatora parágrafos como unidades de operação discursiva. A versão **1.1.0** amplia a skill para 18 tipologias, introduz contratos explícitos de construção/refatoração e incorpora um corpus clássico de domínio público como asset estrutural — com eficácia avaliada por tipologia e bloqueio explícito de imitação estilística. [SKILL.md](skills/design-paragraphs/SKILL.md) · [Tipologia](skills/design-paragraphs/references/paragraph-typology.md) · [Exemplares clássicos](skills/design-paragraphs/assets/classic-exemplars.md) · [Proveniência](skills/design-paragraphs/references/source-provenance.md) · [↑ Índice](#índice-de-skills)
 
 ### `write-with-evidence`
 Distingue fatos, inferências, estimativas e opiniões e controla causalidade, extrapolação e incerteza. [SKILL.md](skills/write-with-evidence/SKILL.md) · [↑ Índice](#índice-de-skills)
@@ -75,6 +75,7 @@ Cada definição canônica vive em `skills/<nome>/SKILL.md`; o inventário e os 
 
 ```text
 Use $plan-content para planejar este relatório.
+Use $design-paragraphs para diagnosticar e refatorar a função de cada parágrafo.
 Use $graphify para entender as dependências deste módulo.
 Use $github-project-drift-audit para auditar o Project sem mutações.
 ```
@@ -130,6 +131,14 @@ Consulte também [`AGENTS.md`](AGENTS.md), [`general-skills-status.md`](general-
 O catálogo usa SemVer: **PATCH** para correções compatíveis, **MINOR** para nova capacidade compatível e **MAJOR** para mudança incompatível de contrato. A versão deve constar no README e no `registry.json`.
 
 ## Histórico
+
+### 2026-08-16 — `design-paragraphs` 1.1.0
+- tipologia ampliada de 8 funções genéricas para 18 operações paragrafais;
+- contratos de construção, refatoração e critérios de aceite documentados por tipologia;
+- criado corpus com 10 exemplares clássicos de domínio público de Machado de Assis, Eça de Queirós, Charles Darwin e James Madison;
+- eficácia de exemplares clássicos classificada como alta, média ou baixa para cada tipologia;
+- proveniência, repositórios GITenberg, arquivos e blob SHAs registrados;
+- uso dos clássicos restrito à abstração estrutural, com bloqueio de imitação estilística e de transferência de conteúdo histórico como autoridade atual.
 
 ### 2026-08-16 — mirrors pull genéricos
 - `registry.json` migrado para schema v2;
