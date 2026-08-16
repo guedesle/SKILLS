@@ -27,6 +27,22 @@ jobs:
           python-version: "3.12"
       - name: Validate registry
         run: python scripts/sync_skills.py --check
+      - name: Compile sync utilities
+        run: python -m py_compile scripts/sync_consumer.py scripts/bootstrap_consumers.py
+      - name: Smoke test generic pull resolver
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/skills-consumer
+          python scripts/sync_consumer.py \
+            --central-root . \
+            --repository guedesle/download-edicoes-doe \
+            --branch main \
+            --target-root /tmp/skills-consumer \
+            --paths-output /tmp/skills-managed-paths.txt
+          test -f /tmp/skills-consumer/.agents/skills/write-technical-content/SKILL.md
+          test -f /tmp/skills-consumer/.agents/skills/review-editorial-quality/SKILL.md
+          test "$(wc -l < /tmp/skills-managed-paths.txt)" -eq 2
 
   sync:
     needs: validate
