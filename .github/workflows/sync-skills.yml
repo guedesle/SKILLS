@@ -8,6 +8,9 @@ on:
       - "skills/**"
       - "registry.json"
       - "scripts/sync_skills.py"
+      - "scripts/sync_consumer.py"
+      - ".github/workflows/mirror-consumer.yml"
+      - ".github/workflows/sync-skills.yml"
 
 permissions:
   contents: read
@@ -36,7 +39,7 @@ jobs:
         run: |
           git config --global user.name "skills-sync-bot"
           git config --global user.email "skills-sync-bot@users.noreply.github.com"
-      - name: Sync registered mirrors
+      - name: Sync registered push mirrors
         env:
           GH_TOKEN: ${{ secrets.SKILLS_SYNC_TOKEN }}
         run: python scripts/sync_skills.py --apply
