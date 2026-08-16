@@ -1,175 +1,253 @@
 ---
 name: design-paragraphs
-description: Projete e refatore parágrafos por função discursiva, progressão, transição, evidência, ritmo e densidade. Use quando a arquitetura geral existe, mas cada bloco precisa de um contrato mais claro, uma tipologia adequada ou uma construção mais eficaz.
+description: Projete e refatore parágrafos pela função que precisam cumprir, pela ideia central, pelo desenvolvimento necessário, pelas evidências e pela ligação com os parágrafos vizinhos.
 ---
 
 # Design Paragraphs
 
-## Missão
+## Objetivo
 
-Trate o parágrafo como **unidade de operação discursiva**, não como recipiente de frases. Cada parágrafo deve executar uma função dominante identificável, avançar o texto e preparar uma interface coerente com o bloco anterior e o seguinte.
+Tratar cada parágrafo como uma **parte do texto com uma função clara**.
 
-A skill atua localmente. Quando a correção exigir mudar a função de seções inteiras, mover vários blocos ou redefinir a tese/outline, faça handoff para `architect-text` em vez de mascarar um problema estrutural com edição paragrafal.
+Cada parágrafo deve:
+
+- cumprir uma função principal;
+- deixar uma ideia central identificável;
+- desenvolver essa ideia com o material necessário;
+- preservar evidências, ressalvas e limites;
+- ligar-se de forma coerente ao que veio antes e ao que vem depois.
+
+Quando o problema exigir mudar a função de seções inteiras ou reorganizar vários parágrafos, encaminhe para `architect-text`.
+
+## Regra de linguagem
+
+Use nomes que expliquem diretamente o que cada elemento significa.
+
+Prefira:
+
+- **ponto de partida** em vez de “âncora”;
+- **ideia central** em vez de “núcleo”;
+- **como desenvolver** em vez de usar “desenvolvimento” como rótulo abstrato;
+- **contraste, ressalva, limite ou consequência** em vez de “virada”;
+- **como encerrar e ligar ao próximo** em vez de “pouso”;
+- **função do parágrafo** em vez de “tipologia dominante”, quando o contexto não exigir o termo técnico;
+- **especificação do parágrafo** em vez de “contrato do parágrafo”.
+
+Os nomes técnicos podem permanecer nas referências para rastreabilidade, mas não devem ser a linguagem principal apresentada ao usuário.
 
 ## Entradas úteis
 
-- texto ou conjunto de parágrafos a revisar;
-- gênero e público;
+- parágrafo ou conjunto de parágrafos;
+- finalidade do texto;
 - objetivo da seção;
-- tese, requisito ou ideia que precisa sobreviver à refatoração;
-- evidências, ressalvas e restrições que não podem ser perdidas;
-- nível de intervenção permitido: diagnóstico, reordenação, divisão/fusão ou reescrita.
+- função esperada do parágrafo;
+- público;
+- ideia, requisito ou conclusão que precisa ser preservada;
+- evidências e ressalvas que não podem ser perdidas;
+- nível de intervenção permitido: diagnóstico, reordenação, divisão, união ou reescrita.
 
-Se parte dessas entradas estiver ausente, infira apenas o necessário a partir do texto e sinalize incertezas que mudem materialmente a decisão.
+## Especificação de um parágrafo
 
-## Contrato do parágrafo
+Antes de escrever ou refatorar, identifique quando necessário:
 
-Antes de reescrever, identifique quando aplicável:
+1. **Função do parágrafo** — o que ele precisa fazer;
+2. **Ponto de partida** — o que o leitor já sabe ou o que veio antes;
+3. **Ideia central** — o que precisa ficar claro;
+4. **Como desenvolver** — razões, evidências, detalhes, exemplos, etapas ou distinções necessárias;
+5. **Contraste, ressalva, limite ou consequência** — quando houver mudança lógica relevante;
+6. **Como encerrar e ligar ao próximo** — que conclusão local ou necessidade deixa preparada.
 
-1. **Âncora** — de onde o parágrafo parte;
-2. **Núcleo** — qual operação dominante executa;
-3. **Desenvolvimento** — que razões, evidências, detalhes ou etapas sustentam o núcleo;
-4. **Virada** — que contraste, limite ou consequência muda a direção;
-5. **Pouso** — onde o parágrafo entrega o leitor ao próximo movimento.
+Não force todos os campos. Use apenas os que ajudam a tornar a lógica explícita.
 
-Não force todas as posições. Use-as para revelar relações ausentes ou concorrência entre ideias.
+## Tipos de parágrafo por função
 
-## Tipologia operacional
+Use a referência [`references/paragraph-typology.md`](references/paragraph-typology.md). Na apresentação ao usuário, prefira estes nomes:
 
-Classifique cada parágrafo por uma função dominante da referência [`references/paragraph-typology.md`](references/paragraph-typology.md):
+1. **apresentar o assunto e o recorte**;
+2. **declarar ou defender uma ideia principal**;
+3. **definir um conceito**;
+4. **explicar causa e efeito**;
+5. **sustentar uma afirmação com evidências**;
+6. **dar um exemplo**;
+7. **organizar informações em categorias**;
+8. **comparar ou usar uma analogia**;
+9. **mostrar contraste ou fazer uma ressalva**;
+10. **apresentar uma objeção e responder**;
+11. **apresentar um problema e uma resposta**;
+12. **descrever de modo analítico**;
+13. **relatar acontecimentos em sequência**;
+14. **ensinar um procedimento**;
+15. **ligar uma parte à seguinte**;
+16. **integrar ideias e produzir uma síntese**;
+17. **mostrar uma implicação ou recomendar uma ação**;
+18. **encerrar uma parte do texto**.
 
-1. abertura de enquadramento;
-2. tese ou proposição;
-3. definição ou conceituação;
-4. explicação causal;
-5. sustentação evidencial;
-6. exemplificação ou ilustração;
-7. classificação ou enumeração analítica;
-8. comparação ou analogia;
-9. contraste ou concessão;
-10. refutação ou objeção–resposta;
-11. problema–resposta;
-12. descrição analítica;
-13. narrativa ou evento;
-14. procedimental ou instrucional;
-15. transição ou ponte;
-16. síntese ou integração;
-17. implicação ou recomendação;
-18. fechamento ou conclusão local.
-
-Uma função secundária é aceitável apenas quando serve ao núcleo. Se duas operações disputarem o parágrafo, divida ou reordene.
+Se duas funções principais competirem no mesmo parágrafo, divida ou reorganize.
 
 ## Procedimento
 
-### 1. Leia o parágrafo na arquitetura da seção
+### 1. Entenda a função do parágrafo dentro da seção
 
-Determine o que o parágrafo **precisa realizar aqui**, não apenas o que suas frases dizem isoladamente. Compare objetivo esperado e função observada.
+Pergunte: **o que este parágrafo precisa fazer exatamente aqui?**
 
-### 2. Nomeie a função dominante
+Compare a função esperada com o que o texto atual realmente faz.
 
-Use a tipologia operacional. Se nenhuma categoria explicar o bloco sem ambiguidade, verifique se há duas ideias concorrentes, mistura de níveis ou problema de arquitetura maior.
+### 2. Escreva a função em linguagem de ação
 
-### 3. Extraia o núcleo sem adornos
+Use verbo + objeto:
 
-Formule em uma frase de trabalho a operação do parágrafo: `definir X`, `sustentar Y com evidência Z`, `conceder A e preservar B`, `explicar como C produz D`, `passar de E para F`.
+- `definir X`;
+- `explicar como A produz B`;
+- `sustentar Y com a evidência Z`;
+- `comparar A e B segundo o critério C`;
+- `reconhecer a ressalva D e preservar a conclusão E`;
+- `ligar o diagnóstico à recomendação`.
 
-Se isso não for possível, o parágrafo ainda não tem centro claro.
+Se não for possível formular isso com clareza, o parágrafo provavelmente não tem função bem definida.
 
-### 4. Refaça a sequência segundo o contrato da tipologia
+### 3. Identifique a ideia central
 
-Consulte a receita específica em [`references/paragraph-typology.md`](references/paragraph-typology.md). Seja assertivo na intervenção:
+Resuma em uma frase o que precisa ficar estabelecido ao terminar o parágrafo.
 
-- antecipe o núcleo quando o leitor demora a descobrir o ponto;
-- mova contexto secundário para depois do núcleo;
-- aproxime evidência da afirmação que ela sustenta;
-- explicite mecanismos causais em vez de depender de conectores vagos;
-- coloque concessão antes da virada e a informação decisiva depois dela;
-- fortaleça a objeção antes de refutá-la;
-- organize detalhes por um eixo único em descrições e classificações;
-- converta instrução narrativa em condição → ação → verificação;
-- elimine transições que apenas anunciam mudança sem explicar a relação;
-- produza síntese de nível superior em vez de repetir frases anteriores.
+Se houver duas ideias centrais independentes, considere dividir.
 
-### 5. Decida divisão, fusão ou manutenção
+### 4. Organize o desenvolvimento
 
-**Divida** quando houver duas teses, duas mudanças fortes de direção, evidências de objetos diferentes ou mudança de função dominante.
+Consulte a receita específica em [`references/paragraph-typology.md`](references/paragraph-typology.md).
 
-**Funda** quando dois parágrafos curtos executarem metades inseparáveis da mesma operação e a quebra prejudicar causalidade, objeção–resposta ou continuidade.
+Aplique intervenções diretas:
 
-**Mantenha** quando a unidade já possuir um núcleo, desenvolvimento suficiente e pouso funcional, ainda que precise de edição interna.
+- antecipe a ideia central quando ela aparece tarde demais;
+- mova contexto secundário para depois da ideia principal;
+- coloque a evidência junto da afirmação que ela sustenta;
+- explique mecanismos causais em vez de depender de conectores vagos;
+- apresente a ressalva antes de mostrar por que a conclusão principal ainda se sustenta;
+- apresente objeções de forma justa antes de responder;
+- use um único critério ao organizar categorias;
+- transforme instrução narrativa em pré-requisito → ação → verificação;
+- remova transições que apenas anunciam o próximo assunto;
+- em sínteses, mostre a relação entre os elementos em vez de apenas repeti-los.
 
-### 6. Verifique a interface entre parágrafos
+### 5. Decida se deve manter, dividir ou unir
 
-A relação deve ser semanticamente identificável: continuação, causa, contraste, especificação, consequência, mudança de escala, síntese ou transição de etapa.
+**Divida** quando houver:
 
-Prefira continuidade lógica real a conectores artificiais. Um bom parágrafo não precisa começar com “além disso”, “nesse sentido” ou “por outro lado” se a relação já estiver clara pela progressão das ideias.
+- duas ideias principais;
+- duas mudanças fortes de direção;
+- evidências de objetos diferentes;
+- mudança de função dentro do mesmo parágrafo.
 
-### 7. Calibre densidade e ritmo
+**Una** quando dois parágrafos curtos executarem partes inseparáveis da mesma função.
 
-Ajuste extensão à complexidade da operação, não a um número fixo de linhas. Use frases mais curtas para decisões, viradas e critérios; aceite períodos mais desenvolvidos quando precisarem manter relações condicionais, causais ou concessivas sem fragmentação.
+**Mantenha** quando o parágrafo já tiver uma função clara e só precisar de melhoria interna.
+
+### 6. Verifique a ligação com os parágrafos vizinhos
+
+A relação deve ser identificável, por exemplo:
+
+- continuação;
+- detalhamento;
+- causa;
+- consequência;
+- contraste;
+- ressalva;
+- exemplo;
+- mudança de escala;
+- síntese;
+- passagem para nova etapa.
+
+Prefira continuidade lógica real a conectores artificiais.
+
+### 7. Ajuste extensão e ritmo
+
+A extensão deve acompanhar a complexidade da função.
+
+Use parágrafos mais curtos para decisões, contrastes e conclusões importantes. Permita maior desenvolvimento quando for necessário explicar causalidade, condições, evidências ou exceções.
 
 Corte:
 
-- duplicação sem ganho;
-- frase que apenas repete o núcleo;
-- detalhe que não sustenta a função;
-- comentário lateral que pertence a outro parágrafo;
-- conclusão grandiosa acima da evidência disponível.
+- repetição sem ganho;
+- frase que apenas repete a ideia central;
+- detalhe que não ajuda a função do parágrafo;
+- comentário lateral que pertence a outra parte;
+- conclusão mais forte que a evidência permite.
 
-### 8. Use exemplares clássicos somente quando agregarem estrutura
+### 8. Use exemplos clássicos apenas quando ajudarem a estrutura
 
-Consulte [`assets/classic-exemplars.md`](assets/classic-exemplars.md) e a escala de eficácia por tipologia.
+Consulte [`assets/classic-exemplars.md`](assets/classic-exemplars.md).
 
-- **Alta:** use o exemplar para abstrair a sequência estrutural.
-- **Média:** use apenas como apoio, com adaptação forte ao gênero atual.
-- **Baixa:** não use como modelo principal; prefira exemplos contemporâneos do gênero.
+Quando indicar um exemplo ao usuário, prefira **autor + obra + trecho/função relevante**, e não apenas um código como `CL-09`.
 
-O corpus clássico é **asset de arquitetura**, não de imitação estilística. Não transfira arcaísmos, voz autoral, ornamentação, posições políticas, premissas científicas históricas ou efeitos aforísticos para o texto-alvo sem necessidade explícita.
+Use o clássico para observar **ordem das ideias e construção do raciocínio**, nunca para copiar:
 
-Registre origem e condições do corpus conforme [`references/source-provenance.md`](references/source-provenance.md).
+- vocabulário antigo;
+- pontuação de época;
+- voz autoral;
+- ornamentação;
+- posições políticas históricas;
+- premissas científicas desatualizadas.
 
-### 9. Preserve verdade e força epistêmica
+### 9. Preserve precisão
 
-Não altere fatos para melhorar fluidez. Não remova qualificadores necessários. Não transforme associação em causalidade, hipótese em fato, exemplo em prova ou analogia em demonstração.
+Não altere fatos para melhorar fluidez. Não retire qualificadores necessários. Não transforme:
 
-Quando a revisão tocar evidência, causalidade ou incerteza de forma relevante, coordene com `write-with-evidence`.
+- associação em causa;
+- hipótese em fato;
+- exemplo em prova;
+- analogia em demonstração.
 
-### 10. Execute QA paragrafal
+Quando isso for relevante, use `write-with-evidence`.
 
-Para cada bloco revisado, confirme:
+### 10. Revise o parágrafo
 
-- uma função dominante clara;
-- núcleo identificável;
+Confirme:
+
+- função principal clara;
+- ideia central identificável;
 - desenvolvimento suficiente e pertinente;
-- nenhuma ideia concorrente sem tratamento;
-- relação explícita ou inferível com o parágrafo anterior;
-- pouso que conclui ou encaminha;
-- extensão compatível com a complexidade;
-- preservação de fatos, evidências, ressalvas e requisitos;
-- tipologia coerente com o objetivo da seção;
-- exemplar clássico, quando usado, abstraído estruturalmente e não copiado como estilo.
+- nenhuma segunda ideia principal competindo;
+- ligação compreensível com o parágrafo anterior;
+- encerramento que conclui ou prepara o seguinte;
+- extensão adequada à função;
+- fatos, evidências, ressalvas e requisitos preservados;
+- exemplo clássico, se usado, aplicado apenas como referência estrutural.
 
 ## Saída esperada
 
-Quando o usuário pedir análise, produza conforme necessário:
+Quando o usuário pedir análise, produza somente o nível de detalhe necessário:
 
-- diagnóstico por parágrafo;
-- função observada e função proposta;
-- contrato paragrafal esperado;
-- problemas de progressão, transição, densidade ou concorrência;
-- recomendação de manter, dividir, fundir ou reordenar;
-- instrução de refatoração específica à tipologia;
-- versão revisada quando solicitada;
-- indicação do exemplar `CL-*` apenas quando ele realmente ajudar a operação.
+- função atual do parágrafo;
+- função recomendada;
+- ideia central;
+- problema encontrado;
+- recomendação de manter, dividir, unir ou reordenar;
+- instrução específica de refatoração;
+- versão revisada, quando solicitada;
+- exemplo estrutural opcional identificado de forma compreensível.
 
-Não imponha a tabela completa em tarefas simples. Use o nível de detalhe proporcional ao problema.
+Não imponha tabelas ou códigos internos em tarefas simples.
 
-## Limites e handoffs
+## Integração com `architect-text`
 
-- **Arquitetura de seção/texto:** `architect-text`.
+Quando receber um parágrafo planejado por `architect-text`, use:
+
+- identificação legível, como **Seção 2 · Parágrafo 4**;
+- função do parágrafo;
+- objetivo específico;
+- ponto de partida;
+- ideia central;
+- como desenvolver;
+- evidência necessária;
+- contraste, ressalva, limite ou consequência;
+- forma de encerrar e ligar ao próximo;
+- critério de aceite.
+
+## Limites e próximas etapas
+
+- **Estrutura de seções e ordem global:** `architect-text`.
 - **Evidência, causalidade, inferência e incerteza:** `write-with-evidence`.
-- **Tom e força persuasiva:** `calibrate-rhetoric`.
-- **Legibilidade e linguagem simples:** `improve-accessible-writing`.
-- **QA editorial amplo:** `review-editorial-quality`.
+- **Tom e força argumentativa:** `calibrate-rhetoric`.
+- **Clareza e linguagem simples:** `improve-accessible-writing`.
+- **Revisão editorial ampla:** `review-editorial-quality`.
 
-Não altere fatos para obter cadência, não remova qualificadores necessários à precisão e não use prestígio literário como justificativa para uma construção incompatível com o gênero de destino.
+Não use jargão como sinal de rigor. Se um termo não for necessário para executar a tarefa, substitua-o por uma expressão que explique diretamente a função.
