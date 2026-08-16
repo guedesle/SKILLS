@@ -1,39 +1,39 @@
-# Artefato de Arquitetura Textual
+# Plano de Arquitetura do Texto
 
-> Este template é a saída canônica de `architect-text`. Ele descreve **como o texto deve ser construído**, sem redigir automaticamente o texto final.
+> Esta é a saída padrão de `architect-text`. O documento descreve **como o texto deve ser organizado**, sem necessariamente redigir o texto final.
 
 ## 1. Identificação
 
 - **Título provisório:**
-- **Gênero/artefato:**
-- **Versão da arquitetura:**
+- **Tipo de documento:**
+- **Versão do plano:**
 - **Data:**
-- **Fonte do briefing/material de entrada:**
+- **Material de entrada:**
 
-## 2. Cartão do motivo textual
+## 2. Finalidade do texto
 
-- **Objeto:**
-- **Ato comunicativo dominante:**
-- **Atos secundários:**
-- **Transformação do leitor:** `estado inicial → estado desejado`
-- **Centro lógico:** pergunta / tese / decisão / tarefa
-- **Público primário:**
+- **Assunto e recorte:**
+- **Função principal do texto:** informar / explicar / analisar / defender uma ideia / recomendar / instruir / documentar / comparar / narrar / sintetizar
+- **Funções secundárias:**
+- **Resultado esperado da leitura:** `antes → depois`
+- **Questão central:** pergunta / ideia a defender / decisão / tarefa
+- **Público principal:**
 - **Conhecimento prévio presumido:**
-- **Ação/decisão esperada:**
-- **Relação de autoridade:**
-- **Contexto de circulação:**
-- **Regime de evidência:**
-- **Nível de controvérsia/incerteza:**
+- **O que o leitor deve poder fazer ao final:**
+- **Relação entre autor e leitor:**
+- **Onde e como o texto será usado:**
+- **Tipos de evidência necessários:**
+- **Nível de controvérsia ou incerteza:**
 - **Escopo:**
 - **Fora de escopo:**
 - **Conteúdo obrigatório:**
 - **Restrições:**
 - **Riscos de interpretação:**
-- **Extensão/densidade:**
+- **Extensão e nível de detalhe:**
 - **Hipóteses assumidas:**
-- **Lacunas bloqueantes:**
+- **Informações que faltam e impedem avançar:**
 
-## 3. Promessa de leitura
+## 3. Resultado esperado da leitura
 
 **Ao terminar o texto, o leitor deverá:**
 
@@ -41,92 +41,90 @@
 2.
 3.
 
-**Frase de controle da arquitetura:**
+**Resumo da sequência necessária:**
 
-> [Uma frase que resume a progressão: “partir de X, estabelecer Y, demonstrar Z e conduzir a W”.]
+> [Exemplo: “apresentar o problema, explicar suas causas, comparar alternativas segundo critérios explícitos e terminar com uma recomendação condicionada às evidências”.]
 
-## 4. Movimento macro
+## 4. Sequência lógica do texto
 
-Descreva a progressão em operações, não apenas em tópicos.
+Descreva a progressão em ações claras:
 
 ```text
-estado inicial do leitor
+situação inicial do leitor
   ↓
-[operação macro 1]
+[o que a primeira parte precisa fazer]
   ↓
-[operação macro 2]
+[o que a segunda parte precisa fazer]
   ↓
-[operação macro 3]
+[o que a terceira parte precisa fazer]
   ↓
-estado final esperado
+resultado final esperado
 ```
 
 ## 5. Mapa de seções
 
-| ID | Seção | Função macro | Entrada | Saída | Evidência necessária | Dependência | Ponte para próxima seção |
+| Seção | Título provisório | Objetivo | O que precisa estar sabido antes | O que deve ficar estabelecido ao final | Evidências necessárias | O que depende desta seção depois | Como prepara a próxima |
 |---|---|---|---|---|---|---|---|
-| S1 | | | | | | | |
+| Seção 1 | | | | | | | |
 
-### Contrato de seção
+### Objetivo e requisitos de cada seção
 
 Para cada seção, registre:
 
-- **ID / título:**
-- **Pergunta que a seção responde:**
-- **Mudança que deve produzir no leitor:**
-- **O que já pode ser presumido na entrada:**
-- **O que precisa estar estabelecido na saída:**
-- **Evidência mínima:**
-- **Operações paragrafais previstas:**
-- **Risco estrutural principal:**
-- **Critério de aceite:**
+- **Seção e título:**
+- **Pergunta que responde:**
+- **Objetivo:**
+- **O que o leitor já precisa saber ao entrar:**
+- **O que precisa estar estabelecido ao sair:**
+- **Evidências mínimas:**
+- **Parágrafos previstos e suas funções:**
+- **Principal risco estrutural:**
+- **Critério para considerar a seção pronta:**
 
-## 6. Matriz paragrafal
+## 6. Plano de parágrafos
 
-Use IDs estáveis `Sx.Py`.
+Use identificadores autoexplicativos, por exemplo `secao-01-paragrafo-01`. Na apresentação ao usuário, prefira **Seção 1 · Parágrafo 1**.
 
-| ID | Tipologia dominante | Missão do parágrafo | Núcleo previsto | Desenvolvimento necessário | Evidência/insumo | Virada/limite | Pouso/saída | Relação com anterior | Próximo passo |
+| Parágrafo | Função | Objetivo específico | Ideia central | Como desenvolver | Evidência necessária | Contraste/ressalva/limite | Como encerrar e ligar ao próximo | Relação com o anterior | O que vem depois e depende dele |
 |---|---|---|---|---|---|---|---|---|---|
-| S1.P1 | abertura de enquadramento | | | | | | | início | |
+| Seção 1 · Parágrafo 1 | apresentar assunto e recorte | | | | | | | início | |
 
-### Contrato de cada parágrafo
+### Especificação de cada parágrafo
 
-Para cada parágrafo planejado, quando necessário:
+Quando necessário, registre:
 
-- **ID:**
-- **Tipologia dominante:** uma das 18 tipologias de `design-paragraphs`;
-- **Função secundária:** somente se servir ao núcleo;
-- **Missão:** verbo + objeto (`definir X`, `comparar A e B segundo C`, `sustentar Y com Z`);
-- **Âncora:** de onde parte;
-- **Núcleo:** o que precisa ficar estabelecido;
-- **Desenvolvimento:** razões, evidências, detalhes, etapas ou distinções;
-- **Virada:** contraste, limite ou consequência quando existir;
-- **Pouso:** o que entrega ao parágrafo seguinte;
-- **Evidência/insumo obrigatório:**
-- **Risco de falha:** duplicação, salto causal, abstração, falta de fonte etc.;
-- **Critério de aceite:** condição verificável para considerar o parágrafo estruturalmente pronto;
-- **Exemplar `CL-*`:** somente se a eficácia da tipologia justificar consulta; nunca como imitação estilística.
+- **Identificação:**
+- **Função do parágrafo:** uma das funções definidas em `design-paragraphs`;
+- **Função secundária:** somente quando ajudar a função principal;
+- **Objetivo específico:** verbo + objeto, como `definir X`, `comparar A e B segundo C` ou `sustentar Y com Z`;
+- **Ponto de partida:** o que já foi estabelecido;
+- **Ideia central:** o que precisa ficar claro;
+- **Como desenvolver:** razões, evidências, detalhes, etapas ou distinções;
+- **Contraste, ressalva, limite ou consequência:** quando houver;
+- **Como encerrar e ligar ao próximo:** o que deixa preparado;
+- **Evidência ou material obrigatório:**
+- **Risco de falha:** repetição, salto causal, abstração excessiva, falta de fonte etc.;
+- **Critério para considerar o parágrafo pronto:**
+- **Exemplo estrutural opcional:** autor e obra, somente quando realmente útil; nunca como imitação de estilo.
 
-## 7. Grafo de dependências argumentativas
+## 7. Dependências entre ideias
 
-Registre dependências que não podem ser violadas pela redação.
+Registre as relações que não podem ser quebradas pela redação.
 
 Exemplo:
 
 ```text
-P1 define X
-P2 depende de X para classificar A/B
-P3 depende da classificação para comparar
-P4 depende da comparação + evidência E1 para recomendar Y
+Seção 1 · Parágrafo 1 define X
+Seção 1 · Parágrafo 2 usa X para separar A e B
+Seção 1 · Parágrafo 3 compara A e B
+Seção 1 · Parágrafo 4 usa a comparação + Evidência 1 para recomendar Y
 ```
-
-Use este bloco para impedir conclusões prematuras e evidência órfã.
 
 ## 8. Plano de evidências
 
-| Evidência ID | Afirmação/operação que sustenta | Fonte disponível? | Status | Parágrafos consumidores | Risco |
+| Evidência | O que sustenta | Está disponível? | Situação | Onde será usada | Risco se faltar |
 |---|---|---|---|---|---|
-| E1 | | sim/não | disponível/a obter/bloqueante | | |
+| Evidência 1 | | sim/não | disponível / a obter / impede avançar | | |
 
 Distinguir sempre:
 
@@ -134,81 +132,82 @@ Distinguir sempre:
 - dado;
 - inferência;
 - hipótese;
-- opinião/recomendação;
+- opinião ou recomendação;
 - norma ou requisito.
 
-## 9. Plano de transições
+## 9. Ligações entre parágrafos e seções
 
-| De | Para | Relação lógica | Como a transição deve funcionar |
+| De | Para | Relação | Como a ligação deve funcionar |
 |---|---|---|---|
-| S1.P1 | S1.P2 | especificação | O enquadramento abre a necessidade de definir X |
+| Seção 1 · Parágrafo 1 | Seção 1 · Parágrafo 2 | detalhamento | O primeiro apresenta o problema; o segundo define o conceito necessário para examiná-lo |
 
-Não prescreva conectores lexicalmente sem necessidade. A arquitetura deve especificar a **relação semântica**.
+Não prescreva conectores por padrão. Descreva a relação lógica real.
 
-## 10. Ritmo e densidade
+## 10. Extensão e ritmo
 
-- **Trechos de maior densidade:**
-- **Trechos de desaceleração/exemplificação:**
-- **Parágrafos que devem ser curtos por decisão/virada:**
-- **Parágrafos que podem ser mais desenvolvidos por causalidade/condicionais:**
-- **Pontos adequados para listas/tabelas/figuras em vez de parágrafos:**
+- **Partes que precisam de maior desenvolvimento:**
+- **Pontos em que exemplos ajudam a compreensão:**
+- **Parágrafos que devem ser curtos e diretos:**
+- **Parágrafos que podem exigir maior desenvolvimento:**
+- **Pontos em que lista, tabela ou figura funciona melhor que parágrafo:**
 
 ## 11. Lacunas, conflitos e riscos
 
-### Bloqueantes
+### Impedem avançar
 
 - [ ]
 
-### Não bloqueantes / hipóteses aceitas
+### Não impedem avançar / hipóteses aceitas
 
 - [ ]
 
-### Riscos de arquitetura
+### Riscos de estrutura
 
 - repetição;
-- seção órfã;
+- seção sem função clara;
 - conclusão antes da evidência;
-- excesso de contexto;
-- mudança de escala sem ponte;
-- tipologia inadequada;
-- duas operações dominantes no mesmo parágrafo;
-- conteúdo obrigatório sem posição funcional;
-- evidência sem consumidor;
+- contexto excessivo;
+- mudança de assunto sem ligação;
+- função de parágrafo inadequada;
+- duas funções principais competindo no mesmo parágrafo;
+- conteúdo obrigatório sem lugar definido;
+- evidência sem uso definido;
 - recomendação sem critério.
 
-## 12. Handoff para redação
+## 12. Instruções para a redação
 
-### Ordem de execução
+### Ordem recomendada de execução
 
 1.
 2.
 3.
 
-### Regras para `design-paragraphs`
+### Instruções para `design-paragraphs`
 
-- respeitar a tipologia dominante e o contrato `Sx.Py`;
-- consultar `paragraph-typology.md` para construção/refatoração;
-- usar exemplares clássicos somente quando a matriz de eficácia recomendar;
-- preservar núcleo, evidência, qualificadores e pouso;
+- respeitar a função prevista para cada parágrafo;
+- consultar `paragraph-typology.md` para construção ou refatoração;
+- preservar ideia central, evidências, ressalvas e ligação com o próximo parágrafo;
+- usar exemplos clássicos apenas como referência estrutural quando realmente ajudarem;
 - retornar a `architect-text` se a redação revelar necessidade de mover funções entre seções.
 
-### Handoffs adicionais
+### Outras skills que podem ser usadas
 
-- `write-with-evidence` para causalidade, inferência e força epistêmica;
-- `calibrate-rhetoric` para postura e persuasão;
-- `improve-accessible-writing` para leitura e linguagem simples;
-- `review-editorial-quality` para QA final.
+- `write-with-evidence` para causalidade, inferência e grau de certeza;
+- `calibrate-rhetoric` para tom e força argumentativa;
+- `improve-accessible-writing` para clareza e linguagem simples;
+- `review-editorial-quality` para revisão final.
 
-## 13. Critério de prontidão da arquitetura
+## 13. Quando considerar a arquitetura pronta
 
 A arquitetura está pronta quando:
 
-- [ ] o motivo textual está suficientemente definido;
-- [ ] cada seção produz uma mudança explícita no estado do leitor;
-- [ ] cada parágrafo possui uma função dominante necessária;
-- [ ] a ordem paragrafal é justificável por dependência lógica;
-- [ ] evidências possuem consumidores identificados;
-- [ ] transições possuem relação semântica definida;
-- [ ] não existem conteúdos obrigatórios órfãos;
-- [ ] riscos e lacunas estão classificados;
-- [ ] o texto pode ser redigido sem o redator precisar inventar a arquitetura durante a escrita.
+- [ ] a finalidade do texto está clara;
+- [ ] o resultado esperado da leitura está definido;
+- [ ] cada seção tem um objetivo necessário;
+- [ ] cada parágrafo tem uma função principal clara;
+- [ ] a ordem das ideias pode ser explicada;
+- [ ] as evidências têm lugar e finalidade definidos;
+- [ ] as ligações entre partes estão claras;
+- [ ] nenhum conteúdo obrigatório ficou sem posição;
+- [ ] riscos e lacunas estão registrados;
+- [ ] o texto pode ser redigido sem que o redator precise inventar a estrutura durante a escrita.
