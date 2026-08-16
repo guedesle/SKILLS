@@ -1,16 +1,22 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "repository": "guedesle/SKILLS",
   "canonical_path_pattern": "skills/{name}/SKILL.md",
   "versioning": "semver",
-  "sync_model": "central-with-registered-pull-or-push-mirrors",
+  "sync_model": "central-with-generic-pull-mirrors-and-explicit-push-fallback",
   "updated_at": "2026-08-16",
+  "pull_mirror": {
+    "reusable_workflow": "guedesle/SKILLS/.github/workflows/mirror-consumer.yml@main",
+    "consumer_workflow": ".github/workflows/sync-central-skills.yml",
+    "default_schedule": "17 * * * *"
+  },
   "policy": {
     "central_is_source_of_truth": true,
     "general_skills_must_be_registered": true,
     "project_specific_skills_are_not_auto_promoted": true,
     "mirror_updates_are_non_destructive_outside_managed_paths": true,
-    "prefer_pull_mirrors_when_central_repository_is_public": true
+    "prefer_pull_mirrors_when_central_repository_is_public": true,
+    "consumer_workflow_is_generic_per_repository": true
   },
   "skills": [
     {
@@ -62,7 +68,6 @@
           "branch": "main",
           "path": ".agents/skills/write-technical-content",
           "mode": "pull",
-          "workflow": ".github/workflows/sync-central-skills.yml",
           "purpose": "homologation"
         }
       ]
