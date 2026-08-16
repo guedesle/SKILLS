@@ -17,7 +17,7 @@ Repositório canônico das **skills gerais e reutilizáveis**. A fonte de verdad
 | Skill | Versão | Categoria | Função |
 |---|---:|---|---|
 | [`plan-content`](#plan-content) | **1.0.0** | Editorial | Briefing, tese, escopo, outline e riscos |
-| [`architect-text`](#architect-text) | **1.0.0** | Editorial | Arquitetura textual e contratos de seção |
+| [`architect-text`](#architect-text) | **1.1.0** | Editorial | Motivo textual → seções → matriz paragrafal tipológica → artefato de arquitetura |
 | [`design-paragraphs`](#design-paragraphs) | **1.1.0** | Editorial | 18 tipologias, contratos de refatoração, progressão e exemplares clássicos |
 | [`write-with-evidence`](#write-with-evidence) | **1.0.0** | Editorial | Evidência, inferência, causalidade e incerteza |
 | [`write-technical-content`](#write-technical-content) | **1.0.0** | Técnica | Requisitos, procedimentos e documentação |
@@ -34,7 +34,7 @@ Repositório canônico das **skills gerais e reutilizáveis**. A fonte de verdad
 Transforma objetivo e contexto em briefing operacional, escopo, outline, evidências necessárias, riscos e critérios. [SKILL.md](skills/plan-content/SKILL.md) · [↑ Índice](#índice-de-skills)
 
 ### `architect-text`
-Organiza conteúdo em mapa de seções, contratos de seção, matriz paragrafal e progressão temática. Origem: generalização do `editor-agent`. [SKILL.md](skills/architect-text/SKILL.md) · [↑ Índice](#índice-de-skills)
+Converte o **motivo textual** em arquitetura funcional de leitura. A versão **1.1.0** coleta parâmetros de intenção, público, transformação esperada, gênero, evidência, escopo e restrições; projeta seções por função; escolhe operações da tipologia de `design-paragraphs`; e entrega um artefato com matriz `Sx.Py`, dependências argumentativas, plano de evidências, transições, ritmo, riscos e handoff para redação. [SKILL.md](skills/architect-text/SKILL.md) · [Motivo textual](skills/architect-text/references/textual-motive.md) · [Padrões por motivo](skills/architect-text/references/motive-to-paragraph-patterns.md) · [Template do artefato](skills/architect-text/templates/text-architecture-artifact.md) · [↑ Índice](#índice-de-skills)
 
 ### `design-paragraphs`
 Projeta e refatora parágrafos como unidades de operação discursiva. A versão **1.1.0** amplia a skill para 18 tipologias, introduz contratos explícitos de construção/refatoração e incorpora um corpus clássico de domínio público como asset estrutural — com eficácia avaliada por tipologia e bloqueio explícito de imitação estilística. [SKILL.md](skills/design-paragraphs/SKILL.md) · [Tipologia](skills/design-paragraphs/references/paragraph-typology.md) · [Exemplares clássicos](skills/design-paragraphs/assets/classic-exemplars.md) · [Proveniência](skills/design-paragraphs/references/source-provenance.md) · [↑ Índice](#índice-de-skills)
@@ -75,6 +75,7 @@ Cada definição canônica vive em `skills/<nome>/SKILL.md`; o inventário e os 
 
 ```text
 Use $plan-content para planejar este relatório.
+Use $architect-text para transformar o motivo textual em um artefato de arquitetura paragrafal.
 Use $design-paragraphs para diagnosticar e refatorar a função de cada parágrafo.
 Use $graphify para entender as dependências deste módulo.
 Use $github-project-drift-audit para auditar o Project sem mutações.
@@ -131,6 +132,14 @@ Consulte também [`AGENTS.md`](AGENTS.md), [`general-skills-status.md`](general-
 O catálogo usa SemVer: **PATCH** para correções compatíveis, **MINOR** para nova capacidade compatível e **MAJOR** para mudança incompatível de contrato. A versão deve constar no README e no `registry.json`.
 
 ## Histórico
+
+### 2026-08-16 — `architect-text` 1.1.0
+- motivo textual formalizado como contrato de entrada da arquitetura;
+- definidos 20 parâmetros de intenção, audiência, gênero, evidência, escopo, governança, voz e ritmo;
+- criados padrões heurísticos que mapeiam atos comunicativos para sequências da tipologia de `design-paragraphs`;
+- matriz paragrafal passa a usar IDs estáveis `Sx.Py` e contratos com âncora, núcleo, desenvolvimento, virada, pouso, evidência e critério de aceite;
+- criado template canônico do Artefato de Arquitetura Textual, incluindo grafo de dependências, plano de evidências, transições, riscos e handoff;
+- integração explícita com os 18 tipos paragrafais e os exemplares `CL-*` da `design-paragraphs`.
 
 ### 2026-08-16 — `design-paragraphs` 1.1.0
 - tipologia ampliada de 8 funções genéricas para 18 operações paragrafais;
