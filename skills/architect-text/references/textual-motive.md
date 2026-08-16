@@ -1,239 +1,231 @@
-# Parâmetros do motivo textual
+# Finalidade do texto — parâmetros de entrada
 
-O **motivo textual** é o conjunto mínimo de parâmetros que explica **por que o texto precisa existir, que transformação deve produzir no leitor e sob quais restrições essa transformação deve ocorrer**. `architect-text` usa esses parâmetros para decidir a arquitetura macro e a sequência de operações paragrafais.
+Esta referência registra as informações que explicam **por que o texto precisa existir, o que o leitor deve obter da leitura e quais limites precisam ser respeitados**.
 
-Não confunda motivo textual com tema. “Inteligência artificial” é tema; “explicar a dirigentes públicos por que uma contratação de IA agêntica exige governança específica e conduzi-los a uma decisão de contratação” é motivo textual.
+O nome do arquivo é mantido por compatibilidade, mas a linguagem usada pela skill e nos artefatos deve ser **finalidade do texto**.
 
-## 1. Núcleo obrigatório
+Não confunda finalidade com tema. “Inteligência artificial” é um tema. “Explicar a dirigentes públicos por que uma contratação de IA agêntica exige governança específica e permitir uma decisão de contratação” descreve uma finalidade.
 
-Colete ou infira os seguintes parâmetros antes de arquitetar:
+## 1. Informações essenciais
 
-### M1 — Objeto textual
+### 1. Assunto e recorte
 
-**Pergunta:** sobre o que exatamente o texto opera?
+**Pergunta:** sobre o que exatamente o texto tratará?
 
-Registre o objeto em forma delimitada, evitando temas amplos.
+Evite temas amplos. Registre o objeto de forma delimitada.
 
 Exemplo: `modelo de governança para contratação de IA agêntica no Diário Oficial`.
 
-### M2 — Ato comunicativo dominante
+### 2. Função principal do texto
 
-Escolha a operação macro predominante:
+Escolha o que o texto precisa fazer principalmente:
 
-- **informar** — transferir fatos ou estado;
-- **explicar** — tornar mecanismo, causa ou conceito compreensível;
-- **analisar** — decompor, relacionar e interpretar elementos;
-- **argumentar** — sustentar uma proposição diante de alternativas ou objeções;
-- **recomendar/decidir** — conduzir de diagnóstico/evidência a uma escolha;
-- **instruir** — permitir execução verificável;
-- **documentar/registrar** — preservar estado, decisão, requisito ou memória institucional;
-- **comparar/avaliar** — aplicar critérios a alternativas;
-- **narrar/reconstituir** — organizar eventos no tempo para produzir entendimento;
-- **sintetizar** — integrar múltiplos elementos em uma leitura de nível superior.
+- **informar** — apresentar fatos ou estado atual;
+- **explicar** — tornar um conceito, causa ou mecanismo compreensível;
+- **analisar** — decompor e relacionar elementos;
+- **defender uma ideia** — sustentar uma posição diante de alternativas ou objeções;
+- **recomendar ou apoiar uma decisão** — conduzir de diagnóstico e evidências a uma escolha;
+- **instruir** — permitir que alguém execute e verifique uma ação;
+- **documentar ou registrar** — preservar estado, decisão, requisito ou memória institucional;
+- **comparar ou avaliar** — aplicar critérios a alternativas;
+- **narrar ou reconstituir** — organizar acontecimentos no tempo para produzir entendimento;
+- **sintetizar** — integrar elementos dispersos em uma conclusão de nível superior.
 
-Um texto pode combinar atos, mas declare um dominante e os secundários necessários.
+Pode haver funções secundárias, mas uma deve orientar a arquitetura.
 
-### M3 — Transformação esperada do leitor
+### 3. Resultado esperado da leitura
 
-Expresse o estado inicial e o estado desejado:
+Registre de forma concreta:
 
-`leitor antes → leitor depois`
+`antes da leitura → depois da leitura`
 
 Exemplos:
 
-- `conhece o problema, mas não suas causas → compreende mecanismos e limites`;
-- `tem alternativas dispersas → consegue escolher segundo critérios explícitos`;
+- `conhece o problema, mas não suas causas → compreende as causas e seus limites`;
+- `tem alternativas dispersas → consegue escolher usando critérios explícitos`;
 - `não sabe executar → consegue executar e verificar o resultado`;
-- `conhece fatos isolados → aceita ou rejeita uma tese com base nas evidências apresentadas`.
+- `conhece fatos isolados → consegue avaliar uma posição com base nas evidências apresentadas`.
 
-Este parâmetro governa a progressão do texto.
+### 4. Questão central
 
-### M4 — Pergunta, tese, decisão ou tarefa central
+Defina a pergunta, ideia, decisão ou tarefa que organiza o texto.
 
-Defina o centro lógico conforme o ato comunicativo:
+- texto informativo → que estado ou fato precisa ficar conhecido?;
+- explicativo → o que precisa ser compreendido e por quê?;
+- analítico → que relação ou problema precisa ser examinado?;
+- argumentativo → que ideia precisa ser sustentada?;
+- recomendação → que decisão precisa ser tomada?;
+- instrução → que tarefa precisa ser executada?;
+- documentação → que estado, requisito ou decisão precisa ser registrado?;
+- comparação → quais alternativas e critérios precisam ser considerados?;
+- narrativa → que mudança ou sequência precisa ser compreendida?;
+- síntese → que conjunto de informações precisa ser integrado?
 
-- informar → pergunta de estado;
-- explicar → pergunta causal/conceitual;
-- analisar → pergunta analítica;
-- argumentar → tese;
-- recomendar → decisão a tomar;
-- instruir → tarefa a executar;
-- documentar → objeto/estado a registrar;
-- comparar → critério e alternativas;
-- narrar → mudança/evento a compreender;
-- sintetizar → conjunto a integrar.
+Se houver várias questões centrais independentes, talvez seja necessário separar o conteúdo em partes autônomas.
 
-Se houver mais de um centro independente, provavelmente há mais de um texto ou uma arquitetura com partes autônomas.
+## 2. Público
 
-## 2. Parâmetros de audiência
-
-### M5 — Público primário
+### 5. Público principal
 
 Registre:
 
-- função/papel do leitor;
-- conhecimento prévio;
-- vocabulário aceitável;
-- objeções ou interesses previsíveis;
-- poder de decisão ou ação sobre o objeto.
+- quem é o leitor;
+- o que ele já sabe;
+- que vocabulário pode compreender;
+- que dúvidas, objeções ou interesses são previsíveis;
+- que poder de decisão ou ação possui.
 
-### M6 — Decisão ou ação esperada
+### 6. O que o leitor deve poder fazer ao final
 
-O que o leitor deve poder **pensar, decidir ou fazer** depois da leitura?
+Registre a ação, decisão ou ganho de compreensão esperado.
 
-Se nenhuma ação for necessária, registre o ganho cognitivo esperado.
+### 7. Relação entre autor e leitor
 
-### M7 — Relação de autoridade
-
-Identifique se o texto é:
+Exemplos:
 
 - entre pares;
-- técnico → executivo;
-- subordinado → autoridade;
-- órgão → cidadão;
-- instrutor → executor;
-- pesquisador → banca;
-- produto → usuário;
-- outra relação relevante.
+- equipe técnica para dirigente;
+- servidor para autoridade;
+- órgão público para cidadão;
+- instrutor para executor;
+- pesquisador para banca;
+- produto para usuário.
 
-A arquitetura deve respeitar o grau de contextualização, justificativa e explicitação exigido por essa relação.
+Essa relação afeta quanto contexto, justificativa e explicação são necessários.
 
-## 3. Parâmetros de gênero e suporte
+## 3. Tipo de documento e forma de leitura
 
-### M8 — Gênero/artefato de destino
+### 8. Tipo de documento
 
-Exemplos: relatório, nota técnica, parecer, artigo, capítulo acadêmico, memorando, manual, especificação, proposta, justificativa, e-mail executivo, roteiro, documentação técnica.
+Exemplos: relatório, nota técnica, parecer, artigo, capítulo acadêmico, memorando, manual, especificação, proposta, justificativa, e-mail executivo, roteiro ou documentação técnica.
 
-O gênero limita quais operações paragrafais são adequadas e sua densidade.
+### 9. Extensão e nível de detalhe
 
-### M9 — Extensão e granularidade
+Quando conhecido, registre:
 
-Registre quando conhecido:
-
-- limite de palavras/páginas;
-- número esperado de seções;
+- limite de palavras ou páginas;
+- quantidade aproximada de seções;
 - profundidade desejada;
-- leitura contínua ou escaneável;
+- leitura contínua ou rápida/escaneável;
 - necessidade de resumo executivo.
 
-Não use número fixo de parágrafos sem relação com a complexidade do motivo.
+### 10. Onde e como o texto será usado
 
-### M10 — Contexto de circulação
+Exemplos: processo administrativo, banca acadêmica, página web, reunião executiva, documentação interna ou publicação pública.
 
-Onde e em que situação o texto será lido?
+## 4. Evidências e grau de certeza
 
-Exemplos: processo administrativo, banca acadêmica, página web, reunião executiva, documentação interna, publicação pública.
+### 11. Tipos de evidência necessários
 
-## 4. Parâmetros epistêmicos
+Marque o que sustenta o texto:
 
-### M11 — Regime de evidência
-
-Classifique o que sustenta o texto:
-
-- fatos documentais;
+- documentos;
 - dados quantitativos;
 - observação técnica;
 - literatura científica;
-- norma/regulação;
+- norma ou regulação;
 - testemunho;
 - inferência;
 - comparação;
 - experiência operacional;
 - combinação dos anteriores.
 
-### M12 — Evidências disponíveis e lacunas
+### 12. Evidências já disponíveis e o que ainda falta
 
-Liste o que já existe, o que precisa ser obtido e o que não pode ser afirmado ainda.
+Liste o que já existe, o que precisa ser obtido e o que ainda não pode ser afirmado.
 
-### M13 — Nível de controvérsia/incerteza
+### 13. Nível de controvérsia ou incerteza
 
-Classifique como baixo, médio ou alto e registre as principais incertezas. Quanto maior a controvérsia, maior a necessidade de tipologias de concessão, refutação, sustentação evidencial e qualificação.
+Classifique como baixo, médio ou alto e registre as principais incertezas.
 
-## 5. Parâmetros de escopo e governança
+Quanto maior a controvérsia, maior a necessidade de apresentar evidências, ressalvas, objeções e respostas.
 
-### M14 — Escopo
+## 5. Escopo e restrições
 
-O que precisa ser coberto para o objetivo ser atingido?
+### 14. O que precisa entrar
 
-### M15 — Fora de escopo
+Liste os assuntos necessários para atingir o objetivo.
 
-O que deve ser conscientemente excluído para evitar deriva temática?
+### 15. O que fica de fora
 
-### M16 — Conteúdo obrigatório
+Liste o que deve ser conscientemente excluído para evitar dispersão.
 
-Requisitos, tópicos, evidências, citações, decisões, marcos ou mensagens que obrigatoriamente devem aparecer.
+### 16. Conteúdo obrigatório
 
-### M17 — Restrições
+Registre requisitos, tópicos, evidências, citações, decisões, marcos ou mensagens que precisam aparecer.
+
+### 17. Restrições
 
 Exemplos:
 
-- não antecipar decisão;
+- não antecipar uma decisão ainda pendente;
 - preservar linguagem normativa;
 - evitar dados pessoais;
-- neutralidade institucional;
-- explicar jargão;
-- manter certas seções do template;
-- não alterar fatos ou conclusões aprovadas.
+- manter neutralidade institucional;
+- explicar termos técnicos;
+- manter seções obrigatórias de um template;
+- não alterar fatos ou conclusões já aprovadas.
 
-### M18 — Riscos de interpretação
+### 18. Riscos de interpretação
 
-O que o leitor pode entender de forma errada, rejeitar prematuramente ou confundir?
+Registre o que pode ser entendido de forma errada, confundido ou rejeitado prematuramente.
 
-A arquitetura deve prever operações que reduzam esses riscos.
+## 6. Tom, densidade e ritmo
 
-## 6. Parâmetros de voz e ritmo
+### 19. Postura do texto
 
-### M19 — Postura retórica
+Escolha, quando útil: descritiva, analítica, didática, voltada à decisão, persuasiva, normativa, técnica, narrativa ou combinação dessas.
 
-Escolha a dominante: descritiva, analítica, didática, deliberativa, persuasiva, normativa, técnica, narrativa ou híbrida.
+### 20. Densidade e ritmo
 
-### M20 — Densidade e ritmo
-
-Defina a preferência relativa:
+Escolha:
 
 - baixa densidade / leitura rápida;
 - densidade média / explicação equilibrada;
 - alta densidade / desenvolvimento técnico ou acadêmico.
 
-Use esse parâmetro para decidir quantidade de operações por seção, não para inflar ou comprimir artificialmente parágrafos.
+Use essa informação para decidir quanto desenvolvimento cada seção exige. Não infle o texto para preencher espaço.
 
-## 7. Política de coleta
+## 7. Como coletar essas informações
 
-### Quando perguntar
+### Pergunte somente quando necessário
 
-Pergunte apenas quando um parâmetro ausente alterar materialmente a arquitetura e não puder ser inferido com segurança do pedido ou dos materiais disponíveis.
+Pergunte quando a ausência de uma informação mudar a estrutura e não for possível inferi-la com segurança.
 
-### Quando inferir
+### Infira quando houver contexto suficiente
 
-Se o gênero, público, objetivo ou restrição puder ser inferido com confiança, registre como `inferido` e siga em frente.
+Quando público, tipo de documento, objetivo ou restrição estiverem claros, registre como inferidos e prossiga.
 
-### Quando marcar lacuna
+### Marque lacunas importantes
 
-Use `desconhecido/bloqueante` somente se a ausência impedir uma decisão estrutural relevante. Use `desconhecido/não bloqueante` quando a arquitetura puder prosseguir com uma hipótese explícita.
+Use:
 
-## 8. Cartão do motivo textual
+- **falta e impede avançar** — quando a ausência bloqueia uma decisão estrutural;
+- **falta, mas é possível avançar com hipótese** — quando o plano pode seguir com uma suposição explícita.
 
-O artefato de arquitetura deve iniciar com este resumo:
+## 8. Resumo da finalidade do texto
+
+O Plano de Arquitetura do Texto deve começar com um resumo semelhante a este:
 
 ```text
-Objeto:
-Ato dominante:
-Atos secundários:
-Transformação do leitor:
-Centro lógico (pergunta/tese/decisão/tarefa):
-Público primário:
-Ação/decisão esperada:
-Gênero:
-Contexto de circulação:
-Regime de evidência:
+Assunto e recorte:
+Função principal do texto:
+Funções secundárias:
+Resultado esperado da leitura:
+Questão central:
+Público principal:
+O que o leitor deve poder fazer ao final:
+Tipo de documento:
+Onde e como será usado:
+Tipos de evidência necessários:
 Escopo:
 Fora de escopo:
 Conteúdo obrigatório:
 Restrições:
 Riscos de interpretação:
-Densidade/ritmo:
+Extensão e nível de detalhe:
 Hipóteses assumidas:
-Lacunas bloqueantes:
+Informações que faltam e impedem avançar:
 ```
 
-Esse cartão é o contrato de entrada da arquitetura. Se a sequência de seções ou parágrafos não puder ser justificada a partir dele, a arquitetura está arbitrária.
+Se a ordem das seções ou dos parágrafos não puder ser explicada a partir desse resumo, o plano ainda está arbitrário.
