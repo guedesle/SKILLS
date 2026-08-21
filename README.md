@@ -30,7 +30,7 @@ Repositório canônico das **skills gerais e reutilizáveis**. A fonte de verdad
 | [`graphify`](#graphify) | **1.0.0** | Engenharia | Navegação de código orientada por grafo |
 | [`github-project-repo-sync`](#github-project-repo-sync) | **1.0.0** | GitHub | Reconciliação Project v2 ↔ repositório |
 | [`github-project-drift-audit`](#github-project-drift-audit) | **1.0.0** | GitHub/QA | Auditoria desired/observed/live |
-| [`skills-central-governance`](#skills-central-governance) | **1.0.0** | Governança | Ciclo de vida do catálogo |
+| [`skills-central-governance`](#skills-central-governance) | **1.1.0** | Governança | Ciclo de vida do catálogo + low-HITL por padrão |
 | [`low-hitl-orchestration`](#low-hitl-orchestration) | **1.0.0** | Workflow | Lotes autônomos + um gate humano final |
 | [`batch-quality-gate`](#batch-quality-gate) | **1.0.0** | QA automation | Fast/batch/CI, autotestes e relatório consolidado |
 | [`context-handoff`](#context-handoff) | **1.0.0** | Context engineering | Transferência de estado sem reiniciar descoberta |
@@ -77,7 +77,7 @@ Reconcilia GitHub Project v2 com intenção versionada no repositório, preserva
 Audita sem mutação desired, observed e live e classifica `IN_SYNC`, `DRIFT`, `STALE` ou `UNVERIFIED`. [SKILL.md](skills/github-project-drift-audit/SKILL.md) · [↑ Índice](#índice-de-skills)
 
 ### `skills-central-governance`
-Governa criação, promoção, versão, documentação e distribuição de skills gerais. [SKILL.md](skills/skills-central-governance/SKILL.md) · [↑ Índice](#índice-de-skills)
+Governa criação, promoção, versão, documentação e distribuição de skills gerais com low-HITL por padrão. [SKILL.md](skills/skills-central-governance/SKILL.md) · [↑ Índice](#índice-de-skills)
 
 ## Skills de workflow e baixo HITL
 
@@ -390,6 +390,7 @@ O catálogo usa SemVer: **PATCH** para correções compatíveis, **MINOR** para 
 
 ### 2026-08-21 — workflow geral e baixo HITL
 - promovidas oito skills gerais a partir de estratégias do `cyber-skills-framework`;
+- `skills-central-governance` evoluída para **1.1.0** com low-HITL como padrão;
 - formalizado `FAIL → corrigir em lote → revalidar → um gate humano final`;
 - adicionados estados de escalation e revisão elevada sem approvals adicionais;
 - generalizados batch gate, autotestes de validadores e paridade local/CI;
