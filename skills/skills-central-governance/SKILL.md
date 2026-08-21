@@ -1,6 +1,6 @@
 ---
 name: skills-central-governance
-description: Governe o catálogo central de skills gerais em guedesle/SKILLS. Use ao criar, promover, versionar, atualizar, documentar ou distribuir uma skill reutilizável entre repositórios. Aplique low-HITL por padrão: agrupe mudanças coerentes, corrija falhas determinísticas em lote, valide antes de pedir revisão e não promova automaticamente skills estritamente específicas de um projeto.
+description: Governe o catálogo central de skills gerais em guedesle/SKILLS. Use ao criar, promover, versionar, atualizar, documentar ou distribuir uma skill reutilizável entre repositórios. Aplique low-HITL por padrão: agrupe mudanças coerentes, corrija falhas determinísticas em lote, valide antes de pedir revisão e não promova automaticamente skills estritamente específicas de um projeto. No Codex, aplique também o roteamento padrão por papel: Luna High para leaf/bounded, Terra Medium para orquestração/handoff e Sol High para alta complexidade.
 ---
 
 # Central Skills Governance
@@ -29,13 +29,36 @@ Em operações de criação, promoção ou atualização ampla:
 5. use `decision-escalation-control` para interromper somente quando houver decisão material, alteração de escopo, ação irreversível, autorização ou informação não inferível com segurança;
 6. quando houver mudança de alto impacto, aplique `elevated review` no mesmo gate final, sem multiplicar approvals;
 7. use `context-handoff` se o trabalho mudar de agente, modelo, conversa ou executor;
-8. para mudanças GitHub mais complexas, use `github-branch-pr-lifecycle`.
+8. para mudanças GitHub mais complexas, use `github-branch-pr-lifecycle`;
+9. no Codex, componha `adaptive-model-routing` e aplique o default operacional por papel: `Luna High` para leaf/bounded, `Terra Medium` para orquestração/handoff e `Sol High` para alta complexidade/materialidade.
 
 O padrão recomendado é:
 
 ```text
 lote coerente → validação → FAIL determinístico → corrigir em lote → revalidar → PASS → um gate humano final
 ```
+
+## Roteamento padrão de modelos no Codex
+
+O catálogo não replica nomes de modelos dentro de cada skill. O default é herdado pela política central e implementado por `adaptive-model-routing`.
+
+Quando o host for Codex e a família GPT-5.6 estiver disponível:
+
+```text
+leaf / bounded        → gpt-5.6-luna  + high
+orchestration/handoff → gpt-5.6-terra + medium
+high complexity       → gpt-5.6-sol   + high
+```
+
+Regras:
+
+- Terra Medium é o coordenador/handoff padrão de fluxos multi-etapas;
+- Luna High recebe tarefas leaf com escopo, entradas, arquivos-alvo e critérios de aceite suficientemente fechados;
+- Sol High recebe raciocínio de alta complexidade, investigação ambígua, arquitetura, validação profunda e julgamentos materiais;
+- escalone automaticamente quando a evidência altera complexidade, risco, escopo, causalidade ou decisão material;
+- faça de-escalation depois que a ambiguidade for removida e restarem tarefas mecânicas/delimitadas;
+- não confunda maior capacidade cognitiva com maior autorização operacional;
+- instrução explícita do usuário ou política obrigatória do host prevalece sobre o default.
 
 ## Geral versus específica
 
@@ -85,7 +108,8 @@ Ao extrair uma capacidade reutilizável:
 - `--check` deve preceder `--apply` em mudanças amplas;
 - repositórios espelho somente são alterados quando declarados explicitamente no registro;
 - nenhuma falha de validação determinística deve ser convertida em pedido de aprovação humana;
-- não use modelo/agente mais capaz como substituto para autorização ou decisão de escopo.
+- não use modelo/agente mais capaz como substituto para autorização ou decisão de escopo;
+- não promova roteamento específico de um harness a contrato obrigatório de todos os hosts: mantenha-o em adaptadores operacionais.
 
 ## Merge e publicação
 
@@ -110,4 +134,5 @@ Ao concluir uma operação de governança, informe:
 - espelhos afetados;
 - resultado da validação;
 - estado do PR/merge;
+- roteamento de modelo aplicado quando o host permitir observá-lo;
 - HITL solicitado ou evitado e motivo.
