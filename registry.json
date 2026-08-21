@@ -4,7 +4,7 @@
   "canonical_path_pattern": "skills/{name}/SKILL.md",
   "versioning": "semver",
   "sync_model": "central-with-generic-pull-mirrors-and-explicit-push-fallback",
-  "updated_at": "2026-08-16",
+  "updated_at": "2026-08-21",
   "pull_mirror": {
     "reusable_workflow": "guedesle/SKILLS/.github/workflows/mirror-consumer.yml@main",
     "consumer_workflow": ".github/workflows/sync-central-skills.yml",
@@ -19,145 +19,26 @@
     "consumer_workflow_is_generic_per_repository": true
   },
   "skills": [
-    {
-      "name": "plan-content",
-      "version": "1.0.0",
-      "category": "editorial",
-      "path": "skills/plan-content/SKILL.md",
-      "origin": "editor-agent / Domínio 01 — Planejamento",
-      "mirrors": []
-    },
-    {
-      "name": "architect-text",
-      "version": "1.2.0",
-      "category": "editorial",
-      "path": "skills/architect-text/SKILL.md",
-      "origin": "editor-agent / Domínio 02 — Arquitetura Textual",
-      "legacy_source": {
-        "repository": "guedesle/editor-agent",
-        "path": ".agents/skills/editor-structure/SKILL.md",
-        "blob_sha": "66aec5962c5c0f592fd6a9a3a25f46e06d244c8f"
-      },
-      "mirrors": []
-    },
-    {
-      "name": "design-paragraphs",
-      "version": "1.2.0",
-      "category": "editorial",
-      "path": "skills/design-paragraphs/SKILL.md",
-      "origin": "editor-agent / Domínios 03 e 04 — Parágrafos e Ritmo",
-      "mirrors": []
-    },
-    {
-      "name": "write-with-evidence",
-      "version": "1.0.0",
-      "category": "editorial",
-      "path": "skills/write-with-evidence/SKILL.md",
-      "origin": "editor-agent / Domínios 05, 07 e 08",
-      "mirrors": []
-    },
-    {
-      "name": "write-technical-content",
-      "version": "1.0.0",
-      "category": "editorial",
-      "path": "skills/write-technical-content/SKILL.md",
-      "origin": "editor-agent / Domínio 06 — Redação Técnica",
-      "mirrors": [
-        {
-          "repository": "guedesle/download-edicoes-doe",
-          "branch": "main",
-          "path": ".agents/skills/write-technical-content",
-          "mode": "pull",
-          "purpose": "homologation"
-        }
-      ]
-    },
-    {
-      "name": "calibrate-rhetoric",
-      "version": "1.0.0",
-      "category": "editorial",
-      "path": "skills/calibrate-rhetoric/SKILL.md",
-      "origin": "editor-agent / Domínio 09 — Retórica",
-      "mirrors": []
-    },
-    {
-      "name": "review-editorial-quality",
-      "version": "1.0.0",
-      "category": "editorial",
-      "path": "skills/review-editorial-quality/SKILL.md",
-      "origin": "editor-agent / Domínio 10 — QA",
-      "mirrors": [
-        {
-          "repository": "guedesle/download-edicoes-doe",
-          "branch": "main",
-          "path": ".agents/skills/review-editorial-quality",
-          "mode": "pull",
-          "purpose": "homologation-generic-multi-skill"
-        }
-      ]
-    },
-    {
-      "name": "improve-accessible-writing",
-      "version": "1.0.0",
-      "category": "editorial",
-      "path": "skills/improve-accessible-writing/SKILL.md",
-      "origin": "editor-agent / Domínio 11 — Legibilidade",
-      "mirrors": []
-    },
-    {
-      "name": "assess-editorial-alignment",
-      "version": "1.0.0",
-      "category": "editorial",
-      "path": "skills/assess-editorial-alignment/SKILL.md",
-      "origin": "editor-agent / generalização do Domínio 12",
-      "mirrors": []
-    },
-    {
-      "name": "graphify",
-      "version": "1.0.0",
-      "category": "software-engineering",
-      "path": "skills/graphify/SKILL.md",
-      "origin": "generalização de workflow Graphify",
-      "legacy_source": {
-        "repository": "guedesle/SieDOE",
-        "path": ".agents/skills/graphify/SKILL.md",
-        "blob_sha": "6c84720bb8bd2a2aadc7b4425c8c89b8c1bc1751"
-      },
-      "mirrors": []
-    },
-    {
-      "name": "github-project-repo-sync",
-      "version": "1.0.0",
-      "category": "github-automation",
-      "path": "skills/github-project-repo-sync/SKILL.md",
-      "origin": "generalização do reconciliador Project v2 ↔ repositório",
-      "legacy_source": {
-        "repository": "guedesle/projeto-pos-ibmec",
-        "path": ".agents/skills/github-project-repo-sync/SKILL.md",
-        "blob_sha": "a7f9adce981b088ce38573a9213bde38c51a05ba"
-      },
-      "mirrors": []
-    },
-    {
-      "name": "github-project-drift-audit",
-      "version": "1.0.0",
-      "category": "github-automation",
-      "path": "skills/github-project-drift-audit/SKILL.md",
-      "origin": "generalização da auditoria desired/observed/live",
-      "legacy_source": {
-        "repository": "guedesle/projeto-pos-ibmec",
-        "path": ".agents/skills/github-project-drift-audit/SKILL.md",
-        "blob_sha": "f881342a96a522ad9f27ce4aaa48624898194b6d"
-      },
-      "mirrors": []
-    },
-    {
-      "name": "skills-central-governance",
-      "version": "1.0.0",
-      "category": "skill-management",
-      "path": "skills/skills-central-governance/SKILL.md",
-      "origin": "guedesle/SKILLS",
-      "mirrors": []
-    }
+    {"name":"plan-content","version":"1.0.0","category":"editorial","path":"skills/plan-content/SKILL.md","origin":"editor-agent / Domínio 01 — Planejamento","mirrors":[]},
+    {"name":"architect-text","version":"1.2.0","category":"editorial","path":"skills/architect-text/SKILL.md","origin":"editor-agent / Domínio 02 — Arquitetura Textual","legacy_source":{"repository":"guedesle/editor-agent","path":".agents/skills/editor-structure/SKILL.md","blob_sha":"66aec5962c5c0f592fd6a9a3a25f46e06d244c8f"},"mirrors":[]},
+    {"name":"design-paragraphs","version":"1.2.0","category":"editorial","path":"skills/design-paragraphs/SKILL.md","origin":"editor-agent / Domínios 03 e 04 — Parágrafos e Ritmo","mirrors":[]},
+    {"name":"write-with-evidence","version":"1.0.0","category":"editorial","path":"skills/write-with-evidence/SKILL.md","origin":"editor-agent / Domínios 05, 07 e 08","mirrors":[]},
+    {"name":"write-technical-content","version":"1.0.0","category":"editorial","path":"skills/write-technical-content/SKILL.md","origin":"editor-agent / Domínio 06 — Redação Técnica","mirrors":[{"repository":"guedesle/download-edicoes-doe","branch":"main","path":".agents/skills/write-technical-content","mode":"pull","purpose":"homologation"}]},
+    {"name":"calibrate-rhetoric","version":"1.0.0","category":"editorial","path":"skills/calibrate-rhetoric/SKILL.md","origin":"editor-agent / Domínio 09 — Retórica","mirrors":[]},
+    {"name":"review-editorial-quality","version":"1.0.0","category":"editorial","path":"skills/review-editorial-quality/SKILL.md","origin":"editor-agent / Domínio 10 — QA","mirrors":[{"repository":"guedesle/download-edicoes-doe","branch":"main","path":".agents/skills/review-editorial-quality","mode":"pull","purpose":"homologation-generic-multi-skill"}]},
+    {"name":"improve-accessible-writing","version":"1.0.0","category":"editorial","path":"skills/improve-accessible-writing/SKILL.md","origin":"editor-agent / Domínio 11 — Legibilidade","mirrors":[]},
+    {"name":"assess-editorial-alignment","version":"1.0.0","category":"editorial","path":"skills/assess-editorial-alignment/SKILL.md","origin":"editor-agent / generalização do Domínio 12","mirrors":[]},
+    {"name":"graphify","version":"1.0.0","category":"software-engineering","path":"skills/graphify/SKILL.md","origin":"generalização de workflow Graphify","legacy_source":{"repository":"guedesle/SieDOE","path":".agents/skills/graphify/SKILL.md","blob_sha":"6c84720bb8bd2a2aadc7b4425c8c89b8c1bc1751"},"mirrors":[]},
+    {"name":"github-project-repo-sync","version":"1.0.0","category":"github-automation","path":"skills/github-project-repo-sync/SKILL.md","origin":"generalização do reconciliador Project v2 ↔ repositório","legacy_source":{"repository":"guedesle/projeto-pos-ibmec","path":".agents/skills/github-project-repo-sync/SKILL.md","blob_sha":"a7f9adce981b088ce38573a9213bde38c51a05ba"},"mirrors":[]},
+    {"name":"github-project-drift-audit","version":"1.0.0","category":"github-automation","path":"skills/github-project-drift-audit/SKILL.md","origin":"generalização da auditoria desired/observed/live","legacy_source":{"repository":"guedesle/projeto-pos-ibmec","path":".agents/skills/github-project-drift-audit/SKILL.md","blob_sha":"f881342a96a522ad9f27ce4aaa48624898194b6d"},"mirrors":[]},
+    {"name":"skills-central-governance","version":"1.1.0","category":"skill-management","path":"skills/skills-central-governance/SKILL.md","origin":"guedesle/SKILLS","mirrors":[]},
+    {"name":"low-hitl-orchestration","version":"1.0.0","category":"workflow-orchestration","path":"skills/low-hitl-orchestration/SKILL.md","origin":"generalização do low-HITL batch workflow de guedesle/cyber-skills-framework","mirrors":[]},
+    {"name":"batch-quality-gate","version":"1.0.0","category":"qa-automation","path":"skills/batch-quality-gate/SKILL.md","origin":"generalização do LOCAL GATE de guedesle/cyber-skills-framework","mirrors":[]},
+    {"name":"context-handoff","version":"1.0.0","category":"context-engineering","path":"skills/context-handoff/SKILL.md","origin":"generalização dos handoffs multiagente/modelo de guedesle/cyber-skills-framework","mirrors":[]},
+    {"name":"github-branch-pr-lifecycle","version":"1.0.0","category":"github-automation","path":"skills/github-branch-pr-lifecycle/SKILL.md","origin":"generalização de stacked PR, retarget e sync seguro em guedesle/cyber-skills-framework","mirrors":[]},
+    {"name":"adaptive-model-routing","version":"1.0.0","category":"model-routing","path":"skills/adaptive-model-routing/SKILL.md","origin":"generalização do roteamento por papel/modelo de guedesle/cyber-skills-framework","mirrors":[]},
+    {"name":"decision-escalation-control","version":"1.0.0","category":"workflow-governance","path":"skills/decision-escalation-control/SKILL.md","origin":"generalização dos gates de escalation e elevated review de guedesle/cyber-skills-framework","mirrors":[]},
+    {"name":"contract-governed-execution","version":"1.0.0","category":"workflow-governance","path":"skills/contract-governed-execution/SKILL.md","origin":"generalização dos contratos machine-readable fail-closed de guedesle/cyber-skills-framework","mirrors":[]},
+    {"name":"knowledge-source-governance","version":"1.0.0","category":"knowledge-governance","path":"skills/knowledge-source-governance/SKILL.md","origin":"generalização do Cyber Knowledge Plane de guedesle/cyber-skills-framework","mirrors":[]}
   ]
 }
