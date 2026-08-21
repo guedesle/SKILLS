@@ -31,6 +31,8 @@ Skills específicas de projeto não são promovidas automaticamente. Quando uma 
 | `github-branch-pr-lifecycle` | GitHub automation | 1.0.0 | Canônica |
 | `adaptive-model-routing` | Model routing | 1.0.0 | Canônica |
 | `decision-escalation-control` | Governança de workflow | 1.0.0 | Canônica |
+| `contract-governed-execution` | Governança de execução | 1.0.0 | Canônica |
+| `knowledge-source-governance` | Governança de conhecimento | 1.0.0 | Canônica |
 
 ## Origem e promoção
 
@@ -42,16 +44,18 @@ As nove skills editoriais foram generalizadas a partir das capacidades do `edito
 
 ### Promoção de estratégias de fluxo e baixo HITL
 
-Em 21/08/2026 foram promovidas seis capacidades gerais derivadas do `guedesle/cyber-skills-framework`:
+Em 21/08/2026 foram promovidas **oito capacidades gerais** derivadas do `guedesle/cyber-skills-framework`:
 
 - `low-hitl-orchestration` — `FAIL → corrigir em lote → revalidar → um único gate humano final`; falha determinística não gera HITL;
 - `batch-quality-gate` — validação consolidada com modos fast/batch/CI, relatório estruturado, autotestes dos validadores e mesma política local/remota;
 - `context-handoff` — estado operacional compacto entre agentes/modelos/conversas, preservando decisões, evidências, débitos e itens que não devem ser perguntados novamente;
 - `github-branch-pr-lifecycle` — feature branches, stacked PRs, retarget, preservação de ancestralidade, recuperação segura de divergência e verificação pós-merge;
 - `adaptive-model-routing` — separação por papel entre bounded execution, context handoff e frontier reasoning, mantendo skills agnósticas de fornecedor/modelo;
-- `decision-escalation-control` — classificação `AUTO_CONTINUE`, `HUMAN_REVIEW_RECOMMENDED`, `HUMAN_REVIEW_REQUIRED` e `BLOCKED_UNTIL_REVIEW`, com elevated review aumentando profundidade sem multiplicar approvals.
+- `decision-escalation-control` — classificação `AUTO_CONTINUE`, `HUMAN_REVIEW_RECOMMENDED`, `HUMAN_REVIEW_REQUIRED` e `BLOCKED_UNTIL_REVIEW`, com elevated review aumentando profundidade sem multiplicar approvals;
+- `contract-governed-execution` — contratos machine-readable e fail-closed para automatizar escopo, limites, stop conditions, approvals e trilha de evidência sem interpretar ausência de regra como permissão;
+- `knowledge-source-governance` — Source Registry, proveniência, freshness, corroboration, vetor de qualidade e teto de conclusão para impedir que uma fonte fraca/desatualizada promova sozinha uma decisão material.
 
-A promoção removeu regras exclusivas de cibersegurança. Knowledge Plane, RoE, Activity Ledger e contratos ofensivos permanecem no projeto de origem; somente os padrões transversais de execução, QA, handoff, GitHub e escalonamento foram generalizados.
+A promoção removeu regras exclusivas de cibersegurança. Taxonomias, catálogos, RoE e contratos ofensivos específicos permanecem no projeto de origem; foram generalizados apenas os padrões transversais de execução, QA, handoff, GitHub, escalonamento, governança de contratos e governança de conhecimento.
 
 ## Padrão geral low-HITL
 
@@ -74,6 +78,36 @@ handoff/relatório consolidado
 Interromper antes do `PASS` somente quando a continuação depende de decisão material, alteração de escopo, autorização, ação irreversível/produção ou informação que não pode ser inferida com segurança.
 
 `elevated review` não cria approvals adicionais: aumenta o rigor do mesmo gate final.
+
+## Governança de execução por contrato
+
+Para ações de maior risco ou com limites estritos, prefira contratos machine-readable e fail-closed. O contrato deve tornar verificáveis, conforme o domínio:
+
+- escopo e alvos/recursos permitidos;
+- janela temporal;
+- capacidades permitidas e proibidas;
+- limites operacionais;
+- stop conditions;
+- aprovação humana;
+- estado de autorização;
+- evidence/activity ledger.
+
+Ausência de regra crítica não deve virar permissão implícita. Validadores desse contrato devem possuir casos negativos que provem o bloqueio de configurações fail-open.
+
+## Governança de fontes e evidência
+
+Fontes não devem receber autoridade universal apenas por reputação. Registre e avalie separadamente:
+
+- proveniência/owner;
+- authority class;
+- freshness/TTL;
+- specificity;
+- applicability;
+- corroboration;
+- empirical support;
+- `allowed_outcomes` e `forbidden_outcomes`.
+
+Busca aberta pode descobrir fontes; uma conclusão material deve respeitar o teto de conclusão da fonte e passar pelo workflow de validação adequado. Preserve counterevidence e versões/snapshots quando a reprodutibilidade for relevante.
 
 ## Política de roteamento de modelos
 
@@ -99,6 +133,8 @@ Para skills de workflow, o contrato deve explicitar gatilhos, estados de HITL, c
 
 Para skills de QA/gate, validadores críticos devem possuir casos negativos capazes de provar que o próprio gate não aceita enfraquecimentos óbvios do contrato.
 
+Para governança de execução, schemas e ledgers devem ser fail-closed nas fronteiras materiais. Para governança de conhecimento, fontes devem declarar freshness/corroboration e limites de conclusão.
+
 ## Política de sincronização
 
 - central: `skills/<nome>/SKILL.md`;
@@ -123,7 +159,7 @@ Mappings ativos:
 - `write-technical-content` → `.agents/skills/write-technical-content`;
 - `review-editorial-quality` → `.agents/skills/review-editorial-quality`.
 
-As seis novas skills de workflow ainda não possuem mirror específico registrado; são canônicas no catálogo central e podem ser consumidas globalmente pelos hosts que apontam para `SKILLS/skills`.
+As oito novas skills de workflow/governança ainda não possuem mirror específico registrado; são canônicas no catálogo central e podem ser consumidas globalmente pelos hosts que apontam para `SKILLS/skills`.
 
 ## Próxima evolução de qualidade
 
@@ -132,4 +168,5 @@ As seis novas skills de workflow ainda não possuem mirror específico registrad
 - testar handoffs entre famílias de modelos diferentes;
 - testar stacked PR e divergência local em fixtures controladas;
 - comparar roteamento de modelos por custo, latência, fidelidade de contexto e taxa de escalonamento;
-- criar validator geral de contratos de skill para o catálogo central, complementando `sync_skills.py --check`.
+- criar validator geral de contratos de skill para o catálogo central, complementando `sync_skills.py --check`;
+- criar fixtures negativas para `contract-governed-execution` e `knowledge-source-governance`.
