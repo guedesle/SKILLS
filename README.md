@@ -37,6 +37,8 @@ Repositório canônico das **skills gerais e reutilizáveis**. A fonte de verdad
 | [`github-branch-pr-lifecycle`](#github-branch-pr-lifecycle) | **1.0.0** | GitHub | Branches, stacked PRs, divergência e merges seguros |
 | [`adaptive-model-routing`](#adaptive-model-routing) | **1.0.0** | Model routing | Execução, contexto e frontier reasoning por papel |
 | [`decision-escalation-control`](#decision-escalation-control) | **1.0.0** | Governança | AUTO_CONTINUE, review e bloqueios por materialidade |
+| [`contract-governed-execution`](#contract-governed-execution) | **1.0.0** | Governança | Contratos machine-readable, fail-closed e ledger |
+| [`knowledge-source-governance`](#knowledge-source-governance) | **1.0.0** | Conhecimento | Proveniência, freshness, corroboration e evidence ceilings |
 
 ### `plan-content`
 Transforma objetivo e contexto em briefing operacional, escopo, outline, evidências necessárias, riscos e critérios. [SKILL.md](skills/plan-content/SKILL.md) · [↑ Índice](#índice-de-skills)
@@ -79,7 +81,7 @@ Governa criação, promoção, versão, documentação e distribuição de skill
 
 ## Skills de workflow e baixo HITL
 
-As seis skills abaixo foram generalizadas em 21/08/2026 a partir das estratégias desenvolvidas e homologadas no `guedesle/cyber-skills-framework`. Elas não carregam regras de cibersegurança: preservam somente padrões transversais de execução, QA, handoff, GitHub, roteamento de modelos e escalonamento.
+As oito skills abaixo foram generalizadas em 21/08/2026 a partir de estratégias desenvolvidas e homologadas no `guedesle/cyber-skills-framework`. Elas removem dependências exclusivas do domínio de cibersegurança e preservam padrões transversais de execução, QA, handoff, GitHub, roteamento de modelos, contratos, conhecimento e escalonamento.
 
 ### `low-hitl-orchestration`
 Executa lotes coerentes com o princípio **falha determinística não gera HITL**: `FAIL → corrigir em lote → revalidar → um gate humano final`. [SKILL.md](skills/low-hitl-orchestration/SKILL.md) · [↑ Índice](#índice-de-skills)
@@ -99,6 +101,12 @@ Separa `bounded execution`, `context handoff` e `frontier reasoning`; modelos s�
 ### `decision-escalation-control`
 Classifica eventos em `AUTO_CONTINUE`, `HUMAN_REVIEW_RECOMMENDED`, `HUMAN_REVIEW_REQUIRED` e `BLOCKED_UNTIL_REVIEW`. `elevated review` aumenta profundidade, não número de approvals. [SKILL.md](skills/decision-escalation-control/SKILL.md) · [↑ Índice](#índice-de-skills)
 
+### `contract-governed-execution`
+Governa ações de maior risco por contratos estruturados, autorização explícita, limites, stop conditions, fail-closed e ledger de evidências. [SKILL.md](skills/contract-governed-execution/SKILL.md) · [↑ Índice](#índice-de-skills)
+
+### `knowledge-source-governance`
+Governa fontes por proveniência, autoridade, freshness, aplicabilidade, corroboration e teto de conclusão, evitando que evidência fraca promova sozinha uma conclusão material. [SKILL.md](skills/knowledge-source-governance/SKILL.md) · [↑ Índice](#índice-de-skills)
+
 ## Como usar
 
 Cada definição canônica vive em `skills/<nome>/SKILL.md`; o inventário e os mirrors vivem em [`registry.json`](registry.json).
@@ -112,6 +120,8 @@ Use $context-handoff para preparar a continuação em outro agente ou conversa.
 Use $github-branch-pr-lifecycle para organizar esta mudança em stacked PRs.
 Use $adaptive-model-routing para distribuir execução, contexto e raciocínio por papel.
 Use $decision-escalation-control para decidir se devemos continuar ou pedir aprovação.
+Use $contract-governed-execution para executar ações de maior risco sob contrato fail-closed.
+Use $knowledge-source-governance para controlar proveniência, freshness e teto de conclusão das fontes.
 ```
 
 ## Instalação em OpenCode, Codex e Claude Code
@@ -368,7 +378,7 @@ Depois do bootstrap de um consumidor, adicionar outra skill ao mesmo repositóri
 - `write-technical-content`;
 - `review-editorial-quality`.
 
-As seis novas skills de workflow são canônicas e ainda não possuem mirror de projeto específico; hosts globais que apontam para `SKILLS/skills` passam a descobri-las após atualização do clone.
+As oito novas skills de workflow/governança são canônicas e ainda não possuem mirror de projeto específico; hosts globais que apontam para `SKILLS/skills` passam a descobri-las após atualização do clone.
 
 Consulte também [`AGENTS.md`](AGENTS.md), [`general-skills-status.md`](general-skills-status.md) e [`skills-central-governance`](skills/skills-central-governance/SKILL.md).
 
@@ -379,13 +389,15 @@ O catálogo usa SemVer: **PATCH** para correções compatíveis, **MINOR** para 
 ## Histórico
 
 ### 2026-08-21 — workflow geral e baixo HITL
-- promovidas seis skills gerais a partir de estratégias do `cyber-skills-framework`;
+- promovidas oito skills gerais a partir de estratégias do `cyber-skills-framework`;
 - formalizado `FAIL → corrigir em lote → revalidar → um gate humano final`;
 - adicionados estados de escalation e revisão elevada sem approvals adicionais;
 - generalizados batch gate, autotestes de validadores e paridade local/CI;
 - generalizados handoffs entre agentes/modelos e continuidade sem repetir decisões;
 - generalizados stacked PRs, retarget, preservação de ancestralidade e recuperação segura de divergência;
 - generalizado roteamento por papéis `bounded execution`, `context handoff` e `frontier reasoning`;
+- generalizados contratos machine-readable fail-closed com ledger de execução;
+- generalizada governança de fontes por proveniência, freshness, corroboration e evidence ceilings;
 - corrigido índice para `architect-text` e `design-paragraphs` 1.2.0.
 
 ### 2026-08-16 — instalação multi-host e mirrors pull genéricos
