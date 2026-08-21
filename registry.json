@@ -4,7 +4,7 @@
   "canonical_path_pattern": "skills/{name}/SKILL.md",
   "versioning": "semver",
   "sync_model": "central-with-generic-pull-mirrors-and-explicit-push-fallback",
-  "updated_at": "2026-08-16",
+  "updated_at": "2026-08-21",
   "pull_mirror": {
     "reusable_workflow": "guedesle/SKILLS/.github/workflows/mirror-consumer.yml@main",
     "consumer_workflow": ".github/workflows/sync-central-skills.yml",
@@ -157,6 +157,54 @@
       "category": "skill-management",
       "path": "skills/skills-central-governance/SKILL.md",
       "origin": "guedesle/SKILLS",
+      "mirrors": []
+    },
+    {
+      "name": "low-hitl-orchestration",
+      "version": "1.0.0",
+      "category": "workflow-orchestration",
+      "path": "skills/low-hitl-orchestration/SKILL.md",
+      "origin": "generalização do low-HITL batch workflow de guedesle/cyber-skills-framework",
+      "mirrors": []
+    },
+    {
+      "name": "batch-quality-gate",
+      "version": "1.0.0",
+      "category": "qa-automation",
+      "path": "skills/batch-quality-gate/SKILL.md",
+      "origin": "generalização do LOCAL GATE de guedesle/cyber-skills-framework",
+      "mirrors": []
+    },
+    {
+      "name": "context-handoff",
+      "version": "1.0.0",
+      "category": "context-engineering",
+      "path": "skills/context-handoff/SKILL.md",
+      "origin": "generalização dos handoffs multiagente/modelo de guedesle/cyber-skills-framework",
+      "mirrors": []
+    },
+    {
+      "name": "github-branch-pr-lifecycle",
+      "version": "1.0.0",
+      "category": "github-automation",
+      "path": "skills/github-branch-pr-lifecycle/SKILL.md",
+      "origin": "generalização de stacked PR, retarget e sync seguro em guedesle/cyber-skills-framework",
+      "mirrors": []
+    },
+    {
+      "name": "adaptive-model-routing",
+      "version": "1.0.0",
+      "category": "model-routing",
+      "path": "skills/adaptive-model-routing/SKILL.md",
+      "origin": "generalização do roteamento por papel/modelo de guedesle/cyber-skills-framework",
+      "mirrors": []
+    },
+    {
+      "name": "decision-escalation-control",
+      "version": "1.0.0",
+      "category": "workflow-governance",
+      "path": "skills/decision-escalation-control/SKILL.md",
+      "origin": "generalização dos gates de escalation e elevated review de guedesle/cyber-skills-framework",
       "mirrors": []
     }
   ]
