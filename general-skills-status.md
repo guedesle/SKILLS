@@ -24,12 +24,12 @@ Skills específicas de projeto não são promovidas automaticamente. Quando uma 
 | `graphify` | Engenharia de software | 1.0.0 | Canônica |
 | `github-project-repo-sync` | GitHub automation | 1.0.0 | Canônica |
 | `github-project-drift-audit` | GitHub/QA | 1.0.0 | Canônica |
-| `skills-central-governance` | Gestão de skills | 1.1.0 | Canônica + low-HITL por padrão |
+| `skills-central-governance` | Gestão de skills | 1.2.0 | Canônica + low-HITL + default Codex por papel |
 | `low-hitl-orchestration` | Orquestração | 1.0.0 | Canônica |
 | `batch-quality-gate` | QA automation | 1.0.0 | Canônica |
 | `context-handoff` | Context engineering | 1.0.0 | Canônica |
 | `github-branch-pr-lifecycle` | GitHub automation | 1.0.0 | Canônica |
-| `adaptive-model-routing` | Model routing | 1.0.0 | Canônica |
+| `adaptive-model-routing` | Model routing | 1.1.0 | Canônica + adaptador Codex GPT-5.6 |
 | `decision-escalation-control` | Governança de workflow | 1.0.0 | Canônica |
 | `contract-governed-execution` | Governança de execução | 1.0.0 | Canônica |
 | `knowledge-source-governance` | Governança de conhecimento | 1.0.0 | Canônica |
@@ -50,7 +50,7 @@ Em 21/08/2026 foram promovidas **oito capacidades gerais** derivadas do `guedesl
 - `batch-quality-gate` — validação consolidada com modos fast/batch/CI, relatório estruturado, autotestes dos validadores e mesma política local/remota;
 - `context-handoff` — estado operacional compacto entre agentes/modelos/conversas, preservando decisões, evidências, débitos e itens que não devem ser perguntados novamente;
 - `github-branch-pr-lifecycle` — feature branches, stacked PRs, retarget, preservação de ancestralidade, recuperação segura de divergência e verificação pós-merge;
-- `adaptive-model-routing` — separação por papel entre bounded execution, context handoff e frontier reasoning, mantendo skills agnósticas de fornecedor/modelo;
+- `adaptive-model-routing` — separação por papel entre bounded execution, context handoff e frontier reasoning, mantendo skills agnósticas de fornecedor/modelo e adicionando um adaptador operacional Codex;
 - `decision-escalation-control` — classificação `AUTO_CONTINUE`, `HUMAN_REVIEW_RECOMMENDED`, `HUMAN_REVIEW_REQUIRED` e `BLOCKED_UNTIL_REVIEW`, com elevated review aumentando profundidade sem multiplicar approvals;
 - `contract-governed-execution` — contratos machine-readable e fail-closed para automatizar escopo, limites, stop conditions, approvals e trilha de evidência sem interpretar ausência de regra como permissão;
 - `knowledge-source-governance` — Source Registry, proveniência, freshness, corroboration, vetor de qualidade e teto de conclusão para impedir que uma fonte fraca/desatualizada promova sozinha uma decisão material.
@@ -89,7 +89,29 @@ Fontes devem ser avaliadas por proveniência, authority, freshness, specificity,
 
 ## Política de roteamento de modelos
 
-Skills gerais não devem depender de nomes de modelos. O runtime pode manter adaptadores temporários por workspace/harness, mas deve separar `bounded execution`, `context handoff` e `frontier reasoning`. Evidência inesperada que altere risco, escopo, severidade, causalidade ou decisão material deve escalar capacidade sem ampliar autorização operacional.
+Skills gerais continuam sem depender de nomes de modelos no seu contrato funcional. O roteamento concreto é tratado como adaptador do runtime/harness.
+
+### Default Codex / GPT-5.6
+
+A partir de 21/08/2026, o adaptador Codex padrão é:
+
+```text
+leaf / bounded        → gpt-5.6-luna  + reasoning high
+orchestration/handoff → gpt-5.6-terra + reasoning medium
+high complexity       → gpt-5.6-sol   + reasoning high
+```
+
+Interpretação operacional:
+
+- **Luna High** executa tarefas leaf bem delimitadas, inclusive implementação, testes, transformações e validações estruturais quando o contrato já está fechado;
+- **Terra Medium** atua como orquestrador/handoff padrão, decompõe trabalhos multi-etapas, integra resultados e preserva estado/contexto entre executores;
+- **Sol High** atua em alta complexidade: arquitetura, investigação ambígua, debugging profundo, causalidade, falsificação/validação complexa, decisões materiais e QA de alto impacto.
+
+O roteamento começa no menor tier suficiente e escala quando evidência inesperada altera risco, escopo, severidade, causalidade, complexidade ou decisão material. Depois que Sol reduz a ambiguidade e fecha interfaces/critérios, tarefas subsequentes podem voltar a Terra ou Luna.
+
+O default está registrado de forma machine-readable em `registry.json > runtime_adapters.codex` e é herdado transversalmente por `AGENTS.md`. A semântica detalhada permanece em `skills/adaptive-model-routing/SKILL.md`, evitando copiar nomes de modelos para todas as skills e criar drift.
+
+Maior capacidade cognitiva não amplia autorização operacional. Instrução explícita do usuário, política obrigatória do host ou contrato de risco prevalece sobre o default.
 
 ## Política de nomenclatura editorial
 
@@ -97,7 +119,7 @@ Nas skills editoriais, nomes de campos e etapas devem ser compreensíveis sem gl
 
 ## Critério de maturidade
 
-**Canônica** significa que a skill possui definição central, versão registrada e documentação navegável. Para skills de workflow, o contrato deve explicitar gatilhos, estados de HITL, condições de parada, saída esperada e origem/proveniência. Para skills de QA/gate, validadores críticos devem possuir casos negativos. Para governança de execução, schemas e ledgers devem ser fail-closed nas fronteiras materiais. Para governança de conhecimento, fontes devem declarar freshness/corroboration e limites de conclusão.
+**Canônica** significa que a skill possui definição central, versão registrada e documentação navegável. Para skills de workflow, o contrato deve explicitar gatilhos, estados de HITL, condições de parada, saída esperada e origem/proveniência. Para skills de QA/gate, validadores críticos devem possuir casos negativos. Para governança de execução, schemas e ledgers devem ser fail-closed nas fronteiras materiais. Para governança de conhecimento, fontes devem declarar freshness/corroboration e limites de conclusão. Para adaptadores de modelos, defaults concretos devem manter separação entre papel, capacidade, reasoning effort e autorização.
 
 ## Política de sincronização
 
@@ -123,14 +145,17 @@ Mappings ativos:
 - `write-technical-content` → `.agents/skills/write-technical-content`;
 - `review-editorial-quality` → `.agents/skills/review-editorial-quality`.
 
-As oito novas skills de workflow/governança ainda não possuem mirror específico registrado; são canônicas no catálogo central e podem ser consumidas globalmente pelos hosts que apontam para `SKILLS/skills`.
+As oito skills de workflow/governança não possuem mirror específico registrado; são canônicas no catálogo central e podem ser consumidas globalmente pelos hosts que apontam para `SKILLS/skills`.
+
+O default de modelos do Codex não exige mirror individual por skill porque é política transversal do catálogo/harness.
 
 ## Próxima evolução de qualidade
 
 - adicionar evals comparativos para as skills de workflow;
 - medir número de HITLs evitados versus reversões/erros materiais;
-- testar handoffs entre famílias de modelos diferentes;
+- testar handoffs entre Luna, Terra e Sol com métricas de perda de contexto;
 - testar stacked PR e divergência local em fixtures controladas;
-- comparar roteamento de modelos por custo, latência, fidelidade de contexto e taxa de escalonamento;
+- comparar roteamento por custo por sucesso, latência, fidelidade de contexto, retries e taxa de escalonamento;
+- calibrar thresholds de escalation/de-escalation com evals reais de Codex;
 - criar validator geral de contratos de skill para o catálogo central, complementando `sync_skills.py --check`;
 - criar fixtures negativas para `contract-governed-execution` e `knowledge-source-governance`.

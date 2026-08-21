@@ -30,12 +30,12 @@ Repositório canônico das **skills gerais e reutilizáveis**. A fonte de verdad
 | [`graphify`](#graphify) | **1.0.0** | Engenharia | Navegação de código orientada por grafo |
 | [`github-project-repo-sync`](#github-project-repo-sync) | **1.0.0** | GitHub | Reconciliação Project v2 ↔ repositório |
 | [`github-project-drift-audit`](#github-project-drift-audit) | **1.0.0** | GitHub/QA | Auditoria desired/observed/live |
-| [`skills-central-governance`](#skills-central-governance) | **1.1.0** | Governança | Ciclo de vida do catálogo + low-HITL por padrão |
+| [`skills-central-governance`](#skills-central-governance) | **1.2.0** | Governança | Ciclo de vida + low-HITL + default Codex por papel |
 | [`low-hitl-orchestration`](#low-hitl-orchestration) | **1.0.0** | Workflow | Lotes autônomos + um gate humano final |
 | [`batch-quality-gate`](#batch-quality-gate) | **1.0.0** | QA automation | Fast/batch/CI, autotestes e relatório consolidado |
 | [`context-handoff`](#context-handoff) | **1.0.0** | Context engineering | Transferência de estado sem reiniciar descoberta |
 | [`github-branch-pr-lifecycle`](#github-branch-pr-lifecycle) | **1.0.0** | GitHub | Branches, stacked PRs, divergência e merges seguros |
-| [`adaptive-model-routing`](#adaptive-model-routing) | **1.0.0** | Model routing | Execução, contexto e frontier reasoning por papel |
+| [`adaptive-model-routing`](#adaptive-model-routing) | **1.1.0** | Model routing | Luna/Terra/Sol por papel no Codex, com escalation/de-escalation |
 | [`decision-escalation-control`](#decision-escalation-control) | **1.0.0** | Governança | AUTO_CONTINUE, review e bloqueios por materialidade |
 | [`contract-governed-execution`](#contract-governed-execution) | **1.0.0** | Governança | Contratos machine-readable, fail-closed e ledger |
 | [`knowledge-source-governance`](#knowledge-source-governance) | **1.0.0** | Conhecimento | Proveniência, freshness, corroboration e evidence ceilings |
@@ -77,7 +77,7 @@ Reconcilia GitHub Project v2 com intenção versionada no repositório, preserva
 Audita sem mutação desired, observed e live e classifica `IN_SYNC`, `DRIFT`, `STALE` ou `UNVERIFIED`. [SKILL.md](skills/github-project-drift-audit/SKILL.md) · [↑ Índice](#índice-de-skills)
 
 ### `skills-central-governance`
-Governa criação, promoção, versão, documentação e distribuição de skills gerais com low-HITL por padrão. [SKILL.md](skills/skills-central-governance/SKILL.md) · [↑ Índice](#índice-de-skills)
+Governa criação, promoção, versão, documentação e distribuição de skills gerais com low-HITL por padrão. No Codex, faz o catálogo herdar o roteamento `Luna High → Terra Medium → Sol High` por papel, sem duplicar configuração em cada skill. [SKILL.md](skills/skills-central-governance/SKILL.md) · [↑ Índice](#índice-de-skills)
 
 ## Skills de workflow e baixo HITL
 
@@ -96,7 +96,7 @@ Entrega estado compacto entre agentes/modelos/sessões: decisões, evidências, 
 Gerencia feature branches, stacked PRs, retarget, preservação de ancestralidade, backup antes de alinhamento destrutivo e verificação pós-merge. [SKILL.md](skills/github-branch-pr-lifecycle/SKILL.md) · [↑ Índice](#índice-de-skills)
 
 ### `adaptive-model-routing`
-Separa `bounded execution`, `context handoff` e `frontier reasoning`; modelos são adaptadores temporários, não dependências das skills. Evidência inesperada pode escalar o papel sem ampliar autorização. [SKILL.md](skills/adaptive-model-routing/SKILL.md) · [↑ Índice](#índice-de-skills)
+Mantém o contrato geral por papéis (`bounded execution`, `context handoff`, `frontier reasoning`) e adiciona o adaptador padrão do Codex: **Luna High** para leaf/bounded, **Terra Medium** para orquestração/handoff e **Sol High** para alta complexidade. Inclui escalation e de-escalation sem ampliar autorização. [SKILL.md](skills/adaptive-model-routing/SKILL.md) · [↑ Índice](#índice-de-skills)
 
 ### `decision-escalation-control`
 Classifica eventos em `AUTO_CONTINUE`, `HUMAN_REVIEW_RECOMMENDED`, `HUMAN_REVIEW_REQUIRED` e `BLOCKED_UNTIL_REVIEW`. `elevated review` aumenta profundidade, não número de approvals. [SKILL.md](skills/decision-escalation-control/SKILL.md) · [↑ Índice](#índice-de-skills)
@@ -123,6 +123,8 @@ Use $decision-escalation-control para decidir se devemos continuar ou pedir apro
 Use $contract-governed-execution para executar ações de maior risco sob contrato fail-closed.
 Use $knowledge-source-governance para controlar proveniência, freshness e teto de conclusão das fontes.
 ```
+
+No Codex, o catálogo aplica por default o adaptador de `adaptive-model-routing`; não é necessário repetir o modelo desejado em toda invocação de skill.
 
 ## Instalação em OpenCode, Codex e Claude Code
 
@@ -266,6 +268,31 @@ No Codex, use `/skills` ou invoque diretamente:
 $low-hitl-orchestration conduza esta rodada com um único gate humano final.
 ```
 
+#### Roteamento padrão no Codex
+
+Quando a família GPT-5.6 estiver disponível, todas as skills herdam a política de `AGENTS.md` e `adaptive-model-routing`:
+
+| Classe da subtarefa | Default Codex | Reasoning |
+|---|---|---|
+| Leaf / bounded | `gpt-5.6-luna` | `high` |
+| Orquestração / handoff | `gpt-5.6-terra` | `medium` |
+| Alta complexidade / decisão material | `gpt-5.6-sol` | `high` |
+
+Fluxo recomendado:
+
+```text
+Terra Medium decompõe/orquestra
+  ├─ tarefas leaf fechadas → Luna High
+  ├─ integração/handoff    → Terra Medium
+  └─ ambiguidade/materialidade alta → Sol High
+                                   ↓
+                        escopo/critério fechado
+                                   ↓
+                         leaf volta a Luna High
+```
+
+O default é machine-readable em `registry.json > runtime_adapters.codex`. Instruções explícitas do usuário, restrições do host e contratos de risco prevalecem. Se o harness não permitir troca de modelo por subtarefa, a skill mantém a classificação de papel sem alegar uma troca que não ocorreu.
+
 ### 5. Instalação global no Claude Code
 
 Diretório:
@@ -341,6 +368,7 @@ Se uma skill não aparecer:
 - [OpenCode — Agent Skills](https://opencode.ai/docs/skills)
 - [OpenAI — Build skills para ChatGPT e Codex](https://learn.chatgpt.com/docs/build-skills)
 - [OpenAI — Codex](https://openai.com/codex/)
+- [OpenAI — Model guidance GPT-5.6](https://developers.openai.com/api/docs/guides/latest-model)
 - [Claude Code — Extend Claude with skills](https://code.claude.com/docs/en/skills)
 
 ## Sincronização
@@ -378,7 +406,9 @@ Depois do bootstrap de um consumidor, adicionar outra skill ao mesmo repositóri
 - `write-technical-content`;
 - `review-editorial-quality`.
 
-As oito novas skills de workflow/governança são canônicas e ainda não possuem mirror de projeto específico; hosts globais que apontam para `SKILLS/skills` passam a descobri-las após atualização do clone.
+As oito skills de workflow/governança são canônicas e ainda não possuem mirror de projeto específico; hosts globais que apontam para `SKILLS/skills` passam a descobri-las após atualização do clone.
+
+O roteamento Codex é transversal ao catálogo e não exige criar mirrors separados para cada skill.
 
 Consulte também [`AGENTS.md`](AGENTS.md), [`general-skills-status.md`](general-skills-status.md) e [`skills-central-governance`](skills/skills-central-governance/SKILL.md).
 
@@ -387,6 +417,15 @@ Consulte também [`AGENTS.md`](AGENTS.md), [`general-skills-status.md`](general-
 O catálogo usa SemVer: **PATCH** para correções compatíveis, **MINOR** para nova capacidade compatível e **MAJOR** para mudança incompatível de contrato. A versão deve constar no README e no `registry.json`.
 
 ## Histórico
+
+### 2026-08-21 — default de modelos no Codex
+- `adaptive-model-routing` evoluída para **1.1.0**;
+- `skills-central-governance` evoluída para **1.2.0**;
+- adotado `gpt-5.6-luna` com reasoning `high` para tarefas leaf/bounded e escopo fechado;
+- adotado `gpt-5.6-terra` com reasoning `medium` para orquestração, síntese e handoff;
+- adotado `gpt-5.6-sol` com reasoning `high` para alta complexidade, arquitetura, investigação e decisões materiais;
+- adicionado escalation/de-escalation para retornar tarefas mecânicas a tiers mais eficientes após fechamento do escopo;
+- política registrada em `AGENTS.md`, `adaptive-model-routing` e `registry.json > runtime_adapters.codex`, evitando duplicação em cada skill.
 
 ### 2026-08-21 — workflow geral e baixo HITL
 - promovidas oito skills gerais a partir de estratégias do `cyber-skills-framework`;

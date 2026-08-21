@@ -24,6 +24,30 @@ Interrompa antes do `PASS` somente quando houver decisão material, alteração 
 
 `elevated review` aumenta a profundidade do gate final; não cria approvals adicionais.
 
+## Roteamento padrão de modelos no Codex
+
+Quando qualquer skill deste catálogo for executada no Codex, componha `adaptive-model-routing` como política transversal e use o seguinte default quando a família GPT-5.6 estiver disponível:
+
+```text
+leaf / bounded        → gpt-5.6-luna  + reasoning high
+orchestration/handoff → gpt-5.6-terra + reasoning medium
+high complexity       → gpt-5.6-sol   + reasoning high
+```
+
+Aplique estas regras:
+
+- **Luna High**: tarefas leaf com escopo bem definido, transformação, implementação delimitada, testes e validações estruturais;
+- **Terra Medium**: decomposição, orquestração, integração de resultados, compactação de contexto e handoff entre agentes/modelos;
+- **Sol High**: arquitetura, investigação ambígua, debugging complexo, raciocínio profundo, validação material e QA de alto impacto;
+- comece pelo menor tier suficiente para a subtarefa e escale quando a evidência aumentar complexidade, risco, escopo, causalidade ou materialidade;
+- após Sol fechar hipóteses, interfaces e critérios de aceite, devolva execução mecânica/leaf a Luna quando apropriado;
+- Terra coordena, mas não substitui automaticamente Sol em decisões materiais;
+- maior capacidade cognitiva não amplia autorização operacional;
+- instrução explícita do usuário, restrição do host ou contrato de risco prevalece sobre este default;
+- se o harness não permitir seleção de modelo/effort por subtarefa, preserve a classificação de papel e não alegue troca de modelo que não ocorreu.
+
+Não replique essa tabela em todas as skills. O contrato global vive aqui e os detalhes de escalonamento/de-escalation vivem em `skills/adaptive-model-routing/SKILL.md`, evitando drift entre definições.
+
 ## Governança do catálogo
 
 Ao criar ou alterar uma skill geral:
@@ -49,7 +73,7 @@ Quando aplicáveis, componha:
 - `decision-escalation-control` — decide quando parar;
 - `context-handoff` — continuidade sem reabrir decisões;
 - `github-branch-pr-lifecycle` — branches/PRs e merges seguros;
-- `adaptive-model-routing` — roteamento por papel, sem acoplamento a modelo;
+- `adaptive-model-routing` — roteamento por papel; no Codex, usa Luna High / Terra Medium / Sol High por default operacional;
 - `contract-governed-execution` — execução de maior risco por contrato fail-closed;
 - `knowledge-source-governance` — proveniência, freshness, corroboration e teto de conclusão.
 
