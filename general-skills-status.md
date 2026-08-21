@@ -24,7 +24,7 @@ Skills específicas de projeto não são promovidas automaticamente. Quando uma 
 | `graphify` | Engenharia de software | 1.0.0 | Canônica |
 | `github-project-repo-sync` | GitHub automation | 1.0.0 | Canônica |
 | `github-project-drift-audit` | GitHub/QA | 1.0.0 | Canônica |
-| `skills-central-governance` | Gestão de skills | 1.0.0 | Canônica |
+| `skills-central-governance` | Gestão de skills | 1.1.0 | Canônica + low-HITL por padrão |
 | `low-hitl-orchestration` | Orquestração | 1.0.0 | Canônica |
 | `batch-quality-gate` | QA automation | 1.0.0 | Canônica |
 | `context-handoff` | Context engineering | 1.0.0 | Canônica |
@@ -81,59 +81,23 @@ Interromper antes do `PASS` somente quando a continuação depende de decisão m
 
 ## Governança de execução por contrato
 
-Para ações de maior risco ou com limites estritos, prefira contratos machine-readable e fail-closed. O contrato deve tornar verificáveis, conforme o domínio:
-
-- escopo e alvos/recursos permitidos;
-- janela temporal;
-- capacidades permitidas e proibidas;
-- limites operacionais;
-- stop conditions;
-- aprovação humana;
-- estado de autorização;
-- evidence/activity ledger.
-
-Ausência de regra crítica não deve virar permissão implícita. Validadores desse contrato devem possuir casos negativos que provem o bloqueio de configurações fail-open.
+Para ações de maior risco ou com limites estritos, prefira contratos machine-readable e fail-closed. O contrato deve tornar verificáveis, conforme o domínio: escopo, janela temporal, capacidades permitidas/proibidas, limites operacionais, stop conditions, aprovação humana, estado de autorização e evidence/activity ledger. Ausência de regra crítica não deve virar permissão implícita.
 
 ## Governança de fontes e evidência
 
-Fontes não devem receber autoridade universal apenas por reputação. Registre e avalie separadamente:
-
-- proveniência/owner;
-- authority class;
-- freshness/TTL;
-- specificity;
-- applicability;
-- corroboration;
-- empirical support;
-- `allowed_outcomes` e `forbidden_outcomes`.
-
-Busca aberta pode descobrir fontes; uma conclusão material deve respeitar o teto de conclusão da fonte e passar pelo workflow de validação adequado. Preserve counterevidence e versões/snapshots quando a reprodutibilidade for relevante.
+Fontes devem ser avaliadas por proveniência, authority, freshness, specificity, applicability, corroboration, empirical support e `allowed_outcomes`/`forbidden_outcomes`. Busca aberta pode descobrir fontes; conclusão material deve respeitar o teto de conclusão da fonte e o workflow de validação aplicável.
 
 ## Política de roteamento de modelos
 
-Skills gerais não devem depender de nomes de modelos. O runtime pode manter adaptadores temporários por workspace/harness, mas deve separar:
-
-- `bounded execution` — extração, transformação, validação estrutural e ações delimitadas;
-- `context handoff` — síntese, compressão e transferência de contexto;
-- `frontier reasoning` — heurística profunda, evidência conflitante e julgamento material de QA.
-
-Evidência inesperada que altere risco, escopo, severidade, causalidade ou decisão material deve escalar para o executor responsável por raciocínio de maior autoridade/capacidade. Modelo mais capaz nunca amplia autorização operacional.
+Skills gerais não devem depender de nomes de modelos. O runtime pode manter adaptadores temporários por workspace/harness, mas deve separar `bounded execution`, `context handoff` e `frontier reasoning`. Evidência inesperada que altere risco, escopo, severidade, causalidade ou decisão material deve escalar capacidade sem ampliar autorização operacional.
 
 ## Política de nomenclatura editorial
 
 Nas skills editoriais, nomes de campos e etapas devem ser compreensíveis sem glossário. Termos acadêmicos, metafóricos, abreviações e códigos podem existir internamente para rastreabilidade, mas não devem ser a linguagem principal mostrada ao usuário quando houver uma expressão direta equivalente.
 
-Exemplos: `motivo textual` → **finalidade do texto**; `transformação do leitor` → **resultado esperado da leitura**; `matriz paragrafal` → **plano de parágrafos**; `handoff` → **instruções para a próxima etapa** quando a interação for editorial e voltada ao usuário final.
-
 ## Critério de maturidade
 
-**Canônica** significa que a skill possui definição central, versão registrada e documentação navegável. Isso não significa, por si só, que todas as skills tenham passado por bateria comparativa de evals em produção.
-
-Para skills de workflow, o contrato deve explicitar gatilhos, estados de HITL, condições de parada, saída esperada e origem/proveniência.
-
-Para skills de QA/gate, validadores críticos devem possuir casos negativos capazes de provar que o próprio gate não aceita enfraquecimentos óbvios do contrato.
-
-Para governança de execução, schemas e ledgers devem ser fail-closed nas fronteiras materiais. Para governança de conhecimento, fontes devem declarar freshness/corroboration e limites de conclusão.
+**Canônica** significa que a skill possui definição central, versão registrada e documentação navegável. Para skills de workflow, o contrato deve explicitar gatilhos, estados de HITL, condições de parada, saída esperada e origem/proveniência. Para skills de QA/gate, validadores críticos devem possuir casos negativos. Para governança de execução, schemas e ledgers devem ser fail-closed nas fronteiras materiais. Para governança de conhecimento, fontes devem declarar freshness/corroboration e limites de conclusão.
 
 ## Política de sincronização
 
