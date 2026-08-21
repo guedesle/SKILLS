@@ -206,6 +206,22 @@
       "path": "skills/decision-escalation-control/SKILL.md",
       "origin": "generalização dos gates de escalation e elevated review de guedesle/cyber-skills-framework",
       "mirrors": []
+    },
+    {
+      "name": "contract-governed-execution",
+      "version": "1.0.0",
+      "category": "workflow-governance",
+      "path": "skills/contract-governed-execution/SKILL.md",
+      "origin": "generalização dos contratos machine-readable fail-closed de guedesle/cyber-skills-framework",
+      "mirrors": []
+    },
+    {
+      "name": "knowledge-source-governance",
+      "version": "1.0.0",
+      "category": "knowledge-governance",
+      "path": "skills/knowledge-source-governance/SKILL.md",
+      "origin": "generalização do Cyber Knowledge Plane de guedesle/cyber-skills-framework",
+      "mirrors": []
     }
   ]
 }
