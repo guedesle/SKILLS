@@ -15,6 +15,7 @@ FILE_KIND = {
     "behavior.yaml": "behavior",
     "portability.yaml": "portability",
 }
+REQUIRED_EVAL_FILES = ("trigger-positive.yaml", "trigger-negative.yaml", "behavior.yaml")
 ALLOWED_TOP_LEVEL = {"schema_version", "skill", "kind", "cases"}
 ALLOWED_CASE_KEYS = {"id", "input", "expect", "classification", "notes"}
 
@@ -113,11 +114,24 @@ def iter_eval_files(root: Path, selected: set[str]) -> list[tuple[Path, str, str
 def validate_repository(root: Path = ROOT, selected: set[str] | None = None) -> list[str]:
     selected = selected or set()
     errors: list[str] = []
-    known = {p.name for p in (root / "skills").iterdir() if p.is_dir()} if (root / "skills").is_dir() else set()
+    skills_root = root / "skills"
+    known = {p.name for p in skills_root.iterdir() if p.is_dir()} if skills_root.is_dir() else set()
     unknown = selected - known
     if unknown:
         errors.append(f"skills não encontradas: {', '.join(sorted(unknown))}")
         return errors
+
+    skills_to_check = sorted(selected or known)
+    for skill in skills_to_check:
+        skill_dir = skills_root / skill
+        eval_dir = skill_dir / "evals"
+        if not eval_dir.is_dir():
+            continue
+        if not (skill_dir / "SKILL.md").is_file():
+            errors.append(f"{skill}: SKILL.md ausente para pacote com evals")
+        for required in REQUIRED_EVAL_FILES:
+            if not (eval_dir / required).is_file():
+                errors.append(f"{skill}: eval obrigatório ausente: {required}")
 
     for path, expected_kind, skill in iter_eval_files(root, selected):
         if expected_kind == "__unsupported__":
