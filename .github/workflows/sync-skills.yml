@@ -9,6 +9,7 @@ on:
       - "tests/**"
       - "requirements-dev.txt"
       - "registry.json"
+      - "plugin-catalog.json"
       - "README.md"
       - "general-skills-status.md"
       - "AGENTS.md"
@@ -19,6 +20,7 @@ on:
       - "scripts/sync_consumer.py"
       - "scripts/bootstrap_consumers.py"
       - "scripts/package_chatgpt_skills.py"
+      - "scripts/package_plugins.py"
       - "templates/sync-central-skills.yml"
       - "CHATGPT.md"
       - ".github/workflows/mirror-consumer.yml"
@@ -30,6 +32,7 @@ on:
       - "tests/**"
       - "requirements-dev.txt"
       - "registry.json"
+      - "plugin-catalog.json"
       - "README.md"
       - "general-skills-status.md"
       - "AGENTS.md"
@@ -40,6 +43,7 @@ on:
       - "scripts/sync_consumer.py"
       - "scripts/bootstrap_consumers.py"
       - "scripts/package_chatgpt_skills.py"
+      - "scripts/package_plugins.py"
       - "templates/sync-central-skills.yml"
       - "CHATGPT.md"
       - ".github/workflows/mirror-consumer.yml"
@@ -66,6 +70,8 @@ jobs:
         run: python scripts/validate_skill_evals.py
       - name: Validate ChatGPT packages
         run: python scripts/package_chatgpt_skills.py --check
+      - name: Validate skills-only plugin catalog
+        run: python scripts/package_plugins.py --check
       - name: Compile utilities
         run: python -m py_compile scripts/*.py
       - name: Smoke test ChatGPT bundles
@@ -95,6 +101,49 @@ jobs:
                       raise SystemExit(f'path inseguro no bundle: {bundle.name}')
           print(f'ChatGPT bundle smoke PASS: {len(bundles)} skills')
           PY
+      - name: Build and smoke test skills-only plugin
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/package_plugins.py --output /tmp/skills-plugins
+          python - <<'PY'
+          import json
+          import zipfile
+          from pathlib import Path
+
+          root = Path('/tmp/skills-plugins')
+          manifest = json.loads((root / 'manifest.json').read_text(encoding='utf-8'))
+          plugins = manifest['plugins']
+          if len(plugins) != 1:
+              raise SystemExit(f'esperado 1 plugin, encontrado {len(plugins)}')
+          item = plugins[0]
+          plugin_root = root / 'marketplace' / 'plugins' / item['name']
+          plugin_manifest = json.loads((plugin_root / '.codex-plugin' / 'plugin.json').read_text(encoding='utf-8'))
+          if plugin_manifest.get('skills') != './skills/':
+              raise SystemExit('manifest do plugin não aponta para ./skills/')
+          if len(item['skills']) != 17:
+              raise SystemExit(f'esperadas 17 skills no plugin, encontradas {len(item["skills"])}')
+          for skill in item['skills']:
+              if not (plugin_root / 'skills' / skill['name'] / 'SKILL.md').is_file():
+                  raise SystemExit(f'skill ausente no plugin: {skill["name"]}')
+          marketplace = json.loads((root / 'marketplace' / '.agents' / 'plugins' / 'marketplace.json').read_text(encoding='utf-8'))
+          if marketplace['plugins'][0]['source']['path'] != f'./plugins/{item["name"]}':
+              raise SystemExit('marketplace path inválido')
+          archive = root / item['archive']
+          with zipfile.ZipFile(archive) as zf:
+              names = zf.namelist()
+              if '.codex-plugin/plugin.json' not in names:
+                  raise SystemExit('plugin.json ausente no ZIP')
+              if any(name.startswith('/') or '..' in Path(name).parts for name in names):
+                  raise SystemExit('path inseguro no ZIP do plugin')
+          print(f'Skills-only plugin smoke PASS: {item["name"]} com {len(item["skills"])} skills')
+          PY
+      - name: Upload skills-only plugin artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: guedesle-governed-workflow
+          path: /tmp/skills-plugins
+          retention-days: 14
       - name: Smoke test generic pull resolver
         shell: bash
         run: |
