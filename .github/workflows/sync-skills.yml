@@ -101,7 +101,7 @@ jobs:
                       raise SystemExit(f'path inseguro no bundle: {bundle.name}')
           print(f'ChatGPT bundle smoke PASS: {len(bundles)} skills')
           PY
-      - name: Build and smoke test skills-only plugin
+      - name: Build and smoke test skills-only plugins
         shell: bash
         run: |
           set -euo pipefail
@@ -113,35 +113,68 @@ jobs:
 
           root = Path('/tmp/skills-plugins')
           manifest = json.loads((root / 'manifest.json').read_text(encoding='utf-8'))
+          catalog = json.loads(Path('plugin-catalog.json').read_text(encoding='utf-8'))
+          if manifest.get('distribution_mode') != 'local-only':
+              raise SystemExit('plugin artifact não está marcado como local-only')
+
           plugins = manifest['plugins']
-          if len(plugins) != 1:
-              raise SystemExit(f'esperado 1 plugin, encontrado {len(plugins)}')
-          item = plugins[0]
-          plugin_root = root / 'marketplace' / 'plugins' / item['name']
-          plugin_manifest = json.loads((plugin_root / '.codex-plugin' / 'plugin.json').read_text(encoding='utf-8'))
-          if plugin_manifest.get('skills') != './skills/':
-              raise SystemExit('manifest do plugin não aponta para ./skills/')
-          if len(item['skills']) != 17:
-              raise SystemExit(f'esperadas 17 skills no plugin, encontradas {len(item["skills"])}')
-          for skill in item['skills']:
-              if not (plugin_root / 'skills' / skill['name'] / 'SKILL.md').is_file():
-                  raise SystemExit(f'skill ausente no plugin: {skill["name"]}')
-          marketplace = json.loads((root / 'marketplace' / '.agents' / 'plugins' / 'marketplace.json').read_text(encoding='utf-8'))
-          if marketplace['plugins'][0]['source']['path'] != f'./plugins/{item["name"]}':
-              raise SystemExit('marketplace path inválido')
-          archive = root / item['archive']
-          with zipfile.ZipFile(archive) as zf:
-              names = zf.namelist()
-              if '.codex-plugin/plugin.json' not in names:
-                  raise SystemExit('plugin.json ausente no ZIP')
-              if any(name.startswith('/') or '..' in Path(name).parts for name in names):
-                  raise SystemExit('path inseguro no ZIP do plugin')
-          print(f'Skills-only plugin smoke PASS: {item["name"]} com {len(item["skills"])} skills')
+          expected_plugins = {item['name']: item for item in catalog['plugins']}
+          if {item['name'] for item in plugins} != set(expected_plugins):
+              raise SystemExit('plugins gerados divergem de plugin-catalog.json')
+
+          marketplace = json.loads(
+              (root / 'marketplace' / '.agents' / 'plugins' / 'marketplace.json').read_text(encoding='utf-8')
+          )
+          marketplace_plugins = {item['name']: item for item in marketplace['plugins']}
+          if set(marketplace_plugins) != set(expected_plugins):
+              raise SystemExit('marketplace não contém todos os plugins declarados')
+
+          for item in plugins:
+              expected = expected_plugins[item['name']]
+              expected_skills = expected['skills']
+              actual_skills = [skill['name'] for skill in item['skills']]
+              if actual_skills != expected_skills:
+                  raise SystemExit(
+                      f'skills divergentes em {item["name"]}: esperado {expected_skills}, encontrado {actual_skills}'
+                  )
+
+              plugin_root = root / 'marketplace' / 'plugins' / item['name']
+              plugin_manifest = json.loads(
+                  (plugin_root / '.codex-plugin' / 'plugin.json').read_text(encoding='utf-8')
+              )
+              if plugin_manifest.get('skills') != './skills/':
+                  raise SystemExit(f'manifest inválido em {item["name"]}: skills != ./skills/')
+
+              source_path = marketplace_plugins[item['name']]['source']['path']
+              if source_path != f'./plugins/{item["name"]}':
+                  raise SystemExit(f'marketplace path inválido em {item["name"]}: {source_path}')
+
+              for skill in item['skills']:
+                  if not (plugin_root / 'skills' / skill['name'] / 'SKILL.md').is_file():
+                      raise SystemExit(f'skill ausente em {item["name"]}: {skill["name"]}')
+
+              archive = root / item['archive']
+              if not archive.is_file():
+                  raise SystemExit(f'ZIP ausente: {archive.name}')
+              with zipfile.ZipFile(archive) as zf:
+                  names = zf.namelist()
+                  if '.codex-plugin/plugin.json' not in names:
+                      raise SystemExit(f'plugin.json ausente no ZIP {archive.name}')
+                  if any(name.startswith('/') or '..' in Path(name).parts for name in names):
+                      raise SystemExit(f'path inseguro no ZIP {archive.name}')
+                  for skill_name in expected_skills:
+                      if f'skills/{skill_name}/SKILL.md' not in names:
+                          raise SystemExit(f'{skill_name} ausente no ZIP {archive.name}')
+
+          print(
+              'Skills-only plugin smoke PASS: '
+              + ', '.join(f'{item["name"]} ({len(item["skills"])} skills)' for item in plugins)
+          )
           PY
-      - name: Upload skills-only plugin artifact
+      - name: Upload local plugin marketplace artifact
         uses: actions/upload-artifact@v4
         with:
-          name: guedesle-governed-workflow
+          name: guedesle-skills-local-marketplace
           path: /tmp/skills-plugins
           include-hidden-files: true
           retention-days: 14
