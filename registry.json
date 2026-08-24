@@ -4,7 +4,7 @@
   "canonical_path_pattern": "skills/{name}/SKILL.md",
   "versioning": "semver",
   "sync_model": "central-with-generic-pull-mirrors-and-explicit-push-fallback",
-  "updated_at": "2026-08-23",
+  "updated_at": "2026-08-24",
   "pull_mirror": {
     "reusable_workflow": "guedesle/SKILLS/.github/workflows/mirror-consumer.yml@main",
     "consumer_workflow": ".github/workflows/sync-central-skills.yml",
@@ -16,25 +16,18 @@
     "project_specific_skills_are_not_auto_promoted": true,
     "mirror_updates_are_non_destructive_outside_managed_paths": true,
     "prefer_pull_mirrors_when_central_repository_is_public": true,
-    "consumer_workflow_is_generic_per_repository": true
+    "consumer_workflow_is_generic_per_repository": true,
+    "deterministic_failures_do_not_require_hitl": true,
+    "declared_evals_do_not_imply_model_execution": true
   },
   "runtime_adapters": {
     "codex": {
       "routing_skill": "adaptive-model-routing",
       "family": "gpt-5.6",
       "defaults": {
-        "bounded_execution_leaf": {
-          "model": "gpt-5.6-luna",
-          "reasoning_effort": "high"
-        },
-        "context_handoff_orchestration": {
-          "model": "gpt-5.6-terra",
-          "reasoning_effort": "medium"
-        },
-        "frontier_reasoning_high_complexity": {
-          "model": "gpt-5.6-sol",
-          "reasoning_effort": "high"
-        }
+        "bounded_execution_leaf": {"model": "gpt-5.6-luna", "reasoning_effort": "high"},
+        "context_handoff_orchestration": {"model": "gpt-5.6-terra", "reasoning_effort": "medium"},
+        "frontier_reasoning_high_complexity": {"model": "gpt-5.6-sol", "reasoning_effort": "high"}
       },
       "policy": {
         "start_with_minimum_sufficient_tier": true,
@@ -59,7 +52,15 @@
     {"name":"graphify","version":"1.0.0","category":"software-engineering","path":"skills/graphify/SKILL.md","origin":"generalização de workflow Graphify","legacy_source":{"repository":"guedesle/SieDOE","path":".agents/skills/graphify/SKILL.md","blob_sha":"6c84720bb8bd2a2aadc7b4425c8c89b8c1bc1751"},"mirrors":[]},
     {"name":"github-project-repo-sync","version":"1.0.0","category":"github-automation","path":"skills/github-project-repo-sync/SKILL.md","origin":"generalização do reconciliador Project v2 ↔ repositório","legacy_source":{"repository":"guedesle/projeto-pos-ibmec","path":".agents/skills/github-project-repo-sync/SKILL.md","blob_sha":"a7f9adce981b088ce38573a9213bde38c51a05ba"},"mirrors":[]},
     {"name":"github-project-drift-audit","version":"1.0.0","category":"github-automation","path":"skills/github-project-drift-audit/SKILL.md","origin":"generalização da auditoria desired/observed/live","legacy_source":{"repository":"guedesle/projeto-pos-ibmec","path":".agents/skills/github-project-drift-audit/SKILL.md","blob_sha":"f881342a96a522ad9f27ce4aaa48624898194b6d"},"mirrors":[]},
-    {"name":"skills-central-governance","version":"1.2.0","category":"skill-management","path":"skills/skills-central-governance/SKILL.md","origin":"guedesle/SKILLS","mirrors":[]},
+    {"name":"skills-central-governance","version":"1.3.0","category":"skill-management","path":"skills/skills-central-governance/SKILL.md","origin":"guedesle/SKILLS","mirrors":[]},
+    {"name":"skill-development-lifecycle","version":"1.0.0","category":"skill-management","path":"skills/skill-development-lifecycle/SKILL.md","origin":"guedesle/SKILLS / governed skill factory","mirrors":[]},
+    {"name":"skill-authoring","version":"1.0.0","category":"skill-management","path":"skills/skill-authoring/SKILL.md","origin":"guedesle/SKILLS / governed skill factory","mirrors":[]},
+    {"name":"skill-validator","version":"1.0.0","category":"skill-management","path":"skills/skill-validator/SKILL.md","origin":"guedesle/SKILLS / governed skill factory","mirrors":[]},
+    {"name":"skill-evaluator","version":"1.0.0","category":"skill-management","path":"skills/skill-evaluator/SKILL.md","origin":"guedesle/SKILLS / governed skill factory","mirrors":[]},
+    {"name":"skill-portability-audit","version":"1.0.0","category":"skill-management","path":"skills/skill-portability-audit/SKILL.md","origin":"guedesle/SKILLS / governed skill factory","mirrors":[]},
+    {"name":"skill-promotion","version":"1.0.0","category":"skill-management","path":"skills/skill-promotion/SKILL.md","origin":"guedesle/SKILLS / governed skill factory","mirrors":[]},
+    {"name":"skill-distribution","version":"1.0.0","category":"skill-management","path":"skills/skill-distribution/SKILL.md","origin":"guedesle/SKILLS / governed skill factory","mirrors":[]},
+    {"name":"chatgpt-governed-workflow","version":"1.0.0","category":"workflow-orchestration","path":"skills/chatgpt-governed-workflow/SKILL.md","origin":"guedesle/SKILLS / low-HITL meta-workflow","mirrors":[]},
     {"name":"low-hitl-orchestration","version":"1.0.0","category":"workflow-orchestration","path":"skills/low-hitl-orchestration/SKILL.md","origin":"generalização do low-HITL batch workflow de guedesle/cyber-skills-framework","mirrors":[]},
     {"name":"batch-quality-gate","version":"1.0.0","category":"qa-automation","path":"skills/batch-quality-gate/SKILL.md","origin":"generalização do LOCAL GATE de guedesle/cyber-skills-framework","mirrors":[]},
     {"name":"context-handoff","version":"1.0.0","category":"context-engineering","path":"skills/context-handoff/SKILL.md","origin":"generalização dos handoffs multiagente/modelo de guedesle/cyber-skills-framework","mirrors":[]},
