@@ -22,6 +22,7 @@ Skills de projeto não são promovidas automaticamente: passam por auditoria de 
 | `improve-accessible-writing` | Acessibilidade | 1.0.0 | Canônica |
 | `assess-editorial-alignment` | Governança editorial | 1.0.0 | Canônica |
 | `prompt-generator` | Prompt engineering | 1.0.0 | Canônica + evals |
+| `egba-licitacoes-contratos` | Governança de contratações | 1.0.0 | Canônica + evals + GLOBAL_READY |
 | `graphify` | Engenharia de software | 1.0.0 | Canônica |
 | `github-project-repo-sync` | GitHub automation | 1.0.0 | Canônica |
 | `github-project-drift-audit` | GitHub/QA | 1.0.0 | Canônica |
@@ -43,7 +44,7 @@ Skills de projeto não são promovidas automaticamente: passam por auditoria de 
 | `contract-governed-execution` | Governança de execução | 1.0.0 | Canônica |
 | `knowledge-source-governance` | Governança de conhecimento | 1.0.0 | Canônica |
 
-**Total: 30 skills canônicas.**
+**Total: 31 skills canônicas.**
 
 ## Fábrica governada de skills
 
@@ -113,7 +114,7 @@ Falhas mecânicas/determinísticas não geram HITL. Escalonar somente decisão m
 7. merge no catálogo central;
 8. distribuir a partir da fonte canônica.
 
-Capacidades previamente promovidas continuam registrando suas origens: `editor-agent`, `SieDOE`, PFC IBMEC e `cyber-skills-framework`.
+Capacidades previamente promovidas continuam registrando suas origens: `editor-agent`, `SieDOE`, PFC IBMEC e `cyber-skills-framework`. A `egba-licitacoes-contratos` foi promovida como capacidade institucional de domínio, classificada `GLOBAL_READY`, preservando guardrails de freshness e validação jurídica.
 
 ## Distribuição
 

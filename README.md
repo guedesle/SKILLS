@@ -16,6 +16,7 @@ Repositório canônico de **skills gerais e reutilizáveis**. A fonte de verdade
 | [`improve-accessible-writing`](skills/improve-accessible-writing/SKILL.md) | **1.0.0** | Acessibilidade | Clareza e leitura em tela |
 | [`assess-editorial-alignment`](skills/assess-editorial-alignment/SKILL.md) | **1.0.0** | Governança | Aderência a princípios editoriais |
 | [`prompt-generator`](skills/prompt-generator/SKILL.md) | **1.0.0** | Prompt engineering | Prompts testáveis, padrões e evals |
+| [`egba-licitacoes-contratos`](skills/egba-licitacoes-contratos/SKILL.md) | **1.0.0** | Governança de contratações | Regulamento EGBA, controles, prazos, limites e exceções |
 | [`graphify`](skills/graphify/SKILL.md) | **1.0.0** | Engenharia | Navegação de código orientada por grafo |
 | [`github-project-repo-sync`](skills/github-project-repo-sync/SKILL.md) | **1.0.0** | GitHub | Reconciliação Project v2 ↔ repositório |
 | [`github-project-drift-audit`](skills/github-project-drift-audit/SKILL.md) | **1.0.0** | GitHub/QA | Auditoria desired/observed/live |
@@ -295,6 +296,7 @@ A mudança geral nasce no catálogo central, nunca no mirror.
 
 ## Histórico
 
+- **24/08/2026** — promovida `egba-licitacoes-contratos` 1.0.0 a partir da PR #7, preservando o pacote original e adicionando proveniência, auditoria `GLOBAL_READY` e evals declarativos.
 - **24/08/2026** — `skill-distribution` 1.1.0 e primeiro plugin skills-only `guedesle-governed-workflow`, gerado a partir do catálogo canônico com marketplace local derivado.
 - **24/08/2026** — `adaptive-model-routing` 1.1.1 após correção de frontmatter YAML legado.
 - **24/08/2026** — criada a fábrica governada: `chatgpt-governed-workflow`, `skill-development-lifecycle`, authoring, validator, evaluator, portability, promotion e distribution; `skills-central-governance` 1.3.0; parser YAML real, eval schema e auditoria de portabilidade.

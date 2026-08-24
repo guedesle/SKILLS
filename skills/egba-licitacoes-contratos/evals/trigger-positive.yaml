@@ -1,0 +1,10 @@
+schema_version: 1
+skill: egba-licitacoes-contratos
+kind: trigger_positive
+cases:
+  - id: positive-1
+    input: qual artigo do Regulamento de Licitações e Contratos da EGBA trata de dispensa por valor?
+  - id: positive-2
+    input: estruture os controles de um processo de contratação direta da EGBA e indique os artigos relevantes
+  - id: positive-3
+    input: quais são os deveres de gestor e fiscal na execução de um contrato da EGBA?
