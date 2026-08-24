@@ -1,6 +1,6 @@
 # Estado das skills gerais
 
-Atualizado em 21 de agosto de 2026.
+Atualizado em 23 de agosto de 2026.
 
 ## Fonte canônica
 
@@ -21,6 +21,7 @@ Skills específicas de projeto não são promovidas automaticamente. Quando uma 
 | `review-editorial-quality` | QA | 1.0.0 | Canônica + mirror homologado |
 | `improve-accessible-writing` | Acessibilidade | 1.0.0 | Canônica |
 | `assess-editorial-alignment` | Governança editorial | 1.0.0 | Canônica |
+| `prompt-generator` | Prompt engineering | 1.0.0 | Canônica + padrões + evals + blueprint |
 | `graphify` | Engenharia de software | 1.0.0 | Canônica |
 | `github-project-repo-sync` | GitHub automation | 1.0.0 | Canônica |
 | `github-project-drift-audit` | GitHub/QA | 1.0.0 | Canônica |
@@ -37,6 +38,8 @@ Skills específicas de projeto não são promovidas automaticamente. Quando uma 
 ## Origem e promoção
 
 As nove skills editoriais foram generalizadas a partir das capacidades do `editor-agent`, removendo dependências de runtime, identidade específica e schemas exclusivos.
+
+`prompt-generator` foi sintetizada com a abordagem Book-to-Skill a partir de **Fundamentos de Prompt Engineering** e **Prompt Engineering for LLMs**, de John Berryman e Albert Ziegler. A promoção converteu os materiais em regras operacionais, padrões de decisão, anti-padrões, avaliação e templates reutilizáveis, sem incorporar passagens extensas das fontes. A skill é agnóstica de fornecedor/modelo e adapta técnicas históricas de raciocínio para artefatos verificáveis sem solicitar cadeia de pensamento privada.
 
 `graphify` foi generalizada a partir do workflow existente no `SieDOE`, mantendo a regra essencial: usar o grafo para descoberta e confirmar detalhes diretamente no código antes de editar.
 
@@ -119,7 +122,7 @@ Nas skills editoriais, nomes de campos e etapas devem ser compreensíveis sem gl
 
 ## Critério de maturidade
 
-**Canônica** significa que a skill possui definição central, versão registrada e documentação navegável. Para skills de workflow, o contrato deve explicitar gatilhos, estados de HITL, condições de parada, saída esperada e origem/proveniência. Para skills de QA/gate, validadores críticos devem possuir casos negativos. Para governança de execução, schemas e ledgers devem ser fail-closed nas fronteiras materiais. Para governança de conhecimento, fontes devem declarar freshness/corroboration e limites de conclusão. Para adaptadores de modelos, defaults concretos devem manter separação entre papel, capacidade, reasoning effort e autorização.
+**Canônica** significa que a skill possui definição central, versão registrada e documentação navegável. Para skills de workflow, o contrato deve explicitar gatilhos, estados de HITL, condições de parada, saída esperada e origem/proveniência. Para skills de QA/gate, validadores críticos devem possuir casos negativos. Para governança de execução, schemas e ledgers devem ser fail-closed nas fronteiras materiais. Para governança de conhecimento, fontes devem declarar freshness/corroboration e limites de conclusão. Para adaptadores de modelos, defaults concretos devem manter separação entre papel, capacidade, reasoning effort e autorização. Para `prompt-generator`, maturidade inclui contrato de tarefa, seleção explícita de padrão, tratamento de contexto, formato de saída e pelo menos um caminho de avaliação/refinamento para uso recorrente.
 
 ## Política de sincronização
 
@@ -152,6 +155,7 @@ O default de modelos do Codex não exige mirror individual por skill porque é p
 ## Próxima evolução de qualidade
 
 - adicionar evals comparativos para as skills de workflow;
+- criar fixtures de regressão para `prompt-generator` cobrindo zero-shot, few-shot, RAG, structured output e tool routing;
 - medir número de HITLs evitados versus reversões/erros materiais;
 - testar handoffs entre Luna, Terra e Sol com métricas de perda de contexto;
 - testar stacked PR e divergência local em fixtures controladas;
