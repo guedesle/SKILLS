@@ -5,7 +5,7 @@
 ## Sinais avaliados
 
 - nenhum path absoluto Windows/POSIX;
-- nenhum endpoint `localhost` ou hostname privado;
+- nenhum endpoint de loopback ou hostname privado;
 - nenhum path de skill específico de projeto (`.agents/.claude/.opencode`);
 - nenhum ID local, schema operacional ou dependência de repositório necessária para executar a capacidade;
 - o nome EGBA e o Regulamento de Licitações e Contratos são o próprio domínio da skill, não uma dependência acidental de projeto.

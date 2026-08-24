@@ -7,9 +7,11 @@ description: "Aplique o Regulamento de Licitações e Contratos da EGBA em plane
 
 # Regulamento de Licitações e Contratos da EGBA
 
-**Fonte:** Regulamento de Licitações e Contratos da EGBA (PDF, 140 páginas; versão fornecida na sessão)  
+**Fonte:** Regulamento de Licitações e Contratos da EGBA (PDF oficial, 140 páginas; snapshot verificado em 24/08/2026)
 **Base normativa indicada na fonte:** Lei Federal nº 13.303/2016, Decreto Estadual nº 18.471/2018 e normas correlatas.  
 **Skill:** 1.0.0 | **Gerada em:** 2026-08-23
+
+URL, SHA-256, metadados e limites de vigência constam em [references/source-provenance.md](references/source-provenance.md). A data formal de publicação não foi comprovada no próprio PDF.
 
 ## Como usar
 
@@ -68,6 +70,7 @@ Alterações exigem motivação, economicidade, anuência quando cabível e term
 4. Quando houver conflito entre contrato e edital/anexos, aplique a condição licitada, preservada a boa-fé, conforme art. 174.
 5. Em matéria de sanção, preserve contraditório, ampla defesa, proporcionalidade, razoabilidade, motivação e competência decisória.
 6. Diferencie `sobrepreço` (preço acima do referencial) de `superfaturamento` (dano ao patrimônio decorrente, por exemplo, de medição indevida, deficiência, desequilíbrio ou reajuste irregular; arts. 6º e 260).
+7. Antes de orientação conclusiva em nível de artigo, valor, prazo ou alçada, verifique a fonte oficial indicada na proveniência. Se estiver indisponível ou se o arquivo divergir do hash registrado, limite a resposta à triagem e solicite validação documental atualizada.
 
 ## Índice de capítulos
 
@@ -90,4 +93,4 @@ Alterações exigem motivação, economicidade, anuência quando cabível e term
 
 ## Limites da fonte
 
-O conteúdo foi sintetizado a partir do PDF fornecido, sem reproduzir o texto integral. A fonte extraída tinha 140 páginas e não registrou imagens descartadas. Para aplicação institucional, confira a versão oficial publicada, atos normativos internos, níveis de alçada (art. 268), legislação superveniente e orientação da Procuradoria Jurídica.
+O conteúdo foi sintetizado a partir de um PDF de 140 páginas, posteriormente reconciliado com o snapshot oficial registrado na proveniência, sem reproduzir o texto integral. Essa reconciliação não comprova sozinha a data formal de publicação nem a vigência atual. Para aplicação institucional, confira a publicação oficial vigente, atos normativos internos, níveis de alçada (art. 268), legislação superveniente e orientação da Procuradoria Jurídica.
