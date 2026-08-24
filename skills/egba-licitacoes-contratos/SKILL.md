@@ -8,7 +8,7 @@ description: "Aplique o Regulamento de Licitações e Contratos da EGBA em plane
 # Regulamento de Licitações e Contratos da EGBA
 
 **Fonte:** Regulamento de Licitações e Contratos da EGBA (PDF oficial, 140 páginas; snapshot verificado em 24/08/2026)
-**Base normativa indicada na fonte:** Lei Federal nº 13.303/2016, Decreto Estadual nº 18.471/2018 e normas correlatas.  
+**Base normativa indicada na fonte:** Lei Federal nº 13.303/2016, Decreto Estadual nº 18.471/2018 e normas correlatas.
 **Skill:** 1.0.0 | **Gerada em:** 2026-08-23
 
 URL, SHA-256, metadados e limites de vigência constam em [references/source-provenance.md](references/source-provenance.md). A data formal de publicação não foi comprovada no próprio PDF.
