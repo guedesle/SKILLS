@@ -1,0 +1,10 @@
+schema_version: 1
+skill: skill-authoring
+kind: trigger_negative
+cases:
+  - id: negative-1
+    input: apenas valide a sintaxe desta skill
+  - id: negative-2
+    input: promova a skill pronta para o catálogo
+  - id: negative-3
+    input: gere o zip da skill já validada

@@ -1,0 +1,10 @@
+schema_version: 1
+skill: skill-authoring
+kind: trigger_positive
+cases:
+  - id: positive-1
+    input: crie uma nova skill para revisar contratos de API
+  - id: positive-2
+    input: refatore este SKILL.md para separar gatilhos e saídas
+  - id: positive-3
+    input: transforme este comportamento reutilizável em uma Agent Skill
