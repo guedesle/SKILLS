@@ -1,0 +1,10 @@
+schema_version: 1
+skill: skill-distribution
+kind: trigger_positive
+cases:
+  - id: positive-1
+    input: empacote esta skill validada para ChatGPT
+  - id: positive-2
+    input: instale a skill canônica globalmente no Codex quando possível
+  - id: positive-3
+    input: sincronize esta skill validada com os consumidores declarados

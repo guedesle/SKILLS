@@ -1,0 +1,10 @@
+schema_version: 1
+skill: skill-promotion
+kind: trigger_positive
+cases:
+  - id: positive-1
+    input: promova esta skill de projeto para o catálogo global
+  - id: positive-2
+    input: extraia a parte reutilizável e registre no SKILLS
+  - id: positive-3
+    input: generalize esta skill local preservando o adaptador do projeto

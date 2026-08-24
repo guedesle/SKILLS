@@ -1,0 +1,10 @@
+schema_version: 1
+skill: skill-distribution
+kind: behavior
+cases:
+  - id: behavior-1
+    input: empacote esta skill validada para ChatGPT
+    expect: Bundle gerado não deve ser reportado como INSTALLED sem observação.
+  - id: behavior-2
+    input: empacote esta skill validada para ChatGPT
+    expect: Distribuição não altera o contrato canônico da skill.

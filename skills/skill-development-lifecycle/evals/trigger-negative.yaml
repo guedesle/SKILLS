@@ -1,0 +1,10 @@
+schema_version: 1
+skill: skill-development-lifecycle
+kind: trigger_negative
+cases:
+  - id: negative-1
+    input: corrija somente um typo no README
+  - id: negative-2
+    input: explique o que é uma skill
+  - id: negative-3
+    input: valide apenas um arquivo YAML isolado

@@ -1,0 +1,10 @@
+schema_version: 1
+skill: skill-promotion
+kind: behavior
+cases:
+  - id: behavior-1
+    input: promova esta skill de projeto para o catálogo global
+    expect: PROJECT_ONLY não é copiado literalmente para o catálogo central.
+  - id: behavior-2
+    input: promova esta skill de projeto para o catálogo global
+    expect: Origem e versão devem ser registradas junto com a promoção.

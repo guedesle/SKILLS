@@ -1,0 +1,10 @@
+schema_version: 1
+skill: chatgpt-governed-workflow
+kind: behavior
+cases:
+  - id: behavior-1
+    input: transforme as skills do projeto em globais com low-hitl
+    expect: Tarefa de skill deve delegar ao lifecycle especializado.
+  - id: behavior-2
+    input: conduza este desenvolvimento complexo com low-hitl até o merge
+    expect: Falha mecânica corrigível não cria approval intermediário.
