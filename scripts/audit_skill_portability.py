@@ -5,8 +5,8 @@ import json
 import re
 from pathlib import Path
 
-WINDOWS_ABS = re.compile(r"\b[A-Za-z]:\\[^\s`]+")
-POSIX_LOCAL = re.compile(r"(?<!https:)(?<!http:)\B/(?:home|Users|mnt|opt|srv|var|tmp)/[^\s`]+")
+WINDOWS_ABS = re.compile(r"(?<![A-Za-z0-9])[A-Za-z]:[\\/][^\s`\"'<>]+")
+POSIX_ABS = re.compile(r"(?<![/:A-Za-z0-9])/(?!/)[^\s`\"'<>]+")
 LOCALHOST = re.compile(r"\b(?:localhost|127\.0\.0\.1|0\.0\.0\.0)(?::\d+)?\b", re.I)
 PRIVATE_HOST = re.compile(r"https?://[^\s/]*(?:\.local|\.internal|\.corp)(?:/[^\s]*)?", re.I)
 PROJECT_ONLY_PHRASE = re.compile(r"\b(?:somente|apenas|only)\s+(?:neste|nesse|this)\s+(?:projeto|repository|reposit[oó]rio)\b", re.I)
@@ -20,8 +20,8 @@ def audit_text(text: str) -> dict:
 
     if WINDOWS_ABS.search(text):
         blockers.append("absolute-windows-path")
-    if POSIX_LOCAL.search(text):
-        blockers.append("absolute-local-posix-path")
+    if POSIX_ABS.search(text):
+        blockers.append("absolute-posix-path")
     if LOCALHOST.search(text):
         blockers.append("localhost-endpoint")
     if PRIVATE_HOST.search(text):
