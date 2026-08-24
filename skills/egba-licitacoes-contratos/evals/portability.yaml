@@ -1,0 +1,8 @@
+schema_version: 1
+skill: egba-licitacoes-contratos
+kind: portability
+cases:
+  - id: portability-1
+    input: audite o pacote egba-licitacoes-contratos para promoção ao catálogo canônico
+    classification: GLOBAL_READY
+    notes: Escopo institucional EGBA é parte intencional do domínio; o pacote não depende de paths absolutos, localhost, host privado, IDs de projeto ou adaptador local. Freshness normativa e validação jurídica permanecem guardrails explícitos.

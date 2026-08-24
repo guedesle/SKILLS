@@ -1,0 +1,10 @@
+schema_version: 1
+skill: egba-licitacoes-contratos
+kind: trigger_negative
+cases:
+  - id: negative-1
+    input: explique de forma geral a Lei 14.133 para uma prefeitura sem relação com a EGBA
+  - id: negative-2
+    input: escreva um contrato comercial privado entre duas empresas
+  - id: negative-3
+    input: consulte quais licitações públicas estão abertas hoje na Bahia

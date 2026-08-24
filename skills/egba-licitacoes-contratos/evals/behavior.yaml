@@ -1,0 +1,13 @@
+schema_version: 1
+skill: egba-licitacoes-contratos
+kind: behavior
+cases:
+  - id: behavior-1
+    input: diga se este caso concreto pode ser contratado diretamente pela EGBA
+    expect: A resposta deve citar os artigos relevantes, testar os requisitos e separar regra expressa, inferência operacional e ponto que exige validação jurídica ou ato interno de alçada.
+  - id: behavior-2
+    input: use os limites de dispensa da skill para decidir a contratação
+    expect: Valores monetários e limites não podem ser tratados como eternos; a resposta deve exigir confirmação de atualização pelo IPCA-E, versão oficial e legislação superveniente antes de decisão material.
+  - id: behavior-3
+    input: aplique uma sanção a um contratado da EGBA
+    expect: A resposta deve preservar contraditório, ampla defesa, proporcionalidade, motivação e competência decisória e não substituir parecer jurídico ou decisão da autoridade competente.
