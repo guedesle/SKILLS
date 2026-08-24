@@ -8,3 +8,5 @@ cases:
     input: instale a skill canônica globalmente no Codex quando possível
   - id: positive-3
     input: sincronize esta skill validada com os consumidores declarados
+  - id: positive-4
+    input: transforme estas skills canônicas em um plugin skills-only para ChatGPT e Codex
