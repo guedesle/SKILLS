@@ -54,8 +54,11 @@ def packageable_files(skill_dir: Path) -> list[Path]:
 
 def validate_catalog(root: Path, registry: dict, catalog: dict) -> list[str]:
     errors: list[str] = []
-    if catalog.get("schema_version") != 1:
-        errors.append("plugin-catalog.json: schema_version deve ser 1")
+    if catalog.get("schema_version") != 2:
+        errors.append("plugin-catalog.json: schema_version deve ser 2")
+
+    if catalog.get("distribution_mode") != "local-only":
+        errors.append("plugin-catalog.json: distribution_mode deve ser local-only")
 
     marketplace = catalog.get("marketplace")
     if not isinstance(marketplace, dict) or not marketplace.get("name") or not marketplace.get("display_name"):
@@ -66,8 +69,22 @@ def validate_catalog(root: Path, registry: dict, catalog: dict) -> list[str]:
         return errors + ["plugin-catalog.json: plugins deve ser lista não vazia"]
 
     known = canonical_skill_map(root, registry)
+
+    shared_raw = catalog.get("shared_skills", [])
+    shared: set[str] = set()
+    if not isinstance(shared_raw, list) or not all(isinstance(x, str) and x.strip() for x in shared_raw):
+        errors.append("plugin-catalog.json: shared_skills deve ser lista de strings")
+    else:
+        for skill_name in shared_raw:
+            if skill_name in shared:
+                errors.append(f"plugin-catalog.json: shared skill duplicada: {skill_name}")
+            shared.add(skill_name)
+            if skill_name not in known:
+                errors.append(f"plugin-catalog.json: shared skill não registrada: {skill_name}")
+
     seen_plugins: set[str] = set()
-    assigned: set[str] = set()
+    assigned_to: dict[str, str] = {}
+    assignment_counts: dict[str, int] = {}
 
     for plugin in plugins:
         name = plugin.get("name", "")
@@ -96,9 +113,16 @@ def validate_catalog(root: Path, registry: dict, catalog: dict) -> list[str]:
                 errors.append(f"{prefix}: skill duplicada no plugin: {skill_name}")
                 continue
             local_seen.add(skill_name)
-            if skill_name in assigned:
-                errors.append(f"{prefix}: skill já atribuída a outro plugin: {skill_name}")
-            assigned.add(skill_name)
+
+            first_plugin = assigned_to.get(skill_name)
+            if first_plugin and skill_name not in shared:
+                errors.append(
+                    f"{prefix}: skill já atribuída a outro plugin ({first_plugin}) sem shared_skills: {skill_name}"
+                )
+            else:
+                assigned_to.setdefault(skill_name, name)
+            assignment_counts[skill_name] = assignment_counts.get(skill_name, 0) + 1
+
             record = known.get(skill_name)
             if not record:
                 errors.append(f"{prefix}: skill não registrada: {skill_name}")
@@ -114,6 +138,10 @@ def validate_catalog(root: Path, registry: dict, catalog: dict) -> list[str]:
                 continue
             if expected not in files:
                 errors.append(f"{prefix}: SKILL.md não seria empacotado: {skill_name}")
+
+    for skill_name in shared:
+        if assignment_counts.get(skill_name, 0) < 2:
+            errors.append(f"plugin-catalog.json: shared skill deve aparecer em pelo menos 2 plugins: {skill_name}")
     return errors
 
 
@@ -209,9 +237,10 @@ def build(root: Path, output: Path, registry: dict, catalog: dict) -> dict:
         encoding="utf-8",
     )
     manifest = {
-        "schema_version": 1,
+        "schema_version": 2,
         "source_repository": registry.get("repository"),
         "format": "openai-skills-only-plugin-marketplace",
+        "distribution_mode": catalog["distribution_mode"],
         "marketplace_root": "marketplace",
         "plugins": built,
     }
@@ -239,7 +268,7 @@ def main() -> int:
         return 2
 
     if args.check:
-        print(f"Skills-only plugin check PASS: {len(catalog['plugins'])} plugin(s).")
+        print(f"Skills-only plugin check PASS: {len(catalog['plugins'])} plugin(s), modo local-only.")
         return 0
 
     output = args.output if args.output.is_absolute() else ROOT / args.output
