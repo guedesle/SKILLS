@@ -1,6 +1,10 @@
 {
   "schema_version": 2,
   "distribution_mode": "local-only",
+  "future_distribution_targets": [
+    "chatgpt-work-workspace-private"
+  ],
+  "universal_publication": false,
   "marketplace": {
     "name": "guedesle-skills-local",
     "display_name": "Guedeslé Skills"
@@ -77,6 +81,31 @@
         "batch-quality-gate",
         "github-branch-pr-lifecycle",
         "decision-escalation-control"
+      ]
+    },
+    {
+      "name": "guedesle-writing",
+      "version": "1.0.0",
+      "description": "Plan, architect, draft, refactor, evidence-check, calibrate, and review writing through a coordinated editorial workflow.",
+      "display_name": "Writing",
+      "short_description": "Structured writing and editorial QA",
+      "long_description": "Take writing from purpose and structure through paragraphs, evidence, technical drafting, rhetoric, accessibility, editorial QA, and alignment without forcing unnecessary stages.",
+      "category": "Productivity",
+      "default_prompts": [
+        "Use Writing to turn these notes and sources into a structured, evidence-aware, polished document.",
+        "Use Writing to restructure and revise this draft, preserving facts and finishing with editorial QA."
+      ],
+      "skills": [
+        "writing-workflow",
+        "plan-content",
+        "architect-text",
+        "design-paragraphs",
+        "write-with-evidence",
+        "write-technical-content",
+        "calibrate-rhetoric",
+        "improve-accessible-writing",
+        "review-editorial-quality",
+        "assess-editorial-alignment"
       ]
     }
   ]
