@@ -26,13 +26,13 @@ Repositório canônico de **skills gerais e reutilizáveis**. A fonte de verdade
 | [`skill-evaluator`](skills/skill-evaluator/SKILL.md) | **1.0.0** | Gestão de skills | Should-trigger, should-not-trigger e behavior evals |
 | [`skill-portability-audit`](skills/skill-portability-audit/SKILL.md) | **1.0.0** | Gestão de skills | PROJECT_ONLY → GLOBAL_READY |
 | [`skill-promotion`](skills/skill-promotion/SKILL.md) | **1.0.0** | Gestão de skills | Promoção project → catálogo geral |
-| [`skill-distribution`](skills/skill-distribution/SKILL.md) | **1.0.0** | Gestão de skills | ChatGPT, Codex, mirrors e plugins |
+| [`skill-distribution`](skills/skill-distribution/SKILL.md) | **1.1.0** | Gestão de skills | ChatGPT, Codex, mirrors e plugins skills-only |
 | [`chatgpt-governed-workflow`](skills/chatgpt-governed-workflow/SKILL.md) | **1.0.0** | Workflow | Entry point low-HITL para trabalho complexo |
 | [`low-hitl-orchestration`](skills/low-hitl-orchestration/SKILL.md) | **1.0.0** | Workflow | Lotes autônomos + gate humano por materialidade |
 | [`batch-quality-gate`](skills/batch-quality-gate/SKILL.md) | **1.0.0** | QA automation | Fast/batch/CI e relatório consolidado |
 | [`context-handoff`](skills/context-handoff/SKILL.md) | **1.0.0** | Context engineering | Continuidade entre agentes/modelos/sessões |
 | [`github-branch-pr-lifecycle`](skills/github-branch-pr-lifecycle/SKILL.md) | **1.0.0** | GitHub | Branches, PRs, divergência e merges seguros |
-| [`adaptive-model-routing`](skills/adaptive-model-routing/SKILL.md) | **1.1.0** | Model routing | Roteamento por papel no Codex |
+| [`adaptive-model-routing`](skills/adaptive-model-routing/SKILL.md) | **1.1.1** | Model routing | Roteamento por papel no Codex |
 | [`decision-escalation-control`](skills/decision-escalation-control/SKILL.md) | **1.0.0** | Governança | AUTO_CONTINUE e revisão por materialidade |
 | [`contract-governed-execution`](skills/contract-governed-execution/SKILL.md) | **1.0.0** | Governança | Contratos fail-closed e ledger |
 | [`knowledge-source-governance`](skills/knowledge-source-governance/SKILL.md) | **1.0.0** | Conhecimento | Proveniência, freshness e evidence ceilings |
@@ -84,7 +84,7 @@ Promove somente a parte reutilizável, registra `origin`, SemVer e mirrors e pre
 
 ### `skill-distribution`
 
-Separa os estados `DISTRIBUTION_READY`, `INSTALLED` e `VERIFIED`. Bundle gerado nunca é reportado como instalação observada.
+Separa `DISTRIBUTION_READY`, `INSTALLED`, `VERIFIED` e `PUBLISHED`. A versão 1.1.0 adiciona empacotamento de **plugins skills-only** a partir da fonte canônica, sem criar uma segunda cópia editável das skills.
 
 ### `chatgpt-governed-workflow`
 
@@ -119,6 +119,7 @@ python -m unittest discover -s tests -p "test_*.py" -v
 python scripts/sync_skills.py --check
 python scripts/validate_skill_evals.py
 python scripts/package_chatgpt_skills.py --check
+python scripts/package_plugins.py --check
 python -m py_compile scripts/*.py
 ```
 
@@ -143,7 +144,7 @@ Use $skill-development-lifecycle para criar, validar, promover e distribuir esta
 Use $skill-portability-audit para decidir se esta skill local pode virar global.
 Use $skill-validator para rodar o gate determinístico do catálogo.
 Use $skill-evaluator para criar should-trigger e should-not-trigger.
-Use $skill-distribution para empacotar a skill validada para ChatGPT.
+Use $skill-distribution para gerar bundles e um plugin skills-only a partir das skills canônicas.
 ```
 
 ## Instalação global
@@ -213,9 +214,14 @@ Aponte cada diretório para a pasta canônica em `$HOME/SKILLS/skills` por symli
 
 ### ChatGPT
 
-Consulte [`CHATGPT.md`](CHATGPT.md). O repositório gera um ZIP determinístico por skill; disponibilidade de upload/Personal Skills depende da superfície, plano e permissões do ChatGPT. Não existe suposição de sincronização automática GitHub → ChatGPT.
+Consulte [`CHATGPT.md`](CHATGPT.md). O repositório oferece duas rotas derivadas da mesma fonte canônica:
 
-## Empacotamento ChatGPT
+1. ZIP individual por skill, quando a superfície de Personal Skills permitir upload;
+2. plugin **skills-only** para o Plugins Directory/marketplace quando essa superfície estiver disponível ao plano/host.
+
+Não existe suposição de sincronização automática GitHub → ChatGPT.
+
+## Empacotamento ChatGPT por skill
 
 ```bash
 python scripts/package_chatgpt_skills.py --check
@@ -231,6 +237,36 @@ dist/chatgpt/
 ```
 
 Cada ZIP mantém `SKILL.md` na raiz e inclui os recursos auxiliares da mesma pasta canônica.
+
+## Plugin skills-only para ChatGPT e Codex
+
+O catálogo de plugins vive em [`plugin-catalog.json`](plugin-catalog.json). A primeira composição é `guedesle-governed-workflow`, reunindo governança low-HITL e a fábrica de skills sem dependência de MCP.
+
+Valide e gere:
+
+```bash
+python scripts/package_plugins.py --check
+python scripts/package_plugins.py
+```
+
+Saída:
+
+```text
+dist/plugins/
+  manifest.json
+  guedesle-governed-workflow-v1.0.0.zip
+  marketplace/
+    .agents/plugins/marketplace.json
+    plugins/
+      guedesle-governed-workflow/
+        .codex-plugin/plugin.json
+        skills/
+          ...
+```
+
+`dist/` é artefato derivado. As skills continuam sendo editadas somente em `skills/<nome>/`.
+
+Para teste local em host compatível, a raiz `dist/plugins/marketplace` pode ser adicionada como marketplace local. Para publicação universal, use o fluxo oficial de submissão do plugin e só declare `PUBLISHED` após confirmação da plataforma.
 
 ## Sincronização e mirrors
 
@@ -259,6 +295,8 @@ A mudança geral nasce no catálogo central, nunca no mirror.
 
 ## Histórico
 
+- **24/08/2026** — `skill-distribution` 1.1.0 e primeiro plugin skills-only `guedesle-governed-workflow`, gerado a partir do catálogo canônico com marketplace local derivado.
+- **24/08/2026** — `adaptive-model-routing` 1.1.1 após correção de frontmatter YAML legado.
 - **24/08/2026** — criada a fábrica governada: `chatgpt-governed-workflow`, `skill-development-lifecycle`, authoring, validator, evaluator, portability, promotion e distribution; `skills-central-governance` 1.3.0; parser YAML real, eval schema e auditoria de portabilidade.
 - **24/08/2026** — adicionado empacotamento determinístico para ChatGPT por skill.
 - **23/08/2026** — adicionada `prompt-generator` 1.0.0.
