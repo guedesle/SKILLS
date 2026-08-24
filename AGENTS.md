@@ -59,7 +59,7 @@ Ele compõe:
 - `skill-evaluator` — trigger/behavior evals;
 - `skill-portability-audit` — classificação project/global;
 - `skill-promotion` — extração da parte geral e registro central;
-- `skill-distribution` — bundles, instalação e mirrors.
+- `skill-distribution` — bundles, plugins, instalação e mirrors.
 
 Para workflows complexos gerais de repositório, use `chatgpt-governed-workflow` como entry point e delegue ao lifecycle especializado quando o objeto principal for uma skill.
 
@@ -72,12 +72,27 @@ python -m unittest discover -s tests -p "test_*.py" -v
 python scripts/sync_skills.py --check
 python scripts/validate_skill_evals.py
 python scripts/package_chatgpt_skills.py --check
+python scripts/package_plugins.py --check
 python -m py_compile scripts/*.py
 ```
 
 O frontmatter é YAML real. Versões em README/status devem estar vinculadas à mesma skill registrada; presença da versão em outra linha não satisfaz o gate.
 
 Skills que possuem diretório `evals/` devem conter, no mínimo, `trigger-positive.yaml`, `trigger-negative.yaml` e `behavior.yaml` válidos.
+
+## Governança de plugins
+
+`plugin-catalog.json` declara composições distribuíveis, mas **não** cria uma segunda fonte de verdade. O build de plugin deve copiar skills registradas para `dist/` como artefatos derivados.
+
+Regras:
+
+- manifest obrigatório em `.codex-plugin/plugin.json`;
+- `skills` aponta para `./skills/` e permanece dentro da raiz do plugin;
+- plugin skills-only não recebe MCP artificialmente quando nenhuma ferramenta externa é necessária;
+- marketplace local é artefato de teste/distribuição privada;
+- `DISTRIBUTION_READY` não implica `INSTALLED`, `VERIFIED` ou `PUBLISHED`;
+- publicação universal exige fluxo/review próprio da plataforma;
+- mudanças em skills empacotadas continuam nascendo em `skills/<nome>/`, nunca em `dist/`.
 
 ## Governança do catálogo
 
@@ -112,6 +127,6 @@ Quando aplicáveis, componha:
 
 Não promova automaticamente uma skill estritamente específica de projeto. Use `skill-portability-audit`, extraia primeiro a parte reutilizável e registre origem/variante local.
 
-Não edite uma cópia espelho para mudar comportamento geral. A mudança deve nascer aqui e seguir para os espelhos.
+Não edite uma cópia espelho ou materializada em `dist/` para mudar comportamento geral. A mudança deve nascer aqui e seguir para espelhos/artefatos.
 
 O bootstrap não concede permissões entre repositórios. Depois do bootstrap, o mirror pull usa apenas o `GITHUB_TOKEN` do próprio consumidor.
