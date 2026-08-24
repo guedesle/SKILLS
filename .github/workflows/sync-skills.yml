@@ -2,6 +2,19 @@ name: Sync central skills
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - "skills/**"
+      - "registry.json"
+      - "scripts/sync_skills.py"
+      - "scripts/sync_consumer.py"
+      - "scripts/bootstrap_consumers.py"
+      - "scripts/package_chatgpt_skills.py"
+      - "templates/sync-central-skills.yml"
+      - "CHATGPT.md"
+      - ".github/workflows/mirror-consumer.yml"
+      - ".github/workflows/sync-skills.yml"
   push:
     branches: [main]
     paths:
@@ -10,7 +23,9 @@ on:
       - "scripts/sync_skills.py"
       - "scripts/sync_consumer.py"
       - "scripts/bootstrap_consumers.py"
+      - "scripts/package_chatgpt_skills.py"
       - "templates/sync-central-skills.yml"
+      - "CHATGPT.md"
       - ".github/workflows/mirror-consumer.yml"
       - ".github/workflows/sync-skills.yml"
 
@@ -27,8 +42,34 @@ jobs:
           python-version: "3.12"
       - name: Validate registry
         run: python scripts/sync_skills.py --check
-      - name: Compile sync utilities
-        run: python -m py_compile scripts/sync_consumer.py scripts/bootstrap_consumers.py
+      - name: Validate ChatGPT packages
+        run: python scripts/package_chatgpt_skills.py --check
+      - name: Compile utilities
+        run: python -m py_compile scripts/sync_consumer.py scripts/bootstrap_consumers.py scripts/package_chatgpt_skills.py
+      - name: Smoke test ChatGPT bundles
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/package_chatgpt_skills.py --output /tmp/chatgpt-skills
+          python - <<'PY'
+          import json
+          import zipfile
+          from pathlib import Path
+
+          root = Path('/tmp/chatgpt-skills')
+          manifest = json.loads((root / 'manifest.json').read_text(encoding='utf-8'))
+          bundles = manifest['skills']
+          if not bundles:
+              raise SystemExit('manifest sem skills')
+          for item in bundles:
+              bundle = root / item['bundle']
+              if not bundle.is_file():
+                  raise SystemExit(f'bundle ausente: {bundle}')
+              with zipfile.ZipFile(bundle) as archive:
+                  if 'SKILL.md' not in archive.namelist():
+                      raise SystemExit(f'SKILL.md ausente na raiz: {bundle.name}')
+          print(f'ChatGPT bundle smoke PASS: {len(bundles)} skills')
+          PY
       - name: Smoke test generic pull resolver
         shell: bash
         run: |
@@ -46,7 +87,7 @@ jobs:
 
   sync:
     needs: validate
-    if: ${{ vars.SKILLS_AUTO_SYNC == 'true' }}
+    if: ${{ github.event_name == 'push' && vars.SKILLS_AUTO_SYNC == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
