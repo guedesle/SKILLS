@@ -21,6 +21,7 @@ Skills de projeto não são promovidas automaticamente: passam por auditoria de 
 | `review-editorial-quality` | QA | 1.0.0 | Canônica + mirror |
 | `improve-accessible-writing` | Acessibilidade | 1.0.0 | Canônica |
 | `assess-editorial-alignment` | Governança editorial | 1.0.0 | Canônica |
+| `writing-workflow` | Orquestração editorial | 1.0.0 | Canônica + meta-skill + evals |
 | `prompt-generator` | Prompt engineering | 1.0.0 | Canônica + evals |
 | `graphify` | Engenharia de software | 1.0.0 | Canônica |
 | `github-project-repo-sync` | GitHub automation | 1.0.0 | Canônica |
@@ -43,7 +44,7 @@ Skills de projeto não são promovidas automaticamente: passam por auditoria de 
 | `contract-governed-execution` | Governança de execução | 1.0.0 | Canônica |
 | `knowledge-source-governance` | Governança de conhecimento | 1.0.0 | Canônica |
 
-**Total: 30 skills canônicas.**
+**Total: 31 skills canônicas.**
 
 ## Fábrica governada de skills
 
@@ -62,6 +63,12 @@ chatgpt-governed-workflow
 ```
 
 A governança central (`skills-central-governance` 1.3.0) mantém policy e fonte de verdade; a meta-skill `skill-development-lifecycle` executa o ciclo especializado.
+
+## Workflow editorial
+
+`writing-workflow` 1.0.0 é o entry point do plugin Writing. O roteamento é proporcional: uma tarefa pontual vai diretamente para a skill especializada; tarefas multi-etapas podem compor planejamento, arquitetura, parágrafos, evidência, redação técnica, retórica, acessibilidade, QA e alinhamento editorial.
+
+O contrato principal não exige filesystem, CLI nem modelo específico. Isso o torna candidato direto a uso em plugin skills-only no ChatGPT Work web, além do marketplace local.
 
 ## Gates implementados
 
@@ -119,17 +126,30 @@ Capacidades previamente promovidas continuam registrando suas origens: `editor-a
 
 - **Codex USER**: `$HOME/.agents/skills/<nome>` apontando para a fonte canônica.
 - **ChatGPT Personal Skill**: ZIP determinístico por skill quando a superfície permitir upload.
-- **Plugin skills-only**: `guedesle-governed-workflow` 1.0.0, gerado de forma derivada por `scripts/package_plugins.py`.
-- **Marketplace local**: gerado em `dist/plugins/marketplace`, com `.agents/plugins/marketplace.json` e plugin materializado sob `plugins/`.
+- **Marketplace local skills-only**: `guedesle-skills-local`, gerado em `dist/plugins/marketplace`.
+- **Plugins locais**:
+  - `guedesle-governed-workflow` 1.0.0 — 17 skills;
+  - `guedesle-skill-creator` 1.0.0 — 12 skills;
+  - `guedesle-writing` 1.0.0 — 10 skills.
 - **Consumers**: mirrors declarados em `registry.json`, preferindo pull.
 
 Preparar bundle/plugin equivale apenas a `DISTRIBUTION_READY`. O catálogo não declara `INSTALLED`, `VERIFIED` ou `PUBLISHED` sem evidência da superfície de destino.
 
-### Plugin inicial
+### Política de publicação e Work web
 
-`guedesle-governed-workflow` reúne 17 skills interdependentes de governança e fábrica em um único plugin para evitar dependências implícitas entre plugins separados. O artefato contém `.codex-plugin/plugin.json` e cópias derivadas das skills canônicas apenas dentro de `dist/`; mudanças continuam nascendo em `skills/<nome>/`.
+A distribuição corrente permanece `local-only` e `universal_publication: false`.
 
-A publicação universal permanece separada do build local e depende do processo oficial de submissão/revisão.
+O alvo futuro registrado é `chatgpt-work-workspace-private`: compartilhar os plugins dentro de um workspace compatível, sem publicação no diretório universal.
+
+Estado de portabilidade estrutural:
+
+| Plugin | Local | Work web estrutural | Observação |
+|---|---|---|---|
+| `guedesle-governed-workflow` | READY | GENERAL_WITH_ADAPTER | Operações de repositório dependem das capabilities/apps disponíveis no host |
+| `guedesle-skill-creator` | READY | GENERAL_WITH_ADAPTER | Authoring/evals são portáveis; empacotamento e writes dependem das capabilities do host |
+| `guedesle-writing` | READY | WORK_WEB_PORTABLE | Função editorial principal é skills-only e host-agnostic |
+
+Nenhum desses estados equivale a instalação real no ChatGPT Work. A validação de runtime web será uma etapa posterior em workspace compatível.
 
 ## Roteamento Codex
 
@@ -154,8 +174,9 @@ Demais skills canônicas podem ser consumidas globalmente por hosts que apontem 
 
 ## Próximas métricas de maturidade
 
-- instalar e executar o plugin em uma superfície ChatGPT/Codex compatível e registrar evals observados;
-- preparar cinco casos positivos e três negativos para eventual submissão pública;
+- instalar e executar os três plugins no marketplace local e registrar evals observados;
+- validar `guedesle-writing` no ChatGPT Work web quando o workspace permitir import/share de plugin privado;
+- criar adapters de capability para Governed Workflow e Skill Creator até ambos atingirem `WORK_WEB_PORTABLE`;
 - medir colisão de gatilhos, regressões e taxa de sucesso;
 - medir HITLs evitados versus reversões materiais;
 - ampliar fixtures negativas sem transformar validação determinística em julgamento LLM implícito.
