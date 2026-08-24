@@ -1,6 +1,6 @@
 # Estado das skills gerais
 
-Atualizado em 21 de agosto de 2026.
+Atualizado em 23 de agosto de 2026.
 
 ## Fonte canônica
 
