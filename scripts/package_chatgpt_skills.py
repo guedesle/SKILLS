@@ -132,6 +132,13 @@ def build_bundle(skill: dict, output_dir: Path) -> Path:
     return bundle
 
 
+def display_path(path: Path) -> str:
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return str(path)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true", help="Valida empacotamento sem gerar ZIPs.")
@@ -180,9 +187,9 @@ def main() -> int:
     }
     (output / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
-    print(f"Bundles ChatGPT gerados: {len(bundles)} em {output}")
+    print(f"Bundles ChatGPT gerados: {len(bundles)} em {display_path(output)}")
     for bundle in bundles:
-        print(bundle.relative_to(ROOT).as_posix())
+        print(display_path(bundle))
     return 0
 
 
