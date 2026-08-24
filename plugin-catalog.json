@@ -1,9 +1,24 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
+  "distribution_mode": "local-only",
   "marketplace": {
     "name": "guedesle-skills-local",
     "display_name": "Guedeslé Skills"
   },
+  "shared_skills": [
+    "skill-development-lifecycle",
+    "skill-authoring",
+    "skill-validator",
+    "skill-evaluator",
+    "skill-portability-audit",
+    "skill-promotion",
+    "skill-distribution",
+    "skills-central-governance",
+    "low-hitl-orchestration",
+    "batch-quality-gate",
+    "github-branch-pr-lifecycle",
+    "decision-escalation-control"
+  ],
   "plugins": [
     {
       "name": "guedesle-governed-workflow",
@@ -35,6 +50,33 @@
         "decision-escalation-control",
         "contract-governed-execution",
         "knowledge-source-governance"
+      ]
+    },
+    {
+      "name": "guedesle-skill-creator",
+      "version": "1.0.0",
+      "description": "Create, refactor, validate, evaluate, generalize, promote, and package reusable skills through a governed lifecycle.",
+      "display_name": "Skill Creator",
+      "short_description": "Governed reusable skill creation",
+      "long_description": "Turn a workflow, project skill, or skill idea into a validated reusable skill with authoring, evals, portability audit, promotion, repository gates, and local packaging.",
+      "category": "Productivity",
+      "default_prompts": [
+        "Create a reusable skill from this workflow and take it through authoring, validation, evaluation, portability, promotion, and local packaging.",
+        "Audit this project-specific skill for portability and turn it into a validated reusable skill."
+      ],
+      "skills": [
+        "skill-development-lifecycle",
+        "skill-authoring",
+        "skill-validator",
+        "skill-evaluator",
+        "skill-portability-audit",
+        "skill-promotion",
+        "skill-distribution",
+        "skills-central-governance",
+        "low-hitl-orchestration",
+        "batch-quality-gate",
+        "github-branch-pr-lifecycle",
+        "decision-escalation-control"
       ]
     }
   ]
