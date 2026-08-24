@@ -143,6 +143,7 @@ jobs:
         with:
           name: guedesle-governed-workflow
           path: /tmp/skills-plugins
+          include-hidden-files: true
           retention-days: 14
       - name: Smoke test generic pull resolver
         shell: bash
