@@ -59,7 +59,7 @@
     {"name":"skill-evaluator","version":"1.0.0","category":"skill-management","path":"skills/skill-evaluator/SKILL.md","origin":"guedesle/SKILLS / governed skill factory","mirrors":[]},
     {"name":"skill-portability-audit","version":"1.0.0","category":"skill-management","path":"skills/skill-portability-audit/SKILL.md","origin":"guedesle/SKILLS / governed skill factory","mirrors":[]},
     {"name":"skill-promotion","version":"1.0.0","category":"skill-management","path":"skills/skill-promotion/SKILL.md","origin":"guedesle/SKILLS / governed skill factory","mirrors":[]},
-    {"name":"skill-distribution","version":"1.0.0","category":"skill-management","path":"skills/skill-distribution/SKILL.md","origin":"guedesle/SKILLS / governed skill factory","mirrors":[]},
+    {"name":"skill-distribution","version":"1.1.0","category":"skill-management","path":"skills/skill-distribution/SKILL.md","origin":"guedesle/SKILLS / governed skill factory","mirrors":[]},
     {"name":"chatgpt-governed-workflow","version":"1.0.0","category":"workflow-orchestration","path":"skills/chatgpt-governed-workflow/SKILL.md","origin":"guedesle/SKILLS / low-HITL meta-workflow","mirrors":[]},
     {"name":"low-hitl-orchestration","version":"1.0.0","category":"workflow-orchestration","path":"skills/low-hitl-orchestration/SKILL.md","origin":"generalização do low-HITL batch workflow de guedesle/cyber-skills-framework","mirrors":[]},
     {"name":"batch-quality-gate","version":"1.0.0","category":"qa-automation","path":"skills/batch-quality-gate/SKILL.md","origin":"generalização do LOCAL GATE de guedesle/cyber-skills-framework","mirrors":[]},
