@@ -39,6 +39,7 @@ Repositório canônico das **skills gerais e reutilizáveis**. A fonte de verdad
 | [`decision-escalation-control`](#decision-escalation-control) | **1.0.0** | Governança | AUTO_CONTINUE, review e bloqueios por materialidade |
 | [`contract-governed-execution`](#contract-governed-execution) | **1.0.0** | Governança | Contratos machine-readable, fail-closed e ledger |
 | [`knowledge-source-governance`](#knowledge-source-governance) | **1.0.0** | Conhecimento | Proveniência, freshness, corroboration e evidence ceilings |
+| [`egba-licitacoes-contratos`](#egba-licitacoes-contratos) | **1.0.0** | Governança de contratações | Licitações, contratos, fiscalização, sanções e convênios |
 
 ### `plan-content`
 Transforma objetivo e contexto em briefing operacional, escopo, outline, evidências necessárias, riscos e critérios. [SKILL.md](skills/plan-content/SKILL.md) · [↑ Índice](#índice-de-skills)
@@ -106,6 +107,9 @@ Governa ações de maior risco por contratos estruturados, autorização explíc
 
 ### `knowledge-source-governance`
 Governa fontes por proveniência, autoridade, freshness, aplicabilidade, corroboration e teto de conclusão, evitando que evidência fraca promova sozinha uma conclusão material. [SKILL.md](skills/knowledge-source-governance/SKILL.md) · [↑ Índice](#índice-de-skills)
+
+### `egba-licitacoes-contratos`
+Aplicação operacional do Regulamento de Licitações e Contratos da EGBA: planejamento, pesquisa de preços, modalidades, procedimentos auxiliares, contratação direta, contratos, fiscalização, sanções, convênios e patrocínios. [SKILL.md](skills/egba-licitacoes-contratos/SKILL.md) · [↑ Índice](#índice-de-skills)
 
 ## Como usar
 
