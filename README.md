@@ -109,7 +109,7 @@ Classifica eventos em `AUTO_CONTINUE`, `HUMAN_REVIEW_RECOMMENDED`, `HUMAN_REVIEW
 Governa ações de maior risco por contratos estruturados, autorização explícita, limites, stop conditions, fail-closed e ledger de evidências. [SKILL.md](skills/contract-governed-execution/SKILL.md) · [↑ Índice](#índice-de-skills)
 
 ### `knowledge-source-governance`
-Governa fontes por proveniência, autoridade, freshness, aplicabilidade, corroboration e teto de conclusão, evitando que evidência fraca/desatualizada promova sozinha uma decisão material. [SKILL.md](skills/knowledge-source-governance/SKILL.md) · [↑ Índice](#índice-de-skills)
+Governa fontes por proveniência, autoridade, freshness, aplicabilidade, corroboration e teto de conclusão, evitando que evidência fraca promova sozinha uma conclusão material. [SKILL.md](skills/knowledge-source-governance/SKILL.md) · [↑ Índice](#índice-de-skills)
 
 ## Como usar
 
