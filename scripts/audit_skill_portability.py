@@ -29,16 +29,18 @@ def audit_text(text: str) -> dict:
     if PROJECT_ONLY_PHRASE.search(text):
         blockers.append("explicit-project-only-contract")
 
-    if PROJECT_PATH_MARKER.search(text):
+    has_project_path = bool(PROJECT_PATH_MARKER.search(text))
+    has_adapter_marker = bool(ADAPTER_MARKER.search(text))
+    if has_project_path:
         signals.append("project-skill-path")
-    if ADAPTER_MARKER.search(text):
+    if has_project_path and has_adapter_marker:
         signals.append("adapter-marker")
 
     if blockers:
         classification = "PROJECT_ONLY"
-    elif "adapter-marker" in signals:
+    elif has_project_path and has_adapter_marker:
         classification = "GENERAL_WITH_ADAPTER"
-    elif signals:
+    elif has_project_path:
         classification = "GENERALIZABLE"
     else:
         classification = "GLOBAL_READY"
