@@ -4,7 +4,7 @@
   "canonical_path_pattern": "skills/{name}/SKILL.md",
   "versioning": "semver",
   "sync_model": "central-with-generic-pull-mirrors-and-explicit-push-fallback",
-  "updated_at": "2026-08-21",
+  "updated_at": "2026-08-23",
   "pull_mirror": {
     "reusable_workflow": "guedesle/SKILLS/.github/workflows/mirror-consumer.yml@main",
     "consumer_workflow": ".github/workflows/sync-central-skills.yml",
