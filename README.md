@@ -27,6 +27,7 @@ Repositório canônico das **skills gerais e reutilizáveis**. A fonte de verdad
 | [`review-editorial-quality`](#review-editorial-quality) | **1.0.0** | QA | Achados, bloqueios e prontidão |
 | [`improve-accessible-writing`](#improve-accessible-writing) | **1.0.0** | Acessibilidade | Clareza e leitura em tela |
 | [`assess-editorial-alignment`](#assess-editorial-alignment) | **1.0.0** | Governança | Aderência a princípios editoriais |
+| [`prompt-generator`](#prompt-generator) | **1.0.0** | Prompt engineering | Geração, refinamento e avaliação de prompts testáveis |
 | [`graphify`](#graphify) | **1.0.0** | Engenharia | Navegação de código orientada por grafo |
 | [`github-project-repo-sync`](#github-project-repo-sync) | **1.0.0** | GitHub | Reconciliação Project v2 ↔ repositório |
 | [`github-project-drift-audit`](#github-project-drift-audit) | **1.0.0** | GitHub/QA | Auditoria desired/observed/live |
@@ -67,6 +68,9 @@ Melhora clareza, escaneabilidade e linguagem simples preservando precisão. [SKI
 ### `assess-editorial-alignment`
 Compara conteúdo com princípios editoriais explicitamente fornecidos. [SKILL.md](skills/assess-editorial-alignment/SKILL.md) · [↑ Índice](#índice-de-skills)
 
+### `prompt-generator`
+Transforma objetivo, contexto, entradas, restrições e critérios em prompts prontos para uso e teste. Seleciona o menor padrão suficiente (zero-shot, contexto, few-shot, decomposição, RAG, saída estruturada, tool use ou workflow), organiza contexto, define contrato de saída e gera evals por dimensões específicas. [SKILL.md](skills/prompt-generator/SKILL.md) · [↑ Índice](#índice-de-skills)
+
 ### `graphify`
 Usa grafo para reduzir o espaço de busca em código e confirma detalhes diretamente nos arquivos antes de editar. [SKILL.md](skills/graphify/SKILL.md) · [↑ Índice](#índice-de-skills)
 
@@ -105,7 +109,7 @@ Classifica eventos em `AUTO_CONTINUE`, `HUMAN_REVIEW_RECOMMENDED`, `HUMAN_REVIEW
 Governa ações de maior risco por contratos estruturados, autorização explícita, limites, stop conditions, fail-closed e ledger de evidências. [SKILL.md](skills/contract-governed-execution/SKILL.md) · [↑ Índice](#índice-de-skills)
 
 ### `knowledge-source-governance`
-Governa fontes por proveniência, autoridade, freshness, aplicabilidade, corroboration e teto de conclusão, evitando que evidência fraca promova sozinha uma conclusão material. [SKILL.md](skills/knowledge-source-governance/SKILL.md) · [↑ Índice](#índice-de-skills)
+Governa fontes por proveniência, autoridade, freshness, aplicabilidade, corroboration e teto de conclusão, evitando que evidência fraca/desatualizada promova sozinha uma decisão material. [SKILL.md](skills/knowledge-source-governance/SKILL.md) · [↑ Índice](#índice-de-skills)
 
 ## Como usar
 
@@ -114,6 +118,7 @@ Cada definição canônica vive em `skills/<nome>/SKILL.md`; o inventário e os 
 ```text
 Use $plan-content para planejar este relatório.
 Use $architect-text para transformar a finalidade deste texto em arquitetura.
+Use $prompt-generator para transformar este objetivo em um prompt de produção e testes mínimos.
 Use $low-hitl-orchestration para conduzir esta implementação em lotes com mínimo HITL.
 Use $batch-quality-gate para consolidar todos os checks antes da revisão final.
 Use $context-handoff para preparar a continuação em outro agente ou conversa.
@@ -417,6 +422,14 @@ Consulte também [`AGENTS.md`](AGENTS.md), [`general-skills-status.md`](general-
 O catálogo usa SemVer: **PATCH** para correções compatíveis, **MINOR** para nova capacidade compatível e **MAJOR** para mudança incompatível de contrato. A versão deve constar no README e no `registry.json`.
 
 ## Histórico
+
+### 2026-08-23 — `prompt-generator` 1.0.0
+- adicionada a skill `prompt-generator` para gerar, refinar e validar prompts para LLMs, RAG, ferramentas, agentes e workflows;
+- síntese construída com abordagem Book-to-Skill a partir de materiais de prompt engineering, preservando princípios, padrões de decisão e avaliação sem reproduzir passagens extensas das fontes;
+- incorporados zero-shot, contexto, one/few-shot, decomposição, saída estruturada, RAG, tool use e workflows;
+- incorporada organização de contexto com refoco para prompts longos e separação entre dados não confiáveis e instruções;
+- adicionada avaliação por perguntas específicas, escala ordinal e cobertura multiaspecto, com happy path, fronteiras, partial match e testes funcionais;
+- adicionados `references/prompt-patterns.md`, `references/evaluation-rubric.md`, `references/source-notes.md` e `templates/prompt-blueprint.md`.
 
 ### 2026-08-21 — default de modelos no Codex
 - `adaptive-model-routing` evoluída para **1.1.0**;
