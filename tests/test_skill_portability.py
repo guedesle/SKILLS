@@ -13,6 +13,10 @@ class PortabilityTests(unittest.TestCase):
         result = audit_text("Validate a canonical skill directory and its declared metadata.")
         self.assertEqual(result["classification"], "GLOBAL_READY")
 
+    def test_generic_discussion_of_adapter_does_not_require_adapter(self):
+        result = audit_text("A promotion workflow may preserve a local adapter when a project needs one.")
+        self.assertEqual(result["classification"], "GLOBAL_READY")
+
 
 if __name__ == "__main__":
     unittest.main()
