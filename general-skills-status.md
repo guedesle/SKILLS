@@ -4,7 +4,7 @@ Atualizado em 24 de agosto de 2026.
 
 ## Fonte canônica
 
-`guedesle/SKILLS` é a fonte de verdade das skills gerais/reutilizáveis. O inventário machine-readable vive em [`registry.json`](registry.json), o catálogo navegável em [`README.md`](README.md) e a política transversal em [`AGENTS.md`](AGENTS.md).
+`guedesle/SKILLS` é a fonte de verdade das skills gerais/reutilizáveis. O inventário machine-readable vive em [`registry.json`](registry.json), o catálogo navegável em [`README.md`](README.md), a política transversal em [`AGENTS.md`](AGENTS.md) e as composições de plugin em [`plugin-catalog.json`](plugin-catalog.json).
 
 Skills de projeto não são promovidas automaticamente: passam por auditoria de portabilidade, extração da parte transversal, validação, evals e registro central.
 
@@ -32,13 +32,13 @@ Skills de projeto não são promovidas automaticamente: passam por auditoria de 
 | `skill-evaluator` | Gestão de skills | 1.0.0 | Canônica + evals |
 | `skill-portability-audit` | Gestão de skills | 1.0.0 | Canônica + evals |
 | `skill-promotion` | Gestão de skills | 1.0.0 | Canônica + evals |
-| `skill-distribution` | Gestão de skills | 1.0.0 | Canônica + evals |
+| `skill-distribution` | Gestão de skills | 1.1.0 | Canônica + evals + plugin skills-only |
 | `chatgpt-governed-workflow` | Workflow | 1.0.0 | Canônica + meta-skill |
 | `low-hitl-orchestration` | Orquestração | 1.0.0 | Canônica |
 | `batch-quality-gate` | QA automation | 1.0.0 | Canônica |
 | `context-handoff` | Context engineering | 1.0.0 | Canônica |
 | `github-branch-pr-lifecycle` | GitHub automation | 1.0.0 | Canônica |
-| `adaptive-model-routing` | Model routing | 1.1.0 | Canônica + adaptador Codex |
+| `adaptive-model-routing` | Model routing | 1.1.1 | Canônica + adaptador Codex |
 | `decision-escalation-control` | Governança de workflow | 1.0.0 | Canônica |
 | `contract-governed-execution` | Governança de execução | 1.0.0 | Canônica |
 | `knowledge-source-governance` | Governança de conhecimento | 1.0.0 | Canônica |
@@ -65,13 +65,13 @@ A governança central (`skills-central-governance` 1.3.0) mantém policy e fonte
 
 ## Gates implementados
 
-O catálogo agora diferencia:
+O catálogo diferencia:
 
 - **estrutura** — YAML real, kebab-case, SemVer, paths e registry;
 - **integridade** — versão da mesma skill em registry/README/status e recursos canônicos;
 - **evals** — schema declarativo de trigger positivo, trigger negativo e comportamento;
 - **portabilidade** — `PROJECT_ONLY`, `GENERALIZABLE`, `GENERAL_WITH_ADAPTER`, `GLOBAL_READY`;
-- **distribuição** — bundle/manifest/mirrors e estados `DISTRIBUTION_READY`, `INSTALLED`, `VERIFIED`;
+- **distribuição** — bundle, plugin, manifest, mirrors e estados `DISTRIBUTION_READY`, `INSTALLED`, `VERIFIED`, `PUBLISHED`;
 - **repositório** — testes, CI, diff, review, mergeability e verificação pós-merge.
 
 O gate canônico é:
@@ -82,10 +82,11 @@ python -m unittest discover -s tests -p "test_*.py" -v
 python scripts/sync_skills.py --check
 python scripts/validate_skill_evals.py
 python scripts/package_chatgpt_skills.py --check
+python scripts/package_plugins.py --check
 python -m py_compile scripts/*.py
 ```
 
-O parser manual de frontmatter foi substituído por YAML real. A validação documental não aceita mais a presença de uma versão em qualquer ponto do README como prova: a versão deve pertencer à mesma skill.
+O parser manual de frontmatter foi substituído por YAML real. A validação documental exige que a versão pertença à mesma skill.
 
 ## Low-HITL
 
@@ -103,8 +104,6 @@ Falhas mecânicas/determinísticas não geram HITL. Escalonar somente decisão m
 
 ## Promoção project → global
 
-A regra canônica passa a ser:
-
 1. auditar portabilidade;
 2. separar comportamento transversal de dependência local;
 3. manter adaptador no projeto quando necessário;
@@ -119,11 +118,18 @@ Capacidades previamente promovidas continuam registrando suas origens: `editor-a
 ## Distribuição
 
 - **Codex USER**: `$HOME/.agents/skills/<nome>` apontando para a fonte canônica.
-- **ChatGPT**: um ZIP determinístico por skill, quando a superfície de Skills permitir upload.
+- **ChatGPT Personal Skill**: ZIP determinístico por skill quando a superfície permitir upload.
+- **Plugin skills-only**: `guedesle-governed-workflow` 1.0.0, gerado de forma derivada por `scripts/package_plugins.py`.
+- **Marketplace local**: gerado em `dist/plugins/marketplace`, com `.agents/plugins/marketplace.json` e plugin materializado sob `plugins/`.
 - **Consumers**: mirrors declarados em `registry.json`, preferindo pull.
-- **Distribuição reutilizável**: plugin skill-only quando adotado pelo host.
 
-Preparar bundle não equivale a observar instalação. O catálogo não declara `INSTALLED` ou `VERIFIED` sem evidência da superfície de destino.
+Preparar bundle/plugin equivale apenas a `DISTRIBUTION_READY`. O catálogo não declara `INSTALLED`, `VERIFIED` ou `PUBLISHED` sem evidência da superfície de destino.
+
+### Plugin inicial
+
+`guedesle-governed-workflow` reúne 17 skills interdependentes de governança e fábrica em um único plugin para evitar dependências implícitas entre plugins separados. O artefato contém `.codex-plugin/plugin.json` e cópias derivadas das skills canônicas apenas dentro de `dist/`; mudanças continuam nascendo em `skills/<nome>/`.
+
+A publicação universal permanece separada do build local e depende do processo oficial de submissão/revisão.
 
 ## Roteamento Codex
 
@@ -148,7 +154,8 @@ Demais skills canônicas podem ser consumidas globalmente por hosts que apontem 
 
 ## Próximas métricas de maturidade
 
-- executar evals de trigger/comportamento em runners reais de ChatGPT/Codex quando disponíveis;
+- instalar e executar o plugin em uma superfície ChatGPT/Codex compatível e registrar evals observados;
+- preparar cinco casos positivos e três negativos para eventual submissão pública;
 - medir colisão de gatilhos, regressões e taxa de sucesso;
 - medir HITLs evitados versus reversões materiais;
 - ampliar fixtures negativas sem transformar validação determinística em julgamento LLM implícito.
