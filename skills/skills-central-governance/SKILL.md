@@ -1,138 +1,106 @@
 ---
 name: skills-central-governance
-description: Governe o catálogo central de skills gerais em guedesle/SKILLS. Use ao criar, promover, versionar, atualizar, documentar ou distribuir uma skill reutilizável entre repositórios. Aplique low-HITL por padrão: agrupe mudanças coerentes, corrija falhas determinísticas em lote, valide antes de pedir revisão e não promova automaticamente skills estritamente específicas de um projeto. No Codex, aplique também o roteamento padrão por papel: Luna High para leaf/bounded, Terra Medium para orquestração/handoff e Sol High para alta complexidade.
+description: "Governe o catálogo central guedesle/SKILLS como fonte canônica de skills gerais. Use para política de criação, promoção, versionamento, registro, documentação e distribuição; delegue a execução ponta a ponta para skill-development-lifecycle e preserve low-HITL por padrão."
 ---
 
 # Central Skills Governance
 
-O repositório `guedesle/SKILLS` é a fonte canônica das skills gerais e reutilizáveis do perfil.
+`guedesle/SKILLS` é a fonte canônica das skills gerais e reutilizáveis. Esta skill governa **política e estado do catálogo**; não reimplementa authoring, evals, portabilidade ou distribuição.
 
 ## Regra principal
 
-Toda skill classificada como **geral/reutilizável** deve:
+Toda skill geral deve:
 
-1. existir canonicamente em `skills/<nome>/SKILL.md`;
-2. possuir versão registrada em `registry.json`;
-3. possuir documentação e link no `README.md`;
-4. registrar origem/proveniência e, quando houver, repositórios espelho;
-5. ser distribuída aos espelhos a partir da versão central;
-6. receber primeiro neste repositório qualquer alteração que modifique seu comportamento geral.
+1. existir em `skills/<nome>/SKILL.md`;
+2. possuir versão SemVer em `registry.json`;
+3. possuir entrada vinculada à mesma versão no README e em `general-skills-status.md`;
+4. registrar origem/proveniência e mirrors quando aplicável;
+5. receber primeiro aqui qualquer mudança de comportamento geral;
+6. passar o gate canônico antes de merge/distribuição.
 
-## Low-HITL como padrão de governança
+## Delegação do lifecycle
 
-Em operações de criação, promoção ou atualização ampla:
+Quando o trabalho envolver criação, refatoração, promoção ou distribuição de uma skill, componha `skill-development-lifecycle`, que delega para:
 
-1. agrupe mudanças que pertençam ao mesmo objetivo em um lote coerente;
-2. use `low-hitl-orchestration` para evitar aprovações intermediárias sem valor;
-3. use `batch-quality-gate` para consolidar validações;
-4. corrija falhas determinísticas em lote antes de solicitar revisão humana;
-5. use `decision-escalation-control` para interromper somente quando houver decisão material, alteração de escopo, ação irreversível, autorização ou informação não inferível com segurança;
-6. quando houver mudança de alto impacto, aplique `elevated review` no mesmo gate final, sem multiplicar approvals;
-7. use `context-handoff` se o trabalho mudar de agente, modelo, conversa ou executor;
-8. para mudanças GitHub mais complexas, use `github-branch-pr-lifecycle`;
-9. no Codex, componha `adaptive-model-routing` e aplique o default operacional por papel: `Luna High` para leaf/bounded, `Terra Medium` para orquestração/handoff e `Sol High` para alta complexidade/materialidade.
+- `skill-authoring` — contrato e pacote Agent Skills;
+- `skill-validator` — checks determinísticos;
+- `skill-evaluator` — should-trigger, should-not-trigger e invariantes;
+- `skill-portability-audit` — classificação project/global;
+- `skill-promotion` — extração e registro da parte transversal;
+- `skill-distribution` — ChatGPT, Codex e consumidores.
 
-O padrão recomendado é:
+Para trabalhos complexos que não sejam primariamente lifecycle de skill, `chatgpt-governed-workflow` é o entry point geral da governança operacional.
 
-```text
-lote coerente → validação → FAIL determinístico → corrigir em lote → revalidar → PASS → um gate humano final
-```
+## Low-HITL
 
-## Roteamento padrão de modelos no Codex
-
-O catálogo não replica nomes de modelos dentro de cada skill. O default é herdado pela política central e implementado por `adaptive-model-routing`.
-
-Quando o host for Codex e a família GPT-5.6 estiver disponível:
+Componha `low-hitl-orchestration`, `batch-quality-gate` e `decision-escalation-control`:
 
 ```text
-leaf / bounded        → gpt-5.6-luna  + high
-orchestration/handoff → gpt-5.6-terra + medium
-high complexity       → gpt-5.6-sol   + high
+lote coerente -> validar -> FAIL determinístico -> corrigir em lote -> revalidar -> PASS -> gate final
 ```
 
-Regras:
+Não solicite HITL para lint, YAML, SemVer, drift documental, eval schema, testes, empacotamento, conflitos mecânicos ou reexecução de gate quando a correção não altera intenção, escopo, risco, autorização ou contrato.
 
-- Terra Medium é o coordenador/handoff padrão de fluxos multi-etapas;
-- Luna High recebe tarefas leaf com escopo, entradas, arquivos-alvo e critérios de aceite suficientemente fechados;
-- Sol High recebe raciocínio de alta complexidade, investigação ambígua, arquitetura, validação profunda e julgamentos materiais;
-- escalone automaticamente quando a evidência altera complexidade, risco, escopo, causalidade ou decisão material;
-- faça de-escalation depois que a ambiguidade for removida e restarem tarefas mecânicas/delimitadas;
-- não confunda maior capacidade cognitiva com maior autorização operacional;
-- instrução explícita do usuário ou política obrigatória do host prevalece sobre o default.
+`elevated review` aumenta profundidade do mesmo gate; não multiplica approvals.
+
+## Gate canônico
+
+Para mudança no catálogo, execute conforme aplicável:
+
+```bash
+python -m unittest discover -s tests -p "test_*.py" -v
+python scripts/sync_skills.py --check
+python scripts/validate_skill_evals.py
+python scripts/package_chatgpt_skills.py --check
+python -m py_compile scripts/*.py
+```
+
+Falha em qualquer check determinístico impede merge até correção e revalidação.
 
 ## Geral versus específica
 
-Promova para o catálogo central quando a skill puder ser usada em mais de um projeto sem depender de nomes, IDs, caminhos, schemas ou regras institucionais exclusivos de um único repositório.
+Use `skill-portability-audit` antes de promover uma skill local relevante:
 
-Mantenha local quando a skill depender essencialmente de um projeto específico. Se houver valor reutilizável, extraia uma versão geral para o catálogo central e mantenha a variante local como adaptação.
+- `PROJECT_ONLY` — permanece no projeto;
+- `GENERALIZABLE` — extrair contrato transversal;
+- `GENERAL_WITH_ADAPTER` — promover núcleo geral e manter adaptador local;
+- `GLOBAL_READY` — pode seguir para registro/gates centrais.
 
-## Criação de nova skill
+Nunca copie literalmente para o catálogo paths absolutos, IDs, endpoints internos, schemas ou regras institucionais que só façam sentido no projeto de origem.
 
-Ao criar uma skill geral:
+## Versionamento
 
-1. escolha nome estável em kebab-case;
-2. crie `skills/<nome>/SKILL.md`;
-3. adicione a skill a `registry.json` com versão SemVer;
-4. documente no índice e na seção detalhada do `README.md`;
-5. atualize `general-skills-status.md` quando a mudança altera o estado do catálogo;
-6. registre targets de espelhamento, se existirem;
-7. rode `python scripts/sync_skills.py --check`;
-8. corrija todos os erros determinísticos antes do gate humano;
-9. após revisão, rode `python scripts/sync_skills.py --apply` somente se houver mirrors `mode: push` selecionados.
-
-## Atualização
-
-Mudanças comportamentais devem atualizar a versão:
-
-- PATCH: correções e esclarecimentos sem mudança de contrato;
+- PATCH: correção/esclarecimento sem mudança de contrato;
 - MINOR: nova capacidade compatível;
-- MAJOR: mudança incompatível de contrato, gatilhos ou saída.
+- MAJOR: mudança incompatível de gatilho, contrato ou saída.
 
-A alteração deve ser feita primeiro na cópia central. Não trate uma cópia espelho como fonte de verdade.
+Alteração geral nasce na cópia canônica; mirror não é fonte de verdade.
 
-## Promoção a partir de outro projeto
+## Distribuição
 
-Ao extrair uma capacidade reutilizável:
+`skill-distribution` deve separar estados:
 
-1. identifique o comportamento transversal;
-2. remova nomes, IDs, paths, schemas e políticas exclusivas do projeto;
-3. preserve os invariantes que geram valor;
-4. registre `origin` no `registry.json`;
-5. mantenha no projeto de origem somente a variante específica quando necessário;
-6. não copie para o catálogo contratos de autorização ou políticas que só fazem sentido no domínio de origem.
+- `DISTRIBUTION_READY` — artefato/configuração preparado;
+- `INSTALLED` — instalação observada no host;
+- `VERIFIED` — host confirmou descoberta/uso.
 
-## Segurança e integridade
+Bundle gerado não é prova de instalação. Para Codex USER, a referência geral é `$HOME/.agents/skills/<nome>`; para ChatGPT, use bundle individual quando a superfície permitir; consumers seguem mirrors declarados no registry.
 
-- nunca versionar tokens, PATs ou secrets;
-- o sincronizador não apaga skills não gerenciadas;
-- `--check` deve preceder `--apply` em mudanças amplas;
-- repositórios espelho somente são alterados quando declarados explicitamente no registro;
-- nenhuma falha de validação determinística deve ser convertida em pedido de aprovação humana;
-- não use modelo/agente mais capaz como substituto para autorização ou decisão de escopo;
-- não promova roteamento específico de um harness a contrato obrigatório de todos os hosts: mantenha-o em adaptadores operacionais.
+O roteamento de modelos permanece definido transversalmente por `AGENTS.md` e `adaptive-model-routing`; esta skill não duplica a tabela concreta.
 
 ## Merge e publicação
 
-Antes de merge:
+Antes do merge:
 
-- branch deve estar reconciliada com a base;
-- diff deve permanecer restrito ao lote pretendido;
-- `registry.json`, README e arquivos canônicos devem concordar;
-- validação estrutural deve passar;
-- PR deve estar mergeável;
-- revisão final deve refletir o nível de risco do lote.
+- diff restrito ao lote;
+- branch reconciliada com a base;
+- registry, README, status e arquivos canônicos concordam;
+- testes, eval schema, package check e CI passam;
+- PR está mergeável;
+- não há bloqueador material não resolvido.
 
-Após merge, confirme a default branch e, quando necessário, sincronize clones/mirrors.
+Depois do merge, verifique `main`, CI e estados de distribuição solicitados.
 
 ## Saída esperada
 
-Ao concluir uma operação de governança, informe:
-
-- skills e versões afetadas;
-- arquivos centrais alterados;
-- origem/proveniência;
-- espelhos afetados;
-- resultado da validação;
-- estado do PR/merge;
-- roteamento de modelo aplicado quando o host permitir observá-lo;
-- HITL solicitado ou evitado e motivo.
+Informe skills/versões afetadas, origem, arquivos centrais, gates, evals, portabilidade, mirrors/distribuição, PR/merge e HITL solicitado ou evitado.
