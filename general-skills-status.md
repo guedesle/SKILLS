@@ -1,102 +1,133 @@
 # Estado das skills gerais
 
-Atualizado em 23 de agosto de 2026.
+Atualizado em 24 de agosto de 2026.
 
 ## Fonte canônica
 
-`guedesle/SKILLS` é a fonte de verdade para skills gerais/reutilizáveis. O inventário operacional está em [`registry.json`](registry.json), em `schema_version: 2`, e a navegação/versões em [`README.md`](README.md).
+`guedesle/SKILLS` é a fonte de verdade das skills gerais/reutilizáveis. O inventário machine-readable vive em [`registry.json`](registry.json), o catálogo navegável em [`README.md`](README.md) e a política transversal em [`AGENTS.md`](AGENTS.md).
 
-Skills específicas de projeto não são promovidas automaticamente. Quando uma capacidade local possui valor transversal, uma versão geral é extraída para este catálogo e a origem fica registrada.
+Skills de projeto não são promovidas automaticamente: passam por auditoria de portabilidade, extração da parte transversal, validação, evals e registro central.
 
 ## Catálogo atual
 
 | Skill | Categoria | Versão | Estado |
 |---|---|---:|---|
 | `plan-content` | Editorial | 1.0.0 | Canônica |
-| `architect-text` | Editorial | 1.2.0 | Canônica + Plano de Arquitetura do Texto |
-| `design-paragraphs` | Editorial | 1.2.0 | Canônica + 18 funções de parágrafo + corpus de exemplos |
+| `architect-text` | Editorial | 1.2.0 | Canônica |
+| `design-paragraphs` | Editorial | 1.2.0 | Canônica |
 | `write-with-evidence` | Editorial | 1.0.0 | Canônica |
-| `write-technical-content` | Editorial/Técnica | 1.0.0 | Canônica + mirror homologado |
+| `write-technical-content` | Editorial/Técnica | 1.0.0 | Canônica + mirror |
 | `calibrate-rhetoric` | Editorial | 1.0.0 | Canônica |
-| `review-editorial-quality` | QA | 1.0.0 | Canônica + mirror homologado |
+| `review-editorial-quality` | QA | 1.0.0 | Canônica + mirror |
 | `improve-accessible-writing` | Acessibilidade | 1.0.0 | Canônica |
 | `assess-editorial-alignment` | Governança editorial | 1.0.0 | Canônica |
-| `prompt-generator` | Prompt engineering | 1.0.0 | Canônica + padrões + evals + blueprint |
+| `prompt-generator` | Prompt engineering | 1.0.0 | Canônica + evals |
 | `graphify` | Engenharia de software | 1.0.0 | Canônica |
 | `github-project-repo-sync` | GitHub automation | 1.0.0 | Canônica |
 | `github-project-drift-audit` | GitHub/QA | 1.0.0 | Canônica |
-| `skills-central-governance` | Gestão de skills | 1.2.0 | Canônica + low-HITL + default Codex por papel |
+| `skills-central-governance` | Gestão de skills | 1.3.0 | Canônica + policy/delegação |
+| `skill-development-lifecycle` | Gestão de skills | 1.0.0 | Canônica + meta-skill |
+| `skill-authoring` | Gestão de skills | 1.0.0 | Canônica + evals |
+| `skill-validator` | Gestão de skills | 1.0.0 | Canônica + evals |
+| `skill-evaluator` | Gestão de skills | 1.0.0 | Canônica + evals |
+| `skill-portability-audit` | Gestão de skills | 1.0.0 | Canônica + evals |
+| `skill-promotion` | Gestão de skills | 1.0.0 | Canônica + evals |
+| `skill-distribution` | Gestão de skills | 1.0.0 | Canônica + evals |
+| `chatgpt-governed-workflow` | Workflow | 1.0.0 | Canônica + meta-skill |
 | `low-hitl-orchestration` | Orquestração | 1.0.0 | Canônica |
 | `batch-quality-gate` | QA automation | 1.0.0 | Canônica |
 | `context-handoff` | Context engineering | 1.0.0 | Canônica |
 | `github-branch-pr-lifecycle` | GitHub automation | 1.0.0 | Canônica |
-| `adaptive-model-routing` | Model routing | 1.1.0 | Canônica + adaptador Codex GPT-5.6 |
+| `adaptive-model-routing` | Model routing | 1.1.0 | Canônica + adaptador Codex |
 | `decision-escalation-control` | Governança de workflow | 1.0.0 | Canônica |
 | `contract-governed-execution` | Governança de execução | 1.0.0 | Canônica |
 | `knowledge-source-governance` | Governança de conhecimento | 1.0.0 | Canônica |
 
-## Origem e promoção
+**Total: 30 skills canônicas.**
 
-As nove skills editoriais foram generalizadas a partir das capacidades do `editor-agent`, removendo dependências de runtime, identidade específica e schemas exclusivos.
+## Fábrica governada de skills
 
-`prompt-generator` foi sintetizada com a abordagem Book-to-Skill a partir de **Fundamentos de Prompt Engineering** e **Prompt Engineering for LLMs**, de John Berryman e Albert Ziegler. A promoção converteu os materiais em regras operacionais, padrões de decisão, anti-padrões, avaliação e templates reutilizáveis, sem incorporar passagens extensas das fontes. A skill é agnóstica de fornecedor/modelo e adapta técnicas históricas de raciocínio para artefatos verificáveis sem solicitar cadeia de pensamento privada.
-
-`graphify` foi generalizada a partir do workflow existente no `SieDOE`, mantendo a regra essencial: usar o grafo para descoberta e confirmar detalhes diretamente no código antes de editar.
-
-`github-project-repo-sync` e `github-project-drift-audit` foram promovidas a partir das skills criadas no PFC IBMEC. A versão central remove nomes e IDs exclusivos do PFC e preserva o padrão desired → reconcile/audit → observed/live.
-
-### Promoção de estratégias de fluxo e baixo HITL
-
-Em 21/08/2026 foram promovidas **oito capacidades gerais** derivadas do `guedesle/cyber-skills-framework`:
-
-- `low-hitl-orchestration` — `FAIL → corrigir em lote → revalidar → um único gate humano final`; falha determinística não gera HITL;
-- `batch-quality-gate` — validação consolidada com modos fast/batch/CI, relatório estruturado, autotestes dos validadores e mesma política local/remota;
-- `context-handoff` — estado operacional compacto entre agentes/modelos/conversas, preservando decisões, evidências, débitos e itens que não devem ser perguntados novamente;
-- `github-branch-pr-lifecycle` — feature branches, stacked PRs, retarget, preservação de ancestralidade, recuperação segura de divergência e verificação pós-merge;
-- `adaptive-model-routing` — separação por papel entre bounded execution, context handoff e frontier reasoning, mantendo skills agnósticas de fornecedor/modelo e adicionando um adaptador operacional Codex;
-- `decision-escalation-control` — classificação `AUTO_CONTINUE`, `HUMAN_REVIEW_RECOMMENDED`, `HUMAN_REVIEW_REQUIRED` e `BLOCKED_UNTIL_REVIEW`, com elevated review aumentando profundidade sem multiplicar approvals;
-- `contract-governed-execution` — contratos machine-readable e fail-closed para automatizar escopo, limites, stop conditions, approvals e trilha de evidência sem interpretar ausência de regra como permissão;
-- `knowledge-source-governance` — Source Registry, proveniência, freshness, corroboration, vetor de qualidade e teto de conclusão para impedir que uma fonte fraca/desatualizada promova sozinha uma decisão material.
-
-A promoção removeu regras exclusivas de cibersegurança. Taxonomias, catálogos, RoE e contratos ofensivos específicos permanecem no projeto de origem; foram generalizados apenas os padrões transversais de execução, QA, handoff, GitHub, escalonamento, governança de contratos e governança de conhecimento.
-
-## Padrão geral low-HITL
-
-Para trabalhos multi-etapas, a estratégia canônica passa a ser:
+Em 24/08/2026 foi materializado o lifecycle:
 
 ```text
-lote coerente
-  ↓
-fast gate opcional
-  ↓
-batch gate
-  ↓
-FAIL → corrigir todos os bloqueios determinísticos → revalidar
-  ↓ PASS
-handoff/relatório consolidado
-  ↓
-1 gate humano final
+chatgpt-governed-workflow
+        │
+        └─ skill-development-lifecycle
+             ├─ skill-authoring
+             ├─ skill-validator
+             ├─ skill-evaluator
+             ├─ skill-portability-audit
+             ├─ skill-promotion
+             └─ skill-distribution
 ```
 
-Interromper antes do `PASS` somente quando a continuação depende de decisão material, alteração de escopo, autorização, ação irreversível/produção ou informação que não pode ser inferida com segurança.
+A governança central (`skills-central-governance` 1.3.0) mantém policy e fonte de verdade; a meta-skill `skill-development-lifecycle` executa o ciclo especializado.
 
-`elevated review` não cria approvals adicionais: aumenta o rigor do mesmo gate final.
+## Gates implementados
 
-## Governança de execução por contrato
+O catálogo agora diferencia:
 
-Para ações de maior risco ou com limites estritos, prefira contratos machine-readable e fail-closed. O contrato deve tornar verificáveis, conforme o domínio: escopo, janela temporal, capacidades permitidas/proibidas, limites operacionais, stop conditions, aprovação humana, estado de autorização e evidence/activity ledger. Ausência de regra crítica não deve virar permissão implícita.
+- **estrutura** — YAML real, kebab-case, SemVer, paths e registry;
+- **integridade** — versão da mesma skill em registry/README/status e recursos canônicos;
+- **evals** — schema declarativo de trigger positivo, trigger negativo e comportamento;
+- **portabilidade** — `PROJECT_ONLY`, `GENERALIZABLE`, `GENERAL_WITH_ADAPTER`, `GLOBAL_READY`;
+- **distribuição** — bundle/manifest/mirrors e estados `DISTRIBUTION_READY`, `INSTALLED`, `VERIFIED`;
+- **repositório** — testes, CI, diff, review, mergeability e verificação pós-merge.
 
-## Governança de fontes e evidência
+O gate canônico é:
 
-Fontes devem ser avaliadas por proveniência, authority, freshness, specificity, applicability, corroboration, empirical support e `allowed_outcomes`/`forbidden_outcomes`. Busca aberta pode descobrir fontes; conclusão material deve respeitar o teto de conclusão da fonte e o workflow de validação aplicável.
+```bash
+python -m pip install -r requirements-dev.txt
+python -m unittest discover -s tests -p "test_*.py" -v
+python scripts/sync_skills.py --check
+python scripts/validate_skill_evals.py
+python scripts/package_chatgpt_skills.py --check
+python -m py_compile scripts/*.py
+```
 
-## Política de roteamento de modelos
+O parser manual de frontmatter foi substituído por YAML real. A validação documental não aceita mais a presença de uma versão em qualquer ponto do README como prova: a versão deve pertencer à mesma skill.
 
-Skills gerais continuam sem depender de nomes de modelos no seu contrato funcional. O roteamento concreto é tratado como adaptador do runtime/harness.
+## Low-HITL
 
-### Default Codex / GPT-5.6
+```text
+AUTO_CONTINUE
+  ↓
+validar
+  ↓
+FAIL determinístico → corrigir em lote → revalidar
+  ↓ PASS
+gate final
+```
 
-A partir de 21/08/2026, o adaptador Codex padrão é:
+Falhas mecânicas/determinísticas não geram HITL. Escalonar somente decisão material, mudança de escopo/contrato, autorização, risco ou ação irreversível.
+
+## Promoção project → global
+
+A regra canônica passa a ser:
+
+1. auditar portabilidade;
+2. separar comportamento transversal de dependência local;
+3. manter adaptador no projeto quando necessário;
+4. criar/refatorar a skill geral;
+5. registrar `origin` e SemVer;
+6. executar validação + evals;
+7. merge no catálogo central;
+8. distribuir a partir da fonte canônica.
+
+Capacidades previamente promovidas continuam registrando suas origens: `editor-agent`, `SieDOE`, PFC IBMEC e `cyber-skills-framework`.
+
+## Distribuição
+
+- **Codex USER**: `$HOME/.agents/skills/<nome>` apontando para a fonte canônica.
+- **ChatGPT**: um ZIP determinístico por skill, quando a superfície de Skills permitir upload.
+- **Consumers**: mirrors declarados em `registry.json`, preferindo pull.
+- **Distribuição reutilizável**: plugin skill-only quando adotado pelo host.
+
+Preparar bundle não equivale a observar instalação. O catálogo não declara `INSTALLED` ou `VERIFIED` sem evidência da superfície de destino.
+
+## Roteamento Codex
+
+O contrato funcional das skills permanece agnóstico de modelo. O adaptador transversal mantém:
 
 ```text
 leaf / bounded        → gpt-5.6-luna  + reasoning high
@@ -104,62 +135,20 @@ orchestration/handoff → gpt-5.6-terra + reasoning medium
 high complexity       → gpt-5.6-sol   + reasoning high
 ```
 
-Interpretação operacional:
+A política concreta vive em `AGENTS.md` e `adaptive-model-routing`, evitando duplicação por skill.
 
-- **Luna High** executa tarefas leaf bem delimitadas, inclusive implementação, testes, transformações e validações estruturais quando o contrato já está fechado;
-- **Terra Medium** atua como orquestrador/handoff padrão, decompõe trabalhos multi-etapas, integra resultados e preserva estado/contexto entre executores;
-- **Sol High** atua em alta complexidade: arquitetura, investigação ambígua, debugging profundo, causalidade, falsificação/validação complexa, decisões materiais e QA de alto impacto.
+## Mirrors ativos
 
-O roteamento começa no menor tier suficiente e escala quando evidência inesperada altera risco, escopo, severidade, causalidade, complexidade ou decisão material. Depois que Sol reduz a ambiguidade e fecha interfaces/critérios, tarefas subsequentes podem voltar a Terra ou Luna.
-
-O default está registrado de forma machine-readable em `registry.json > runtime_adapters.codex` e é herdado transversalmente por `AGENTS.md`. A semântica detalhada permanece em `skills/adaptive-model-routing/SKILL.md`, evitando copiar nomes de modelos para todas as skills e criar drift.
-
-Maior capacidade cognitiva não amplia autorização operacional. Instrução explícita do usuário, política obrigatória do host ou contrato de risco prevalece sobre o default.
-
-## Política de nomenclatura editorial
-
-Nas skills editoriais, nomes de campos e etapas devem ser compreensíveis sem glossário. Termos acadêmicos, metafóricos, abreviações e códigos podem existir internamente para rastreabilidade, mas não devem ser a linguagem principal mostrada ao usuário quando houver uma expressão direta equivalente.
-
-## Critério de maturidade
-
-**Canônica** significa que a skill possui definição central, versão registrada e documentação navegável. Para skills de workflow, o contrato deve explicitar gatilhos, estados de HITL, condições de parada, saída esperada e origem/proveniência. Para skills de QA/gate, validadores críticos devem possuir casos negativos. Para governança de execução, schemas e ledgers devem ser fail-closed nas fronteiras materiais. Para governança de conhecimento, fontes devem declarar freshness/corroboration e limites de conclusão. Para adaptadores de modelos, defaults concretos devem manter separação entre papel, capacidade, reasoning effort e autorização. Para `prompt-generator`, maturidade inclui contrato de tarefa, seleção explícita de padrão, tratamento de contexto, formato de saída e pelo menos um caminho de avaliação/refinamento para uso recorrente.
-
-## Política de sincronização
-
-- central: `skills/<nome>/SKILL.md`;
-- inventário/versionamento/mappings: `registry.json`;
-- documentação: `README.md` e `general-skills-status.md`;
-- validação estrutural: `python scripts/sync_skills.py --check`;
-- runtime pull genérico: `.github/workflows/mirror-consumer.yml` + `scripts/sync_consumer.py`;
-- caller padrão de consumidores: `templates/sync-central-skills.yml`;
-- bootstrap padronizado de consumidor novo: `scripts/bootstrap_consumers.py`;
-- fallback push explícito: `python scripts/sync_skills.py --apply`.
-
-No modo preferido `pull`, um repositório consumidor recebe o caller padrão uma única vez. A partir daí, novas skills destinadas ao mesmo consumidor são adicionadas somente como mappings no `registry.json`.
-
-Espelhos só são atualizados quando declarados explicitamente em `registry.json`. Variantes locais registradas em `legacy_source` servem para proveniência e não são sobrescritas automaticamente.
-
-## Homologação atual
-
-Consumidor: `guedesle/download-edicoes-doe`, branch `main`.
-
-Mappings ativos:
+Consumidor homologado: `guedesle/download-edicoes-doe`, branch `main`.
 
 - `write-technical-content` → `.agents/skills/write-technical-content`;
 - `review-editorial-quality` → `.agents/skills/review-editorial-quality`.
 
-As oito skills de workflow/governança não possuem mirror específico registrado; são canônicas no catálogo central e podem ser consumidas globalmente pelos hosts que apontam para `SKILLS/skills`.
+Demais skills canônicas podem ser consumidas globalmente por hosts que apontem para o catálogo central; mirrors específicos só são criados quando declarados.
 
-O default de modelos do Codex não exige mirror individual por skill porque é política transversal do catálogo/harness.
+## Próximas métricas de maturidade
 
-## Próxima evolução de qualidade
-
-- adicionar evals comparativos para as skills de workflow;
-- criar fixtures de regressão para `prompt-generator` cobrindo zero-shot, few-shot, RAG, structured output e tool routing;
-- medir número de HITLs evitados versus reversões/erros materiais;
-- testar handoffs entre Luna, Terra e Sol com métricas de perda de contexto;
-- testar stacked PR e divergência local em fixtures controladas;
-- comparar roteamento por custo por sucesso, latência, fidelidade de contexto, retries e taxa de escalonamento;
-- calibrar thresholds de escalation/de-escalation com evals reais de Codex;
-- criar validator geral de contratos de skill para o catálogo central, complementando `sync_skills.py --check`;
-- criar fixtures negativas para `contract-governed-execution` e `knowledge-source-governance`.
+- executar evals de trigger/comportamento em runners reais de ChatGPT/Codex quando disponíveis;
+- medir colisão de gatilhos, regressões e taxa de sucesso;
+- medir HITLs evitados versus reversões materiais;
+- ampliar fixtures negativas sem transformar validação determinística em julgamento LLM implícito.
