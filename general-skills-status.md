@@ -33,6 +33,11 @@ Skills específicas de projeto não são promovidas automaticamente. Quando uma 
 | `decision-escalation-control` | Governança de workflow | 1.0.0 | Canônica |
 | `contract-governed-execution` | Governança de execução | 1.0.0 | Canônica |
 | `knowledge-source-governance` | Governança de conhecimento | 1.0.0 | Canônica |
+| `egba-licitacoes-contratos` | Governança de contratações | 1.0.0 | Canônica + síntese do Regulamento EGBA |
+
+## Nova skill — governança de licitações e contratos
+
+Em 23/08/2026 foi promovida ao catálogo central a skill `egba-licitacoes-contratos`, derivada do **Regulamento de Licitações e Contratos da EGBA** fornecido em PDF. A definição central é uma síntese operacional, com oito capítulos sob demanda, glossário, padrões de instrução e cheatsheet de prazos/limites. O pacote preserva referências aos artigos e orienta a confirmar versão oficial, atos de alçada, atualização pelo IPCA-E e parecer jurídico antes de decisões materiais.
 
 ## Origem e promoção
 
