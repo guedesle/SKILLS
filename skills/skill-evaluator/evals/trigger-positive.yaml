@@ -1,0 +1,10 @@
+schema_version: 1
+skill: skill-evaluator
+kind: trigger_positive
+cases:
+  - id: positive-1
+    input: crie should-trigger e should-not-trigger para esta skill
+  - id: positive-2
+    input: avalie colisões de gatilho entre essas skills
+  - id: positive-3
+    input: defina regressões comportamentais para o SKILL.md

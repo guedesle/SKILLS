@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "marketplace": {
+    "name": "guedesle-skills-local",
+    "display_name": "Guedeslé Skills"
+  },
+  "plugins": [
+    {
+      "name": "guedesle-governed-workflow",
+      "version": "1.0.0",
+      "description": "Governed low-HITL workflows for complex work, repositories, and reusable skill development.",
+      "display_name": "Governed Workflow",
+      "short_description": "Low-HITL governance and skill factory",
+      "long_description": "Run complex repository work with low-HITL governance and build, validate, evaluate, promote, and distribute reusable skills from one canonical catalog.",
+      "category": "Productivity",
+      "default_prompts": [
+        "Use Governed Workflow to take this repository task through validation and merge with low HITL.",
+        "Use Governed Workflow to turn this project skill into a validated reusable global skill."
+      ],
+      "skills": [
+        "chatgpt-governed-workflow",
+        "skill-development-lifecycle",
+        "skill-authoring",
+        "skill-validator",
+        "skill-evaluator",
+        "skill-portability-audit",
+        "skill-promotion",
+        "skill-distribution",
+        "skills-central-governance",
+        "low-hitl-orchestration",
+        "batch-quality-gate",
+        "context-handoff",
+        "github-branch-pr-lifecycle",
+        "adaptive-model-routing",
+        "decision-escalation-control",
+        "contract-governed-execution",
+        "knowledge-source-governance"
+      ]
+    }
+  ]
+}

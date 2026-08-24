@@ -1,0 +1,10 @@
+schema_version: 1
+skill: skill-development-lifecycle
+kind: behavior
+cases:
+  - id: behavior-1
+    input: crie valide promova e distribua esta nova skill
+    expect: FAIL determinístico implica corrigir e revalidar em lote.
+  - id: behavior-2
+    input: crie valide promova e distribua esta nova skill
+    expect: HITL é reservado a decisão material, risco, autorização ou contrato incompatível.

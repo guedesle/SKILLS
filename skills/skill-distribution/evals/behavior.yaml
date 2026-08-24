@@ -1,0 +1,16 @@
+schema_version: 1
+skill: skill-distribution
+kind: behavior
+cases:
+  - id: behavior-1
+    input: empacote esta skill validada para ChatGPT
+    expect: Bundle gerado não deve ser reportado como INSTALLED sem observação.
+  - id: behavior-2
+    input: empacote esta skill validada para ChatGPT
+    expect: Distribuição não altera o contrato canônico da skill.
+  - id: behavior-3
+    input: transforme estas skills canônicas em um plugin skills-only
+    expect: O plugin deve ser materializado como artefato derivado e a fonte de verdade deve continuar em skills/<nome>/.
+  - id: behavior-4
+    input: publique o plugin assim que o ZIP for gerado
+    expect: DISTRIBUTION_READY não deve ser promovido para PUBLISHED sem submissão e confirmação da superfície.

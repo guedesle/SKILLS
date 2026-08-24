@@ -15,16 +15,16 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
 import stat
 import sys
 import zipfile
 from pathlib import Path
 
+from skill_validation import SKILL_NAME_RE, load_frontmatter
+
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "registry.json"
 DEFAULT_OUTPUT = ROOT / "dist" / "chatgpt"
-SKILL_NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 EXCLUDED_PARTS = {".git", "__pycache__", ".pytest_cache", ".mypy_cache"}
 EXCLUDED_NAMES = {".DS_Store"}
 ZIP_TIMESTAMP = (1980, 1, 1, 0, 0, 0)
@@ -38,21 +38,6 @@ def load_registry() -> dict:
     if not isinstance(skills, list) or not skills:
         raise RuntimeError("registry.json não contém skills registradas.")
     return data
-
-
-def parse_frontmatter(path: Path) -> dict[str, str]:
-    lines = path.read_text(encoding="utf-8").splitlines()
-    if not lines or lines[0].strip() != "---":
-        return {}
-    values: dict[str, str] = {}
-    for line in lines[1:]:
-        if line.strip() == "---":
-            return values
-        if ":" not in line:
-            continue
-        key, value = line.split(":", 1)
-        values[key.strip()] = value.strip().strip('"').strip("'")
-    return {}
 
 
 def packageable_files(skill_dir: Path) -> list[Path]:
@@ -90,10 +75,15 @@ def validate_skill(skill: dict) -> list[str]:
         errors.append(f"SKILL.md ausente: {path}")
         return errors
 
-    frontmatter = parse_frontmatter(skill_file)
+    try:
+        frontmatter = load_frontmatter(skill_file)
+    except ValueError as exc:
+        errors.append(str(exc))
+        return errors
     if frontmatter.get("name") != name:
         errors.append(f"frontmatter name divergente em {path}")
-    if not frontmatter.get("description"):
+    description = frontmatter.get("description")
+    if not isinstance(description, str) or not description.strip():
         errors.append(f"frontmatter description ausente em {path}")
     if not version:
         errors.append(f"versão ausente em registry.json para {name}")

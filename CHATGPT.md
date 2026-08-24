@@ -1,103 +1,170 @@
 # Skills gerais no ChatGPT
 
-Este repositório é a fonte canônica das skills gerais e reutilizáveis de `guedesle/SKILLS`. O formato adotado é **Agent Skills**: cada skill vive em `skills/<nome>/` e possui `SKILL.md` na raiz, podendo carregar `references/`, `scripts/`, `assets/`, templates e outros recursos.
+`guedesle/SKILLS` é a fonte canônica das skills gerais. Cada skill permanece em `skills/<nome>/` com `SKILL.md` na raiz e pode incluir `evals/`, `references/`, `scripts/`, `assets/` e templates.
 
-## Objetivo
+## Estados de distribuição
 
-Permitir que as skills canônicas sejam instaladas como **Personal Skills** no ChatGPT sem criar cópias divergentes no repositório.
+Não confunda preparação do artefato com instalação:
 
-A regra é **uma skill por pacote**. Não crie uma mega-skill contendo todo o catálogo: a instalação separada preserva descoberta automática, gatilhos específicos, versionamento e atualização independente.
+- `DISTRIBUTION_READY` — bundle/plugin foi gerado e validado;
+- `INSTALLED` — upload/instalação foi observado na superfície de destino;
+- `VERIFIED` — a superfície confirmou descoberta/uso;
+- `PUBLISHED` — publicação universal/workspace foi confirmada pela plataforma.
 
-## 1. Validar o catálogo
+O repositório pode produzir e validar `DISTRIBUTION_READY`. Só declare os demais estados quando houver observação no ChatGPT/Codex.
 
-Na raiz do clone:
+## 1. Gate canônico
 
 ```bash
+python -m pip install -r requirements-dev.txt
+python -m unittest discover -s tests -p "test_*.py" -v
 python scripts/sync_skills.py --check
+python scripts/validate_skill_evals.py
 python scripts/package_chatgpt_skills.py --check
+python scripts/package_plugins.py --check
 ```
 
-O primeiro comando valida registro, documentação, frontmatter e mirrors. O segundo confirma que todas as skills registradas podem ser empacotadas com segurança para ChatGPT.
+Esse gate valida YAML real, registro/documentação, eval schema, bundles individuais e composição de plugins skills-only. Evals declarados não equivalem a execução de modelo.
 
-## 2. Gerar os pacotes
+## 2. Duas rotas para ChatGPT
+
+### Rota A — Personal Skill individual
 
 ```bash
 python scripts/package_chatgpt_skills.py
 ```
 
-Saída padrão:
+Saída:
 
 ```text
 dist/chatgpt/
   manifest.json
   <skill>-v<semver>.zip
-  ...
 ```
 
-Cada ZIP contém `SKILL.md` diretamente na raiz do pacote e inclui os recursos auxiliares da mesma pasta canônica. Os bundles são determinísticos e não incluem caches, metadados de Git ou symlinks.
+Cada ZIP contém uma única skill com `SKILL.md` na raiz. Use essa rota quando a conta/workspace oferecer upload de Personal Skills.
 
-Para empacotar somente algumas skills:
+### Rota B — plugin skills-only
+
+Plugins oficiais podem conter apenas skills e não precisam de MCP. O catálogo inicial deste repositório agrupa as capacidades interdependentes de governança/fábrica em um único plugin:
+
+```text
+guedesle-governed-workflow
+```
+
+Valide e gere:
 
 ```bash
-python scripts/package_chatgpt_skills.py --skill low-hitl-orchestration --skill prompt-generator
+python scripts/package_plugins.py --check
+python scripts/package_plugins.py
 ```
 
-## 3. Instalar no ChatGPT
+Saída:
 
-Quando **Personal Skills** estiverem habilitadas para sua conta ou workspace:
+```text
+dist/plugins/
+  manifest.json
+  guedesle-governed-workflow-v1.0.0.zip
+  marketplace/
+    .agents/plugins/marketplace.json
+    plugins/
+      guedesle-governed-workflow/
+        .codex-plugin/plugin.json
+        skills/
+          ...
+```
 
-1. abra **Plugins** na barra lateral;
-2. abra a aba **Skills**;
-3. escolha **Criar**;
-4. escolha **Upload do computador**;
-5. envie um arquivo `<skill>-v<semver>.zip` por vez;
-6. conclua a revisão/scan apresentada pelo ChatGPT;
-7. repita para as demais skills desejadas.
+O plugin contém cópias **derivadas** das skills para instalação. Não edite essas cópias: mudanças continuam em `skills/<nome>/`.
 
-Depois de instalada, uma Personal Skill pode ser usada automaticamente pelo ChatGPT quando o pedido corresponder ao seu gatilho, ou ser invocada explicitamente quando a superfície oferecer essa opção.
+## 3. Teste local do plugin
 
-> A disponibilidade de Personal Skills depende do plano, workspace, permissões administrativas e superfície do produto. Consulte a documentação oficial atual antes da instalação. Skills pessoais podem precisar ser adicionadas separadamente em desktop e web/mobile.
+Quando o ChatGPT desktop/Codex oferecer marketplace local, use a raiz gerada:
 
-## 4. Atualização
+```bash
+codex plugin marketplace add ./dist/plugins/marketplace
+codex plugin marketplace list
+```
 
-O GitHub continua sendo a fonte de verdade. Para atualizar uma skill já instalada:
+Depois reinicie a superfície compatível, abra o Plugins Directory e procure `Governed Workflow` na fonte local. Instale, abra uma conversa nova e execute casos positivos/negativos representativos.
+
+A documentação oficial atual indica que marketplaces locais servem para autoria, teste e distribuição privada e que plugins skills-only podem ir diretamente ao teste do plugin completo, sem etapa de MCP.
+
+## 4. Conta Plus e Plugin Directory
+
+O Plugins Directory é visível entre os planos do ChatGPT, inclusive web/desktop, mas **instalação e invocação continuam dependentes do plano, superfície, região e rollout**. Plugins que contêm somente skills não exigem um app externo, o que reduz as restrições técnicas, mas este repositório não trata isso como garantia de disponibilidade na conta atual.
+
+Se o plugin local não puder ser instalado na superfície Plus disponível, a rota de distribuição seguinte é submissão ao diretório universal como **Skills only**. A submissão pública é um processo separado de review e não deve ser descrita como bypass de plano.
+
+## 5. Submissão universal
+
+O portal oficial aceita plugins `Skills only`. Antes de submeter:
+
+- use o mesmo conjunto de skills testado localmente;
+- prepare pelo menos cinco casos positivos e três negativos;
+- revise descrições, starter prompts e escopo do plugin;
+- providencie identidade de desenvolvedor/publicador e URLs exigidas pela listagem;
+- complete os atestados e o scan de segurança;
+- só declare `PUBLISHED` após aprovação e publicação efetiva.
+
+O primeiro plugin foi desenhado para ser skills-only: não possui MCP, OAuth, backend ou UI externa.
+
+## 6. Lifecycle project → ChatGPT/Codex
+
+```text
+skill local
+  ↓
+skill-portability-audit
+  ↓
+PROJECT_ONLY ───────────────→ permanece local
+GENERALIZABLE ──────────────→ extrair parte transversal
+GENERAL_WITH_ADAPTER ───────→ núcleo geral + adaptador local
+GLOBAL_READY
+  ↓
+skill-promotion
+  ↓
+skill-validator + skill-evaluator
+  ↓
+merge no catálogo central
+  ↓
+skill-distribution
+  ├─ bundle individual
+  └─ plugin skills-only
+       ↓
+DISTRIBUTION_READY → INSTALLED → VERIFIED → PUBLISHED (quando aplicável)
+```
+
+A meta-skill `skill-development-lifecycle` orquestra esse fluxo. `chatgpt-governed-workflow` é o entry point geral e delega a ela quando o objeto principal é uma skill.
+
+## 7. Atualização
+
+GitHub permanece a fonte de verdade:
 
 ```bash
 git pull --ff-only
+python -m pip install -r requirements-dev.txt
 python scripts/sync_skills.py --check
-python scripts/package_chatgpt_skills.py --skill <nome>
+python scripts/validate_skill_evals.py
+python scripts/package_plugins.py --check
+python scripts/package_plugins.py
 ```
 
-Depois, faça upload da nova versão do ZIP na superfície de Skills do ChatGPT.
+**Não existe suposição de sincronização automática GitHub → plugin instalado.** Atualize/reinstale o artefato na superfície de destino quando necessário.
 
-**Não assuma sincronização automática GitHub → ChatGPT.** O catálogo central controla o conteúdo e a versão; a instalação do ChatGPT é uma etapa de distribuição separada.
+## 8. Segurança
 
-## 5. Catálogo geral
+Antes de distribuição:
 
-Por política deste repositório, toda entrada registrada em `registry.json` é uma skill geral canônica. Skills específicas de projeto permanecem locais até que uma versão transversal seja promovida e registrada.
-
-Assim, o conjunto a empacotar para ChatGPT é derivado diretamente de `registry.json`; não mantenha uma segunda lista manual.
-
-## 6. Segurança e governança
-
-Antes do upload:
-
-- revise instruções, scripts e arquivos auxiliares da skill;
-- execute os dois checks do catálogo;
-- não inclua segredos, tokens, credenciais ou dados de projeto no pacote;
-- mantenha ações materiais sujeitas aos contratos de autorização e HITL definidos pelas skills de governança;
-- trate o scan do ChatGPT como controle adicional, não como substituto da revisão do repositório.
-
-## 7. ChatGPT, Codex e API
-
-O mesmo conteúdo canônico pode ser reutilizado entre superfícies compatíveis com Agent Skills, mas a **instalação é independente**:
-
-- **ChatGPT** — Personal Skills via interface de Skills, quando disponível;
-- **Codex** — instalação global/local apontando para `skills/<nome>` conforme o README;
-- **OpenAI API** — Skills são recursos versionados do projeto e podem receber diretório ou ZIP por API; publicar na API não instala automaticamente a skill no ChatGPT pessoal.
+- nenhuma falha do gate canônico pode permanecer;
+- não incluir segredos, tokens ou credenciais;
+- não promover paths absolutos, endpoints internos ou IDs específicos de projeto;
+- manter guardrails de autorização e contratos fail-closed;
+- tratar scan/review do host como controle adicional, não substituto do gate do repositório.
 
 ## Referências oficiais
 
-- OpenAI Help Center — *Skills in ChatGPT*;
-- OpenAI Developers — *Skills API*;
-- documentação indicada no `README.md` para Codex e padrão Agent Skills.
+- OpenAI Developers — Plugins: package your plugin;
+- OpenAI Developers — connect and test your plugin;
+- OpenAI Developers — submit plugins;
+- OpenAI Help Center — Plugins in ChatGPT and Codex.
+
+Consulte a documentação oficial atual antes da instalação/publicação, porque planos, superfícies e permissões podem mudar.

@@ -1,6 +1,6 @@
 ---
 name: adaptive-model-routing
-description: Distribua trabalho entre modelos/agentes por papel, custo e autoridade cognitiva sem acoplar skills a um fornecedor. Use para separar execução delimitada, síntese/handoff e raciocínio de fronteira, com escalonamento automático quando evidência inesperada altera risco, escopo, severidade ou decisão material. No Codex, aplique o adaptador padrão GPT-5.6: Luna High para tarefas leaf delimitadas, Terra Medium para orquestração/handoff e Sol High para alta complexidade.
+description: "Distribua trabalho entre modelos/agentes por papel, custo e autoridade cognitiva sem acoplar skills a um fornecedor. Use para separar execução delimitada, síntese/handoff e raciocínio de fronteira, com escalonamento automático quando evidência inesperada altera risco, escopo, severidade ou decisão material. No Codex, aplique o adaptador padrão GPT-5.6: Luna High para tarefas leaf delimitadas, Terra Medium para orquestração/handoff e Sol High para alta complexidade."
 ---
 
 # Adaptive Model Routing

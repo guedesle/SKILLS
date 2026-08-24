@@ -1,0 +1,10 @@
+schema_version: 1
+skill: skill-evaluator
+kind: behavior
+cases:
+  - id: behavior-1
+    input: crie should-trigger e should-not-trigger para esta skill
+    expect: Sem runner de modelo, não alegar taxa de acerto empírica.
+  - id: behavior-2
+    input: crie should-trigger e should-not-trigger para esta skill
+    expect: Casos negativos devem incluir vizinhos semânticos relevantes.

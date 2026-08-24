@@ -1,0 +1,10 @@
+schema_version: 1
+skill: skill-portability-audit
+kind: trigger_positive
+cases:
+  - id: positive-1
+    input: esta skill do projeto pode virar global?
+  - id: positive-2
+    input: audite dependências locais antes de promover a skill
+  - id: positive-3
+    input: classifique esta skill como project-only ou global-ready

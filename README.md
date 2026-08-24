@@ -1,260 +1,169 @@
 # SKILLS — catálogo central
 
-Repositório canônico das **skills gerais e reutilizáveis**. A fonte de verdade é `guedesle/SKILLS`; skills específicas de projeto podem permanecer locais, mas capacidades reutilizáveis devem ser promovidas para este catálogo.
-
-## Navegação
-
-- [Índice](#índice-de-skills)
-- [Skills de workflow e baixo HITL](#skills-de-workflow-e-baixo-hitl)
-- [Como usar](#como-usar)
-- [Instalação em OpenCode, Codex e Claude Code](#instalação-em-opencode-codex-e-claude-code)
-- [Sincronização](#sincronização)
-- [Mirrors genéricos](#mirrors-genéricos)
-- [Homologação](#homologação)
-- [Versionamento](#versionamento)
-- [Histórico](#histórico)
+Repositório canônico de **skills gerais e reutilizáveis**. A fonte de verdade é `guedesle/SKILLS`; skills específicas de projeto permanecem locais até que sua parte transversal seja auditada e promovida.
 
 ## Índice de skills
 
 | Skill | Versão | Categoria | Função |
 |---|---:|---|---|
-| [`plan-content`](#plan-content) | **1.0.0** | Editorial | Briefing, tese, escopo, outline e riscos |
-| [`architect-text`](#architect-text) | **1.2.0** | Editorial | Finalidade → seções → plano de parágrafos → arquitetura |
-| [`design-paragraphs`](#design-paragraphs) | **1.2.0** | Editorial | 18 funções, contratos de refatoração e exemplos estruturais |
-| [`write-with-evidence`](#write-with-evidence) | **1.0.0** | Editorial | Evidência, inferência, causalidade e incerteza |
-| [`write-technical-content`](#write-technical-content) | **1.0.0** | Técnica | Requisitos, procedimentos e documentação |
-| [`calibrate-rhetoric`](#calibrate-rhetoric) | **1.0.0** | Editorial | Tom e força argumentativa |
-| [`review-editorial-quality`](#review-editorial-quality) | **1.0.0** | QA | Achados, bloqueios e prontidão |
-| [`improve-accessible-writing`](#improve-accessible-writing) | **1.0.0** | Acessibilidade | Clareza e leitura em tela |
-| [`assess-editorial-alignment`](#assess-editorial-alignment) | **1.0.0** | Governança | Aderência a princípios editoriais |
-| [`prompt-generator`](#prompt-generator) | **1.0.0** | Prompt engineering | Geração, refinamento e avaliação de prompts testáveis |
-| [`graphify`](#graphify) | **1.0.0** | Engenharia | Navegação de código orientada por grafo |
-| [`github-project-repo-sync`](#github-project-repo-sync) | **1.0.0** | GitHub | Reconciliação Project v2 ↔ repositório |
-| [`github-project-drift-audit`](#github-project-drift-audit) | **1.0.0** | GitHub/QA | Auditoria desired/observed/live |
-| [`skills-central-governance`](#skills-central-governance) | **1.2.0** | Governança | Ciclo de vida + low-HITL + default Codex por papel |
-| [`low-hitl-orchestration`](#low-hitl-orchestration) | **1.0.0** | Workflow | Lotes autônomos + um gate humano final |
-| [`batch-quality-gate`](#batch-quality-gate) | **1.0.0** | QA automation | Fast/batch/CI, autotestes e relatório consolidado |
-| [`context-handoff`](#context-handoff) | **1.0.0** | Context engineering | Transferência de estado sem reiniciar descoberta |
-| [`github-branch-pr-lifecycle`](#github-branch-pr-lifecycle) | **1.0.0** | GitHub | Branches, stacked PRs, divergência e merges seguros |
-| [`adaptive-model-routing`](#adaptive-model-routing) | **1.1.0** | Model routing | Luna/Terra/Sol por papel no Codex, com escalation/de-escalation |
-| [`decision-escalation-control`](#decision-escalation-control) | **1.0.0** | Governança | AUTO_CONTINUE, review e bloqueios por materialidade |
-| [`contract-governed-execution`](#contract-governed-execution) | **1.0.0** | Governança | Contratos machine-readable, fail-closed e ledger |
-| [`knowledge-source-governance`](#knowledge-source-governance) | **1.0.0** | Conhecimento | Proveniência, freshness, corroboration e evidence ceilings |
+| [`plan-content`](skills/plan-content/SKILL.md) | **1.0.0** | Editorial | Briefing, tese, escopo, outline e riscos |
+| [`architect-text`](skills/architect-text/SKILL.md) | **1.2.0** | Editorial | Finalidade → seções → plano de parágrafos → arquitetura |
+| [`design-paragraphs`](skills/design-paragraphs/SKILL.md) | **1.2.0** | Editorial | 18 funções, contratos de refatoração e exemplos estruturais |
+| [`write-with-evidence`](skills/write-with-evidence/SKILL.md) | **1.0.0** | Editorial | Evidência, inferência, causalidade e incerteza |
+| [`write-technical-content`](skills/write-technical-content/SKILL.md) | **1.0.0** | Técnica | Requisitos, procedimentos e documentação |
+| [`calibrate-rhetoric`](skills/calibrate-rhetoric/SKILL.md) | **1.0.0** | Editorial | Tom e força argumentativa |
+| [`review-editorial-quality`](skills/review-editorial-quality/SKILL.md) | **1.0.0** | QA | Achados, bloqueios e prontidão |
+| [`improve-accessible-writing`](skills/improve-accessible-writing/SKILL.md) | **1.0.0** | Acessibilidade | Clareza e leitura em tela |
+| [`assess-editorial-alignment`](skills/assess-editorial-alignment/SKILL.md) | **1.0.0** | Governança | Aderência a princípios editoriais |
+| [`prompt-generator`](skills/prompt-generator/SKILL.md) | **1.0.0** | Prompt engineering | Prompts testáveis, padrões e evals |
+| [`graphify`](skills/graphify/SKILL.md) | **1.0.0** | Engenharia | Navegação de código orientada por grafo |
+| [`github-project-repo-sync`](skills/github-project-repo-sync/SKILL.md) | **1.0.0** | GitHub | Reconciliação Project v2 ↔ repositório |
+| [`github-project-drift-audit`](skills/github-project-drift-audit/SKILL.md) | **1.0.0** | GitHub/QA | Auditoria desired/observed/live |
+| [`skills-central-governance`](skills/skills-central-governance/SKILL.md) | **1.3.0** | Gestão de skills | Política e estado do catálogo canônico |
+| [`skill-development-lifecycle`](skills/skill-development-lifecycle/SKILL.md) | **1.0.0** | Gestão de skills | Lifecycle ponta a ponta de skills |
+| [`skill-authoring`](skills/skill-authoring/SKILL.md) | **1.0.0** | Gestão de skills | Construção/refatoração do pacote Agent Skills |
+| [`skill-validator`](skills/skill-validator/SKILL.md) | **1.0.0** | Gestão de skills | YAML, registry, docs, recursos e gates determinísticos |
+| [`skill-evaluator`](skills/skill-evaluator/SKILL.md) | **1.0.0** | Gestão de skills | Should-trigger, should-not-trigger e behavior evals |
+| [`skill-portability-audit`](skills/skill-portability-audit/SKILL.md) | **1.0.0** | Gestão de skills | PROJECT_ONLY → GLOBAL_READY |
+| [`skill-promotion`](skills/skill-promotion/SKILL.md) | **1.0.0** | Gestão de skills | Promoção project → catálogo geral |
+| [`skill-distribution`](skills/skill-distribution/SKILL.md) | **1.1.0** | Gestão de skills | ChatGPT, Codex, mirrors e plugins skills-only |
+| [`chatgpt-governed-workflow`](skills/chatgpt-governed-workflow/SKILL.md) | **1.0.0** | Workflow | Entry point low-HITL para trabalho complexo |
+| [`low-hitl-orchestration`](skills/low-hitl-orchestration/SKILL.md) | **1.0.0** | Workflow | Lotes autônomos + gate humano por materialidade |
+| [`batch-quality-gate`](skills/batch-quality-gate/SKILL.md) | **1.0.0** | QA automation | Fast/batch/CI e relatório consolidado |
+| [`context-handoff`](skills/context-handoff/SKILL.md) | **1.0.0** | Context engineering | Continuidade entre agentes/modelos/sessões |
+| [`github-branch-pr-lifecycle`](skills/github-branch-pr-lifecycle/SKILL.md) | **1.0.0** | GitHub | Branches, PRs, divergência e merges seguros |
+| [`adaptive-model-routing`](skills/adaptive-model-routing/SKILL.md) | **1.1.1** | Model routing | Roteamento por papel no Codex |
+| [`decision-escalation-control`](skills/decision-escalation-control/SKILL.md) | **1.0.0** | Governança | AUTO_CONTINUE e revisão por materialidade |
+| [`contract-governed-execution`](skills/contract-governed-execution/SKILL.md) | **1.0.0** | Governança | Contratos fail-closed e ledger |
+| [`knowledge-source-governance`](skills/knowledge-source-governance/SKILL.md) | **1.0.0** | Conhecimento | Proveniência, freshness e evidence ceilings |
 
-### `plan-content`
-Transforma objetivo e contexto em briefing operacional, escopo, outline, evidências necessárias, riscos e critérios. [SKILL.md](skills/plan-content/SKILL.md) · [↑ Índice](#índice-de-skills)
+## Fábrica governada de skills
 
-### `architect-text`
-Converte a **finalidade do texto** em arquitetura funcional de leitura, com seções, funções de parágrafo, dependências, evidências, transições e instruções para a próxima etapa. [SKILL.md](skills/architect-text/SKILL.md) · [↑ Índice](#índice-de-skills)
+A partir de **24/08/2026**, o catálogo possui um lifecycle explícito para construir e promover skills:
 
-### `design-paragraphs`
-Projeta e refatora parágrafos com 18 funções estruturais e corpus de exemplos clássicos usado apenas para abstração estrutural. [SKILL.md](skills/design-paragraphs/SKILL.md) · [↑ Índice](#índice-de-skills)
+```text
+chatgpt-governed-workflow
+        │
+        └─ skill-development-lifecycle
+             ├─ skill-authoring
+             ├─ skill-validator
+             ├─ skill-evaluator
+             ├─ skill-portability-audit
+             ├─ skill-promotion
+             └─ skill-distribution
+```
 
-### `write-with-evidence`
-Distingue fatos, inferências, estimativas e opiniões e controla causalidade, extrapolação e incerteza. [SKILL.md](skills/write-with-evidence/SKILL.md) · [↑ Índice](#índice-de-skills)
+### `skill-development-lifecycle`
 
-### `write-technical-content`
-Estrutura especificações, requisitos, procedimentos, critérios de aceite e rastreabilidade. Mirror homologado em `guedesle/download-edicoes-doe/.agents/skills/write-technical-content`. [SKILL.md](skills/write-technical-content/SKILL.md) · [↑ Índice](#índice-de-skills)
+Orquestra nova skill, atualização, candidata de projeto ou distribuição. Compõe as seis capacidades especializadas e os gates low-HITL sem duplicar seus contratos.
 
-### `calibrate-rhetoric`
-Ajusta tom, autoridade, persuasão e força argumentativa à evidência disponível. [SKILL.md](skills/calibrate-rhetoric/SKILL.md) · [↑ Índice](#índice-de-skills)
+### `skill-authoring`
 
-### `review-editorial-quality`
-Executa QA editorial por severidade e declara prontidão somente após critérios críticos. [SKILL.md](skills/review-editorial-quality/SKILL.md) · [↑ Índice](#índice-de-skills)
+Transforma comportamento desejado em `SKILL.md` + recursos auxiliares. Exige fronteira clara de responsabilidade e evals para novas skills deste lifecycle.
 
-### `improve-accessible-writing`
-Melhora clareza, escaneabilidade e linguagem simples preservando precisão. [SKILL.md](skills/improve-accessible-writing/SKILL.md) · [↑ Índice](#índice-de-skills)
+### `skill-validator`
 
-### `assess-editorial-alignment`
-Compara conteúdo com princípios editoriais explicitamente fornecidos. [SKILL.md](skills/assess-editorial-alignment/SKILL.md) · [↑ Índice](#índice-de-skills)
+Executa checks determinísticos de YAML real, nome/path, SemVer, registro, documentação vinculada à mesma skill, eval schema, recursos e bundles.
 
-### `prompt-generator`
-Transforma objetivo, contexto, entradas, restrições e critérios em prompts prontos para uso e teste. Seleciona o menor padrão suficiente (zero-shot, contexto, few-shot, decomposição, RAG, saída estruturada, tool use ou workflow), organiza contexto, define contrato de saída e gera evals por dimensões específicas. [SKILL.md](skills/prompt-generator/SKILL.md) · [↑ Índice](#índice-de-skills)
+### `skill-evaluator`
 
-### `graphify`
-Usa grafo para reduzir o espaço de busca em código e confirma detalhes diretamente nos arquivos antes de editar. [SKILL.md](skills/graphify/SKILL.md) · [↑ Índice](#índice-de-skills)
+Mantém casos `trigger_positive`, `trigger_negative` e `behavior`. Schema validado não é tratado como prova de acurácia do modelo; execução LLM só é declarada quando realmente observada no host.
 
-### `github-project-repo-sync`
-Reconcilia GitHub Project v2 com intenção versionada no repositório, preservando itens não gerenciados. [SKILL.md](skills/github-project-repo-sync/SKILL.md) · [↑ Índice](#índice-de-skills)
+### `skill-portability-audit`
 
-### `github-project-drift-audit`
-Audita sem mutação desired, observed e live e classifica `IN_SYNC`, `DRIFT`, `STALE` ou `UNVERIFIED`. [SKILL.md](skills/github-project-drift-audit/SKILL.md) · [↑ Índice](#índice-de-skills)
+Classifica candidatas:
 
-### `skills-central-governance`
-Governa criação, promoção, versão, documentação e distribuição de skills gerais com low-HITL por padrão. No Codex, faz o catálogo herdar o roteamento `Luna High → Terra Medium → Sol High` por papel, sem duplicar configuração em cada skill. [SKILL.md](skills/skills-central-governance/SKILL.md) · [↑ Índice](#índice-de-skills)
+- `PROJECT_ONLY` — permanece local;
+- `GENERALIZABLE` — exige extração da parte transversal;
+- `GENERAL_WITH_ADAPTER` — núcleo geral + adaptador local;
+- `GLOBAL_READY` — apta a seguir para promoção/gates.
 
-## Skills de workflow e baixo HITL
+### `skill-promotion`
 
-As oito skills abaixo foram generalizadas em 21/08/2026 a partir de estratégias desenvolvidas e homologadas no `guedesle/cyber-skills-framework`. Elas removem dependências exclusivas do domínio de cibersegurança e preservam padrões transversais de execução, QA, handoff, GitHub, roteamento de modelos, contratos, conhecimento e escalonamento.
+Promove somente a parte reutilizável, registra `origin`, SemVer e mirrors e preserva adaptações locais quando necessárias.
 
-### `low-hitl-orchestration`
-Executa lotes coerentes com o princípio **falha determinística não gera HITL**: `FAIL → corrigir em lote → revalidar → um gate humano final`. [SKILL.md](skills/low-hitl-orchestration/SKILL.md) · [↑ Índice](#índice-de-skills)
+### `skill-distribution`
 
-### `batch-quality-gate`
-Consolida estrutura, contratos, autotestes, sintaxe, secrets, testes e escopo em um gate com modos `fast`, `batch` e `CI`; recomenda o mesmo motor local/remoto. [SKILL.md](skills/batch-quality-gate/SKILL.md) · [↑ Índice](#índice-de-skills)
+Separa `DISTRIBUTION_READY`, `INSTALLED`, `VERIFIED` e `PUBLISHED`. A versão 1.1.0 adiciona empacotamento de **plugins skills-only** a partir da fonte canônica, sem criar uma segunda cópia editável das skills.
 
-### `context-handoff`
-Entrega estado compacto entre agentes/modelos/sessões: decisões, evidências, débitos, gates, próxima ação e itens que não devem ser perguntados novamente. [SKILL.md](skills/context-handoff/SKILL.md) · [↑ Índice](#índice-de-skills)
+### `chatgpt-governed-workflow`
 
-### `github-branch-pr-lifecycle`
-Gerencia feature branches, stacked PRs, retarget, preservação de ancestralidade, backup antes de alinhamento destrutivo e verificação pós-merge. [SKILL.md](skills/github-branch-pr-lifecycle/SKILL.md) · [↑ Índice](#índice-de-skills)
+Entry point geral para trabalhos complexos. Quando o objeto principal é uma skill, delega ao `skill-development-lifecycle`; nos demais casos compõe as skills transversais de low-HITL, QA, GitHub e handoff.
 
-### `adaptive-model-routing`
-Mantém o contrato geral por papéis (`bounded execution`, `context handoff`, `frontier reasoning`) e adiciona o adaptador padrão do Codex: **Luna High** para leaf/bounded, **Terra Medium** para orquestração/handoff e **Sol High** para alta complexidade. Inclui escalation e de-escalation sem ampliar autorização. [SKILL.md](skills/adaptive-model-routing/SKILL.md) · [↑ Índice](#índice-de-skills)
+## Low-HITL por padrão
 
-### `decision-escalation-control`
-Classifica eventos em `AUTO_CONTINUE`, `HUMAN_REVIEW_RECOMMENDED`, `HUMAN_REVIEW_REQUIRED` e `BLOCKED_UNTIL_REVIEW`. `elevated review` aumenta profundidade, não número de approvals. [SKILL.md](skills/decision-escalation-control/SKILL.md) · [↑ Índice](#índice-de-skills)
+```text
+lote coerente
+  ↓
+validação
+  ↓
+FAIL determinístico → corrigir em lote → revalidar
+  ↓ PASS
+gate final somente por materialidade
+```
 
-### `contract-governed-execution`
-Governa ações de maior risco por contratos estruturados, autorização explícita, limites, stop conditions, fail-closed e ledger de evidências. [SKILL.md](skills/contract-governed-execution/SKILL.md) · [↑ Índice](#índice-de-skills)
+Falhas de YAML, SemVer, lint, testes, documentação, eval schema, package check, conflitos mecânicos ou reexecução de gate não exigem aprovação humana quando a correção não altera intenção, escopo, risco, autorização ou contrato.
 
-### `knowledge-source-governance`
-Governa fontes por proveniência, autoridade, freshness, aplicabilidade, corroboration e teto de conclusão, evitando que evidência fraca promova sozinha uma conclusão material. [SKILL.md](skills/knowledge-source-governance/SKILL.md) · [↑ Índice](#índice-de-skills)
+## Validação local
+
+Pré-requisito Python:
+
+```bash
+python -m pip install -r requirements-dev.txt
+```
+
+Gate canônico:
+
+```bash
+python -m unittest discover -s tests -p "test_*.py" -v
+python scripts/sync_skills.py --check
+python scripts/validate_skill_evals.py
+python scripts/package_chatgpt_skills.py --check
+python scripts/package_plugins.py --check
+python -m py_compile scripts/*.py
+```
+
+`sync_skills.py` usa parser YAML real e vincula a versão do `registry.json` à linha da **mesma skill** no README e em `general-skills-status.md`.
+
+Skills que declaram `evals/` devem conter no mínimo:
+
+```text
+evals/
+  trigger-positive.yaml
+  trigger-negative.yaml
+  behavior.yaml
+```
 
 ## Como usar
 
-Cada definição canônica vive em `skills/<nome>/SKILL.md`; o inventário e os mirrors vivem em [`registry.json`](registry.json).
+Exemplos:
 
 ```text
-Use $plan-content para planejar este relatório.
-Use $architect-text para transformar a finalidade deste texto em arquitetura.
-Use $prompt-generator para transformar este objetivo em um prompt de produção e testes mínimos.
-Use $low-hitl-orchestration para conduzir esta implementação em lotes com mínimo HITL.
-Use $batch-quality-gate para consolidar todos os checks antes da revisão final.
-Use $context-handoff para preparar a continuação em outro agente ou conversa.
-Use $github-branch-pr-lifecycle para organizar esta mudança em stacked PRs.
-Use $adaptive-model-routing para distribuir execução, contexto e raciocínio por papel.
-Use $decision-escalation-control para decidir se devemos continuar ou pedir aprovação.
-Use $contract-governed-execution para executar ações de maior risco sob contrato fail-closed.
-Use $knowledge-source-governance para controlar proveniência, freshness e teto de conclusão das fontes.
+Use $chatgpt-governed-workflow para conduzir este desenvolvimento até o merge com low-HITL.
+Use $skill-development-lifecycle para criar, validar, promover e distribuir esta skill.
+Use $skill-portability-audit para decidir se esta skill local pode virar global.
+Use $skill-validator para rodar o gate determinístico do catálogo.
+Use $skill-evaluator para criar should-trigger e should-not-trigger.
+Use $skill-distribution para gerar bundles e um plugin skills-only a partir das skills canônicas.
 ```
 
-No Codex, o catálogo aplica por default o adaptador de `adaptive-model-routing`; não é necessário repetir o modelo desejado em toda invocação de skill.
+## Instalação global
 
-## Instalação em OpenCode, Codex e Claude Code
-
-As skills usam o formato **Agent Skills**: cada capacidade vive em diretório próprio com `SKILL.md` como ponto de entrada e pode incluir `scripts/`, `references/`, `assets/` e outros recursos.
-
-> **Recomendação:** clone este repositório uma vez e faça cada host apontar para `SKILLS/skills`. Assim, `git pull` atualiza a fonte canônica sem criar cópias divergentes.
-
-### 1. Pré-requisitos
-
-Instale Git e pelo menos um host.
-
-#### OpenCode
+Clone a fonte canônica:
 
 ```bash
-npm install -g opencode-ai
-opencode --version
-```
-
-#### Codex
-
-```bash
-npm install -g @openai/codex
-codex
-```
-
-#### Claude Code
-
-Windows:
-
-```powershell
-winget install Anthropic.ClaudeCode
-```
-
-ou:
-
-```powershell
-irm https://claude.ai/install.ps1 | iex
-```
-
-macOS/Linux/WSL:
-
-```bash
-curl -fsSL https://claude.ai/install.sh | bash
-```
-
-### 2. Clone a fonte canônica
-
-Windows / PowerShell:
-
-```powershell
-cd $HOME
-git clone https://github.com/guedesle/SKILLS.git
-cd $HOME\SKILLS
-python .\scripts\sync_skills.py --check
-```
-
-macOS/Linux/WSL:
-
-```bash
-cd "$HOME"
-git clone https://github.com/guedesle/SKILLS.git
+git clone https://github.com/guedesle/SKILLS.git "$HOME/SKILLS"
 cd "$HOME/SKILLS"
+python -m pip install -r requirements-dev.txt
 python scripts/sync_skills.py --check
 ```
 
-Se já existir:
+### Codex
 
-```bash
-git -C "$HOME/SKILLS" pull --ff-only
-```
-
-### 3. Instalação global no OpenCode
-
-Diretório:
-
-```text
-~/.config/opencode/skills/<nome>/SKILL.md
-```
-
-Windows / PowerShell:
-
-```powershell
-$Repo = Join-Path $HOME "SKILLS"
-$Target = Join-Path $HOME ".config\opencode\skills"
-New-Item -ItemType Directory -Force -Path $Target | Out-Null
-
-Get-ChildItem (Join-Path $Repo "skills") -Directory | ForEach-Object {
-    $Link = Join-Path $Target $_.Name
-    if (-not (Test-Path $Link)) {
-        New-Item -ItemType Junction -Path $Link -Target $_.FullName | Out-Null
-    }
-}
-```
-
-macOS/Linux/WSL:
-
-```bash
-mkdir -p "$HOME/.config/opencode/skills"
-for skill in "$HOME/SKILLS"/skills/*; do
-  [ -d "$skill" ] || continue
-  ln -sfn "$skill" "$HOME/.config/opencode/skills/$(basename "$skill")"
-done
-```
-
-### 4. Instalação global no Codex
-
-Diretório:
+Diretório USER recomendado:
 
 ```text
 $HOME/.agents/skills/<nome>/SKILL.md
-```
-
-Windows / PowerShell:
-
-```powershell
-$Repo = Join-Path $HOME "SKILLS"
-$Target = Join-Path $HOME ".agents\skills"
-New-Item -ItemType Directory -Force -Path $Target | Out-Null
-
-Get-ChildItem (Join-Path $Repo "skills") -Directory | ForEach-Object {
-    $Link = Join-Path $Target $_.Name
-    if (-not (Test-Path $Link)) {
-        New-Item -ItemType Junction -Path $Link -Target $_.FullName | Out-Null
-    }
-}
 ```
 
 macOS/Linux/WSL:
@@ -267,201 +176,129 @@ for skill in "$HOME/SKILLS"/skills/*; do
 done
 ```
 
-No Codex, use `/skills` ou invoque diretamente:
+Windows / PowerShell:
 
-```text
-$low-hitl-orchestration conduza esta rodada com um único gate humano final.
+```powershell
+$Repo = Join-Path $HOME "SKILLS\skills"
+$Target = Join-Path $HOME ".agents\skills"
+New-Item -ItemType Directory -Force -Path $Target | Out-Null
+Get-ChildItem $Repo -Directory | ForEach-Object {
+  $Link = Join-Path $Target $_.Name
+  if (-not (Test-Path $Link)) {
+    New-Item -ItemType Junction -Path $Link -Target $_.FullName | Out-Null
+  }
+}
 ```
 
-#### Roteamento padrão no Codex
+No Codex, o roteamento por papel é herdado de `AGENTS.md` + `adaptive-model-routing`. O contrato funcional das skills não depende do nome do modelo.
 
-Quando a família GPT-5.6 estiver disponível, todas as skills herdam a política de `AGENTS.md` e `adaptive-model-routing`:
+### OpenCode
 
-| Classe da subtarefa | Default Codex | Reasoning |
-|---|---|---|
-| Leaf / bounded | `gpt-5.6-luna` | `high` |
-| Orquestração / handoff | `gpt-5.6-terra` | `medium` |
-| Alta complexidade / decisão material | `gpt-5.6-sol` | `high` |
-
-Fluxo recomendado:
+Diretório global:
 
 ```text
-Terra Medium decompõe/orquestra
-  ├─ tarefas leaf fechadas → Luna High
-  ├─ integração/handoff    → Terra Medium
-  └─ ambiguidade/materialidade alta → Sol High
-                                   ↓
-                        escopo/critério fechado
-                                   ↓
-                         leaf volta a Luna High
+~/.config/opencode/skills/<nome>/SKILL.md
 ```
 
-O default é machine-readable em `registry.json > runtime_adapters.codex`. Instruções explícitas do usuário, restrições do host e contratos de risco prevalecem. Se o harness não permitir troca de modelo por subtarefa, a skill mantém a classificação de papel sem alegar uma troca que não ocorreu.
+Aponte cada diretório para a pasta canônica em `$HOME/SKILLS/skills` por symlink/junction.
 
-### 5. Instalação global no Claude Code
+### Claude Code
 
-Diretório:
+Diretório global:
 
 ```text
 ~/.claude/skills/<nome>/SKILL.md
 ```
 
-Windows / PowerShell:
+Aponte cada diretório para a pasta canônica em `$HOME/SKILLS/skills` por symlink/junction.
 
-```powershell
-$Repo = Join-Path $HOME "SKILLS"
-$Target = Join-Path $HOME ".claude\skills"
-New-Item -ItemType Directory -Force -Path $Target | Out-Null
+### ChatGPT
 
-Get-ChildItem (Join-Path $Repo "skills") -Directory | ForEach-Object {
-    $Link = Join-Path $Target $_.Name
-    if (-not (Test-Path $Link)) {
-        New-Item -ItemType Junction -Path $Link -Target $_.FullName | Out-Null
-    }
-}
-```
+Consulte [`CHATGPT.md`](CHATGPT.md). O repositório oferece duas rotas derivadas da mesma fonte canônica:
 
-macOS/Linux/WSL:
+1. ZIP individual por skill, quando a superfície de Personal Skills permitir upload;
+2. plugin **skills-only** para o Plugins Directory/marketplace quando essa superfície estiver disponível ao plano/host.
+
+Não existe suposição de sincronização automática GitHub → ChatGPT.
+
+## Empacotamento ChatGPT por skill
 
 ```bash
-mkdir -p "$HOME/.claude/skills"
-for skill in "$HOME/SKILLS"/skills/*; do
-  [ -d "$skill" ] || continue
-  ln -sfn "$skill" "$HOME/.claude/skills/$(basename "$skill")"
-done
+python scripts/package_chatgpt_skills.py --check
+python scripts/package_chatgpt_skills.py
 ```
 
-### 6. Instalação local em um projeto
-
-| Host | Diretório recomendado |
-|---|---|
-| OpenCode | `.opencode/skills/<nome>/SKILL.md` |
-| Codex | `.agents/skills/<nome>/SKILL.md` |
-| Claude Code | `.claude/skills/<nome>/SKILL.md` |
-
-Para repositórios que participam do mecanismo central de mirrors, prefira `registry.json` + workflow de sincronização em vez de cópias manuais.
-
-### 7. Atualização
-
-Windows / PowerShell:
-
-```powershell
-git -C "$HOME\SKILLS" pull --ff-only
-python "$HOME\SKILLS\scripts\sync_skills.py" --check
-```
-
-macOS/Linux/WSL:
-
-```bash
-git -C "$HOME/SKILLS" pull --ff-only
-python "$HOME/SKILLS/scripts/sync_skills.py" --check
-```
-
-### 8. Diagnóstico rápido
-
-Se uma skill não aparecer:
-
-1. confirme `SKILL.md`;
-2. confirme frontmatter `name` e `description`;
-3. confirme nome do diretório;
-4. confira junction/symlink;
-5. reinicie o host se o diretório foi criado depois da sessão;
-6. no Codex use `/skills`; no Claude Code invoque `/<nome>`.
-
-### 9. Referências oficiais
-
-- [OpenCode — Agent Skills](https://opencode.ai/docs/skills)
-- [OpenAI — Build skills para ChatGPT e Codex](https://learn.chatgpt.com/docs/build-skills)
-- [OpenAI — Codex](https://openai.com/codex/)
-- [OpenAI — Model guidance GPT-5.6](https://developers.openai.com/api/docs/guides/latest-model)
-- [Claude Code — Extend Claude with skills](https://code.claude.com/docs/en/skills)
-
-## Sincronização
-
-Fluxo padrão:
+Saída:
 
 ```text
-skill canônica → registry.json → validação → workflow genérico do consumidor
-→ sync_consumer.py → paths registrados → commit somente se houver diferença
+dist/chatgpt/
+  manifest.json
+  <skill>-v<semver>.zip
 ```
 
-Validação central:
+Cada ZIP mantém `SKILL.md` na raiz e inclui os recursos auxiliares da mesma pasta canônica.
+
+## Plugin skills-only para ChatGPT e Codex
+
+O catálogo de plugins vive em [`plugin-catalog.json`](plugin-catalog.json). A primeira composição é `guedesle-governed-workflow`, reunindo governança low-HITL e a fábrica de skills sem dependência de MCP.
+
+Valide e gere:
 
 ```bash
-python scripts/sync_skills.py --check
+python scripts/package_plugins.py --check
+python scripts/package_plugins.py
 ```
 
-O modo `pull` é preferido. `mode: push` permanece como fallback explícito.
+Saída:
 
-## Mirrors genéricos
+```text
+dist/plugins/
+  manifest.json
+  guedesle-governed-workflow-v1.0.0.zip
+  marketplace/
+    .agents/plugins/marketplace.json
+    plugins/
+      guedesle-governed-workflow/
+        .codex-plugin/plugin.json
+        skills/
+          ...
+```
 
-O [`registry.json`](registry.json) usa `schema_version: 2`. A lógica de sincronização é genérica por consumidor:
+`dist/` é artefato derivado. As skills continuam sendo editadas somente em `skills/<nome>/`.
 
-- [`.github/workflows/mirror-consumer.yml`](.github/workflows/mirror-consumer.yml);
-- [`scripts/sync_consumer.py`](scripts/sync_consumer.py);
-- [`templates/sync-central-skills.yml`](templates/sync-central-skills.yml);
-- [`scripts/bootstrap_consumers.py`](scripts/bootstrap_consumers.py).
+Para teste local em host compatível, a raiz `dist/plugins/marketplace` pode ser adicionada como marketplace local. Para publicação universal, use o fluxo oficial de submissão do plugin e só declare `PUBLISHED` após confirmação da plataforma.
 
-Depois do bootstrap de um consumidor, adicionar outra skill ao mesmo repositório exige apenas um novo mapping no `registry.json`.
+## Sincronização e mirrors
 
-## Homologação
+O inventário vive em [`registry.json`](registry.json). Mirrors `pull` são preferidos e usam:
 
-`guedesle/download-edicoes-doe` é o consumidor de homologação. O caller genérico recebe:
+- `.github/workflows/mirror-consumer.yml`;
+- `scripts/sync_consumer.py`;
+- `templates/sync-central-skills.yml`;
+- `scripts/bootstrap_consumers.py`.
 
-- `write-technical-content`;
-- `review-editorial-quality`.
+Fluxo:
 
-As oito skills de workflow/governança são canônicas e ainda não possuem mirror de projeto específico; hosts globais que apontam para `SKILLS/skills` passam a descobri-las após atualização do clone.
+```text
+skill canônica → registry.json → validação → consumer workflow → path registrado
+```
 
-O roteamento Codex é transversal ao catálogo e não exige criar mirrors separados para cada skill.
-
-Consulte também [`AGENTS.md`](AGENTS.md), [`general-skills-status.md`](general-skills-status.md) e [`skills-central-governance`](skills/skills-central-governance/SKILL.md).
+`mode: push` é fallback explícito quando escrita cross-repository for realmente necessária.
 
 ## Versionamento
 
-O catálogo usa SemVer: **PATCH** para correções compatíveis, **MINOR** para nova capacidade compatível e **MAJOR** para mudança incompatível de contrato. A versão deve constar no README e no `registry.json`.
+- **PATCH** — correção/esclarecimento compatível;
+- **MINOR** — nova capacidade compatível;
+- **MAJOR** — mudança incompatível de gatilho, contrato ou saída.
+
+A mudança geral nasce no catálogo central, nunca no mirror.
 
 ## Histórico
 
-### 2026-08-23 — `prompt-generator` 1.0.0
-- adicionada a skill `prompt-generator` para gerar, refinar e validar prompts para LLMs, RAG, ferramentas, agentes e workflows;
-- síntese construída com abordagem Book-to-Skill a partir de materiais de prompt engineering, preservando princípios, padrões de decisão e avaliação sem reproduzir passagens extensas das fontes;
-- incorporados zero-shot, contexto, one/few-shot, decomposição, saída estruturada, RAG, tool use e workflows;
-- incorporada organização de contexto com refoco para prompts longos e separação entre dados não confiáveis e instruções;
-- adicionada avaliação por perguntas específicas, escala ordinal e cobertura multiaspecto, com happy path, fronteiras, partial match e testes funcionais;
-- adicionados `references/prompt-patterns.md`, `references/evaluation-rubric.md`, `references/source-notes.md` e `templates/prompt-blueprint.md`.
-
-### 2026-08-21 — default de modelos no Codex
-- `adaptive-model-routing` evoluída para **1.1.0**;
-- `skills-central-governance` evoluída para **1.2.0**;
-- adotado `gpt-5.6-luna` com reasoning `high` para tarefas leaf/bounded e escopo fechado;
-- adotado `gpt-5.6-terra` com reasoning `medium` para orquestração, síntese e handoff;
-- adotado `gpt-5.6-sol` com reasoning `high` para alta complexidade, arquitetura, investigação e decisões materiais;
-- adicionado escalation/de-escalation para retornar tarefas mecânicas a tiers mais eficientes após fechamento do escopo;
-- política registrada em `AGENTS.md`, `adaptive-model-routing` e `registry.json > runtime_adapters.codex`, evitando duplicação em cada skill.
-
-### 2026-08-21 — workflow geral e baixo HITL
-- promovidas oito skills gerais a partir de estratégias do `cyber-skills-framework`;
-- `skills-central-governance` evoluída para **1.1.0** com low-HITL como padrão;
-- formalizado `FAIL → corrigir em lote → revalidar → um gate humano final`;
-- adicionados estados de escalation e revisão elevada sem approvals adicionais;
-- generalizados batch gate, autotestes de validadores e paridade local/CI;
-- generalizados handoffs entre agentes/modelos e continuidade sem repetir decisões;
-- generalizados stacked PRs, retarget, preservação de ancestralidade e recuperação segura de divergência;
-- generalizado roteamento por papéis `bounded execution`, `context handoff` e `frontier reasoning`;
-- generalizados contratos machine-readable fail-closed com ledger de execução;
-- generalizada governança de fontes por proveniência, freshness, corroboration e evidence ceilings;
-- corrigido índice para `architect-text` e `design-paragraphs` 1.2.0.
-
-### 2026-08-16 — instalação multi-host e mirrors pull genéricos
-- documentada instalação global e por projeto em OpenCode, Codex e Claude Code;
-- adotado clone canônico + junctions/symlinks;
-- `registry.json` migrado para schema v2;
-- criado workflow reutilizável central, `sync_consumer.py` e bootstrap genérico;
-- homologados mirrors de `write-technical-content` e `review-editorial-quality`.
-
-### 2026-08-14 — baseline `1.0.0`
-- materializadas 13 skills canônicas;
-- criado `registry.json`, sincronizador, workflow de validação e catálogo navegável.
-
-[↑ Voltar ao topo](#skills--catálogo-central)
+- **24/08/2026** — `skill-distribution` 1.1.0 e primeiro plugin skills-only `guedesle-governed-workflow`, gerado a partir do catálogo canônico com marketplace local derivado.
+- **24/08/2026** — `adaptive-model-routing` 1.1.1 após correção de frontmatter YAML legado.
+- **24/08/2026** — criada a fábrica governada: `chatgpt-governed-workflow`, `skill-development-lifecycle`, authoring, validator, evaluator, portability, promotion e distribution; `skills-central-governance` 1.3.0; parser YAML real, eval schema e auditoria de portabilidade.
+- **24/08/2026** — adicionado empacotamento determinístico para ChatGPT por skill.
+- **23/08/2026** — adicionada `prompt-generator` 1.0.0.
+- **21/08/2026** — promovidas oito capacidades transversais de low-HITL/governança e definido roteamento Codex por papel.
+- **16/08/2026** — `architect-text` e `design-paragraphs` 1.2.0 e documentação de instalação multi-host.

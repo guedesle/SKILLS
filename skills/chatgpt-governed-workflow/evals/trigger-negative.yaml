@@ -1,0 +1,10 @@
+schema_version: 1
+skill: chatgpt-governed-workflow
+kind: trigger_negative
+cases:
+  - id: negative-1
+    input: explique o que é low-HITL
+  - id: negative-2
+    input: reescreva este parágrafo
+  - id: negative-3
+    input: qual a versão desta skill?

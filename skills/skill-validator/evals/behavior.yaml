@@ -1,0 +1,10 @@
+schema_version: 1
+skill: skill-validator
+kind: behavior
+cases:
+  - id: behavior-1
+    input: valide estruturalmente esta skill antes do merge
+    expect: YAML inválido deve falhar com parser real.
+  - id: behavior-2
+    input: valide estruturalmente esta skill antes do merge
+    expect: Falha determinística deve ser reportada antes de qualquer pedido de aprovação.

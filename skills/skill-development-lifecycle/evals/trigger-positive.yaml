@@ -1,0 +1,10 @@
+schema_version: 1
+skill: skill-development-lifecycle
+kind: trigger_positive
+cases:
+  - id: positive-1
+    input: crie valide promova e distribua esta nova skill
+  - id: positive-2
+    input: transforme as skills do projeto em globais com low-hitl
+  - id: positive-3
+    input: faça o lifecycle completo desta skill até o PR e merge

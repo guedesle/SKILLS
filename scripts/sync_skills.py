@@ -14,20 +14,19 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import re
 import shutil
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
 
+from skill_validation import extract_catalog_versions, validate_skill_record
+
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "registry.json"
 README = ROOT / "README.md"
 STATUS = ROOT / "general-skills-status.md"
 VALID_MIRROR_MODES = {"pull", "push"}
-SEMVER_RE = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$")
-SKILL_NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 
 
 def run(cmd: list[str], cwd: Path | None = None, check: bool = True) -> subprocess.CompletedProcess:
@@ -51,47 +50,12 @@ def is_safe_relative_path(raw: str | None) -> bool:
     return not path.is_absolute() and ".." not in path.parts
 
 
-def parse_frontmatter_text(body: str) -> dict[str, str]:
-    lines = body.splitlines()
-    if not lines or lines[0].strip() != "---":
-        return {}
-    result: dict[str, str] = {}
-    for line in lines[1:]:
-        if line.strip() == "---":
-            return result
-        if ":" not in line:
-            continue
-        key, value = line.split(":", 1)
-        result[key.strip()] = value.strip().strip('"').strip("'")
-    return {}
-
-
-def parse_frontmatter(path: Path) -> dict[str, str]:
-    try:
-        return parse_frontmatter_text(path.read_text(encoding="utf-8"))
-    except OSError:
-        return {}
-
-
 def canonical_skill_paths() -> set[str]:
     return {
         path.relative_to(ROOT).as_posix()
         for path in (ROOT / "skills").glob("*/SKILL.md")
         if path.is_file()
     }
-
-
-def validate_catalog_docs(skill_name: str, path: str, version: str, readme: str, status: str) -> list[str]:
-    errors: list[str] = []
-    if f"({path})" not in readme:
-        errors.append(f"README.md não referencia a skill canônica {skill_name}: {path}")
-    if f"`{skill_name}`" not in readme:
-        errors.append(f"README.md não documenta a skill: {skill_name}")
-    if f"`{skill_name}`" not in status:
-        errors.append(f"general-skills-status.md não documenta a skill: {skill_name}")
-    if version not in readme:
-        errors.append(f"README.md não contém a versão registrada {version} para {skill_name}")
-    return errors
 
 
 def validate_registry(data: dict) -> list[str]:
@@ -111,6 +75,17 @@ def validate_registry(data: dict) -> list[str]:
     if not status:
         errors.append("general-skills-status.md ausente ou vazio.")
 
+    try:
+        readme_versions = extract_catalog_versions(readme)
+    except ValueError as exc:
+        errors.append(f"README.md inválido: {exc}")
+        readme_versions = {}
+    try:
+        status_versions = extract_catalog_versions(status)
+    except ValueError as exc:
+        errors.append(f"general-skills-status.md inválido: {exc}")
+        status_versions = {}
+
     pull_runtime = data.get("pull_mirror", {})
     skills = data.get("skills", [])
     if not isinstance(skills, list) or not skills:
@@ -123,13 +98,9 @@ def validate_registry(data: dict) -> list[str]:
         if not name or not path or not version:
             errors.append(f"Registro incompleto: {skill!r}")
             continue
-        if not SKILL_NAME_RE.fullmatch(name):
-            errors.append(f"Nome de skill inválido; use kebab-case: {name}")
-        if not SEMVER_RE.fullmatch(version):
-            errors.append(f"SemVer inválido em {name}: {version}")
-        expected_path = f"skills/{name}/SKILL.md"
-        if path != expected_path:
-            errors.append(f"Path canônico de {name} deve ser {expected_path}, encontrado {path}")
+
+        errors.extend(validate_skill_record(ROOT, skill, readme_versions, status_versions))
+
         if name in names:
             errors.append(f"Skill duplicada: {name}")
         names.add(name)
@@ -137,17 +108,8 @@ def validate_registry(data: dict) -> list[str]:
             errors.append(f"Path canônico duplicado: {path}")
         paths.add(path)
 
-        file_path = ROOT / path
-        if not file_path.is_file():
-            errors.append(f"Arquivo canônico ausente: {path}")
-        else:
-            fm = parse_frontmatter(file_path)
-            if fm.get("name") != name:
-                errors.append(f"Frontmatter name divergente em {path}: {fm.get('name')!r} != {name!r}")
-            if not fm.get("description"):
-                errors.append(f"Frontmatter description ausente em {path}")
-
-        errors.extend(validate_catalog_docs(name, path, version, readme, status))
+        if f"({path})" not in readme:
+            errors.append(f"README.md não referencia a skill canônica {name}: {path}")
 
         for mirror in skill.get("mirrors", []):
             mode = mirror.get("mode", "push")

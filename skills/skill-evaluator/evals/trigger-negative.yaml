@@ -1,0 +1,10 @@
+schema_version: 1
+skill: skill-evaluator
+kind: trigger_negative
+cases:
+  - id: negative-1
+    input: corrija o YAML inválido do frontmatter
+  - id: negative-2
+    input: copie a skill para o catálogo global
+  - id: negative-3
+    input: gere o bundle ChatGPT
