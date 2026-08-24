@@ -29,6 +29,16 @@ class PortabilityTests(unittest.TestCase):
         self.assertNotEqual(result["classification"], "GLOBAL_READY")
         self.assertIn("absolute-posix-path", result["blockers"])
 
+    def test_current_directory_relative_path_is_not_absolute(self):
+        result = audit_text("Read ./references/schema.json before drafting.")
+        self.assertEqual(result["classification"], "GLOBAL_READY")
+        self.assertNotIn("absolute-posix-path", result["blockers"])
+
+    def test_parent_directory_relative_path_is_not_absolute(self):
+        result = audit_text("Use ../design-paragraphs/references/paragraph-typology.md.")
+        self.assertEqual(result["classification"], "GLOBAL_READY")
+        self.assertNotIn("absolute-posix-path", result["blockers"])
+
     def test_url_path_does_not_count_as_local_absolute_path(self):
         result = audit_text("Use https://example.com/mcp for the remote service.")
         self.assertEqual(result["classification"], "GLOBAL_READY")
