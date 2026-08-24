@@ -421,6 +421,12 @@ Consulte também [`AGENTS.md`](AGENTS.md), [`general-skills-status.md`](general-
 O catálogo usa SemVer: **PATCH** para correções compatíveis, **MINOR** para nova capacidade compatível e **MAJOR** para mudança incompatível de contrato. A versão deve constar no README e no `registry.json`.
 
 ## Histórico
+### 2026-08-23 — egba-licitacoes-contratos
+- adicionada a skill canônica `egba-licitacoes-contratos` v1.0.0;
+- incluídos oito capítulos sob demanda, glossário, padrões e cheatsheet;
+- registrada a proveniência no Regulamento de Licitações e Contratos da EGBA;
+- mantida a orientação de confirmar versão oficial, IPCA-E, alçadas e parecer jurídico antes de decisões materiais.
+
 
 ### 2026-08-21 — default de modelos no Codex
 - `adaptive-model-routing` evoluída para **1.1.0**;
