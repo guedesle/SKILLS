@@ -76,7 +76,7 @@ Responda à pergunta usando somente evidências sustentadas pelas fontes recuper
 <QUESTION>
 
 # Saída
-<FORMATO + CITAÇÕES/RREFERÊNCIAS + TRATAMENTO DE INCERTEZA>
+<FORMATO + CITAÇÕES/REFERÊNCIAS + TRATAMENTO DE INCERTEZA>
 ```
 
 ## Variante agent/tool
