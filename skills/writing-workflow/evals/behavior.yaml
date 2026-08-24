@@ -1,0 +1,16 @@
+schema_version: 1
+skill: writing-workflow
+kind: behavior
+cases:
+  - id: behavior-1
+    input: transforme estas notas em um relatório completo, estruturado, claro e revisado
+    expect: Use somente as etapas editoriais necessárias e finalize com QA proporcional ao risco e ao gênero textual.
+  - id: behavior-2
+    input: revise este relatório sem alterar fatos, números nem ressalvas
+    expect: Preserve fatos, números, citações, ressalvas e requisitos não autorizados a mudar.
+  - id: behavior-3
+    input: escreva uma análise causal usando apenas estas fontes
+    expect: Não apresente causalidade ou conclusão com força superior à evidência disponível.
+  - id: behavior-4
+    input: use o Writing no ChatGPT Work para revisar este texto
+    expect: Não exija filesystem, scripts locais, CLI ou modelo específico para executar a função editorial principal.

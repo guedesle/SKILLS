@@ -15,6 +15,7 @@ Repositório canônico de **skills gerais e reutilizáveis**. A fonte de verdade
 | [`review-editorial-quality`](skills/review-editorial-quality/SKILL.md) | **1.0.0** | QA | Achados, bloqueios e prontidão |
 | [`improve-accessible-writing`](skills/improve-accessible-writing/SKILL.md) | **1.0.0** | Acessibilidade | Clareza e leitura em tela |
 | [`assess-editorial-alignment`](skills/assess-editorial-alignment/SKILL.md) | **1.0.0** | Governança | Aderência a princípios editoriais |
+| [`writing-workflow`](skills/writing-workflow/SKILL.md) | **1.0.0** | Orquestração editorial | Entry point proporcional para planejamento → redação → QA |
 | [`prompt-generator`](skills/prompt-generator/SKILL.md) | **1.0.0** | Prompt engineering | Prompts testáveis, padrões e evals |
 | [`graphify`](skills/graphify/SKILL.md) | **1.0.0** | Engenharia | Navegação de código orientada por grafo |
 | [`github-project-repo-sync`](skills/github-project-repo-sync/SKILL.md) | **1.0.0** | GitHub | Reconciliação Project v2 ↔ repositório |
@@ -90,6 +91,12 @@ Separa `DISTRIBUTION_READY`, `INSTALLED`, `VERIFIED` e `PUBLISHED`. A versão 1.
 
 Entry point geral para trabalhos complexos. Quando o objeto principal é uma skill, delega ao `skill-development-lifecycle`; nos demais casos compõe as skills transversais de low-HITL, QA, GitHub e handoff.
 
+## Workflow editorial
+
+`writing-workflow` é o entry point editorial. Ele escolhe somente as etapas necessárias entre `plan-content`, `architect-text`, `design-paragraphs`, `write-with-evidence`, `write-technical-content`, `calibrate-rhetoric`, `improve-accessible-writing`, `review-editorial-quality` e `assess-editorial-alignment`.
+
+O contrato é host-agnostic: a função editorial principal não exige filesystem, CLI ou modelo específico. Isso permite testar localmente agora e manter portabilidade estrutural para um plugin privado no ChatGPT Work web depois.
+
 ## Low-HITL por padrão
 
 ```text
@@ -141,6 +148,7 @@ Exemplos:
 ```text
 Use $chatgpt-governed-workflow para conduzir este desenvolvimento até o merge com low-HITL.
 Use $skill-development-lifecycle para criar, validar, promover e distribuir esta skill.
+Use $writing-workflow para transformar estas notas e fontes em um texto estruturado e revisado.
 Use $skill-portability-audit para decidir se esta skill local pode virar global.
 Use $skill-validator para rodar o gate determinístico do catálogo.
 Use $skill-evaluator para criar should-trigger e should-not-trigger.
@@ -238,9 +246,13 @@ dist/chatgpt/
 
 Cada ZIP mantém `SKILL.md` na raiz e inclui os recursos auxiliares da mesma pasta canônica.
 
-## Plugin skills-only para ChatGPT e Codex
+## Plugins skills-only para ChatGPT e Codex
 
-O catálogo de plugins vive em [`plugin-catalog.json`](plugin-catalog.json). A primeira composição é `guedesle-governed-workflow`, reunindo governança low-HITL e a fábrica de skills sem dependência de MCP.
+O catálogo de plugins vive em [`plugin-catalog.json`](plugin-catalog.json). A distribuição atual é **local-only** e possui três composições derivadas da mesma fonte canônica:
+
+- `guedesle-governed-workflow` — governança low-HITL e workflow complexo;
+- `guedesle-skill-creator` — fábrica e lifecycle de skills;
+- `guedesle-writing` — planejamento, arquitetura, redação e QA editorial.
 
 Valide e gere:
 
@@ -255,18 +267,19 @@ Saída:
 dist/plugins/
   manifest.json
   guedesle-governed-workflow-v1.0.0.zip
+  guedesle-skill-creator-v1.0.0.zip
+  guedesle-writing-v1.0.0.zip
   marketplace/
     .agents/plugins/marketplace.json
     plugins/
       guedesle-governed-workflow/
-        .codex-plugin/plugin.json
-        skills/
-          ...
+      guedesle-skill-creator/
+      guedesle-writing/
 ```
 
-`dist/` é artefato derivado. As skills continuam sendo editadas somente em `skills/<nome>/`.
+Cada plugin contém seu próprio `.codex-plugin/plugin.json`; `dist/` é artefato derivado e as skills continuam sendo editadas somente em `skills/<nome>/`.
 
-Para teste local em host compatível, a raiz `dist/plugins/marketplace` pode ser adicionada como marketplace local. Para publicação universal, use o fluxo oficial de submissão do plugin e só declare `PUBLISHED` após confirmação da plataforma.
+A meta futura é permitir uso privado dos mesmos plugins no **ChatGPT Work web** via compartilhamento/diretório do workspace, sem publicação no diretório universal. Essa meta é registrada como portabilidade futura; não equivale a plugin já instalado ou validado no Work.
 
 ## Sincronização e mirrors
 
@@ -295,6 +308,8 @@ A mudança geral nasce no catálogo central, nunca no mirror.
 
 ## Histórico
 
+- **24/08/2026** — adicionado `writing-workflow` 1.0.0 e plugin local `guedesle-writing` 1.0.0, mantendo portabilidade estrutural para compartilhamento privado futuro no ChatGPT Work web.
+- **24/08/2026** — adicionado `guedesle-skill-creator` 1.0.0 ao marketplace local e governança explícita de skills compartilhadas entre plugins.
 - **24/08/2026** — `skill-distribution` 1.1.0 e primeiro plugin skills-only `guedesle-governed-workflow`, gerado a partir do catálogo canônico com marketplace local derivado.
 - **24/08/2026** — `adaptive-model-routing` 1.1.1 após correção de frontmatter YAML legado.
 - **24/08/2026** — criada a fábrica governada: `chatgpt-governed-workflow`, `skill-development-lifecycle`, authoring, validator, evaluator, portability, promotion e distribution; `skills-central-governance` 1.3.0; parser YAML real, eval schema e auditoria de portabilidade.

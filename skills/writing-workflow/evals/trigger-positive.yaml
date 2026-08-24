@@ -1,0 +1,12 @@
+schema_version: 1
+skill: writing-workflow
+kind: trigger_positive
+cases:
+  - id: positive-1
+    input: transforme estas notas em um relatório completo, estruturado, claro e revisado
+  - id: positive-2
+    input: reestruture este artigo, refaça os parágrafos problemáticos e faça a revisão editorial final
+  - id: positive-3
+    input: escreva uma nota técnica a partir deste briefing e das evidências anexadas, calibrando tom e clareza
+  - id: positive-4
+    input: conduza do planejamento ao QA a redação deste documento institucional

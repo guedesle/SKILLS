@@ -1,0 +1,12 @@
+schema_version: 1
+skill: writing-workflow
+kind: trigger_negative
+cases:
+  - id: negative-1
+    input: corrija a gramática desta frase
+  - id: negative-2
+    input: deixe este parágrafo mais claro sem mudar o conteúdo
+  - id: negative-3
+    input: verifique se esta afirmação tem evidência suficiente
+  - id: negative-4
+    input: explique o que é CAPEX
