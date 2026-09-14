@@ -10,3 +10,13 @@ cases:
     input: verifique se esta afirmação tem evidência suficiente
   - id: negative-4
     input: explique o que é CAPEX
+  - id: negative-5
+    input: crie a especificação técnica de um plugin para o Obsidian com requisitos, arquitetura e critérios de aceite
+  - id: negative-6
+    input: planeje a arquitetura de uma aplicação Astro com autenticação e integração com API
+  - id: negative-7
+    input: decomponha este projeto de software em épicos, histórias, backlog e roadmap de implementação
+  - id: negative-8
+    input: defina schemas, tools e contratos de um agente de IA para produção
+  - id: negative-9
+    input: escreva um plano de refatoração com testes, CI/CD e estratégia de migração deste repositório
