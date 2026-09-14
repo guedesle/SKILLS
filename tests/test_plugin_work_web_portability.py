@@ -21,12 +21,12 @@ class PluginWorkWebPortabilityTests(unittest.TestCase):
     def test_writing_plugin_has_expected_editorial_composition(self):
         catalog = self.load_catalog()
         writing = next(item for item in catalog["plugins"] if item["name"] == "guedesle-writing")
-        self.assertEqual(writing["version"], "1.0.0")
+        self.assertEqual(writing["version"], "2.0.0")
         self.assertEqual(
             writing["skills"],
             [
                 "writing-workflow",
-                "plan-content",
+                "plan-editorial-content",
                 "architect-text",
                 "design-paragraphs",
                 "write-with-evidence",
@@ -37,6 +37,12 @@ class PluginWorkWebPortabilityTests(unittest.TestCase):
                 "assess-editorial-alignment",
             ],
         )
+
+    def test_writing_plugin_excludes_ambiguous_legacy_planning_skill(self):
+        catalog = self.load_catalog()
+        writing = next(item for item in catalog["plugins"] if item["name"] == "guedesle-writing")
+        self.assertNotIn("plan-content", writing["skills"])
+        self.assertIn("plan-editorial-content", writing["skills"])
 
     def test_writing_skill_contracts_have_no_local_portability_blockers(self):
         catalog = self.load_catalog()
