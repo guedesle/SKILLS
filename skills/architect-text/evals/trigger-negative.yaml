@@ -1,0 +1,14 @@
+schema_version: 1
+skill: architect-text
+kind: trigger_negative
+cases:
+  - id: negative-1
+    input: desenhe a arquitetura desta aplicação distribuída
+  - id: negative-2
+    input: organize os componentes, interfaces e dependências deste sistema
+  - id: negative-3
+    input: estruture os requisitos e critérios de aceite desta feature
+  - id: negative-4
+    input: crie a arquitetura de agentes, tools e memória desta solução de IA
+  - id: negative-5
+    input: organize este plano de implementação por componentes, testes e deploy
