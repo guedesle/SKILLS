@@ -28,7 +28,7 @@ Use quando o resultado principal é prosa destinada a leitura humana, por exempl
 
 ### TECNOLÓGICO — não use este workflow
 
-Não use `writing-workflow`, `plan-content` ou as demais skills editoriais para conceber, planejar ou especificar:
+Não use `writing-workflow`, `plan-editorial-content` ou as demais skills editoriais para conceber, planejar ou especificar:
 
 - software, aplicações, sites, plugins, extensões, automações ou MCPs;
 - arquitetura de sistemas, agentes, dados, infraestrutura ou integrações;
@@ -60,7 +60,7 @@ Pergunte apenas quando uma lacuna realmente impedir uma decisão estrutural ou f
 
 Use as skills especializadas conforme a necessidade:
 
-1. `plan-content` — quando objetivo comunicacional, tese, público, recorte ou outline editorial ainda precisam ser definidos.
+1. `plan-editorial-content` — quando objetivo comunicacional, tese, público, recorte ou outline editorial ainda precisam ser definidos.
 2. `architect-text` — quando a ordem de seções, funções dos parágrafos ou dependências entre ideias precisam ser projetadas ou refeitas.
 3. `design-paragraphs` — para construir ou refatorar parágrafos pela função discursiva que devem cumprir.
 4. `write-with-evidence` — para afirmações materiais, causalidade, inferência, incerteza, fontes e limites da evidência.
@@ -75,7 +75,7 @@ Use as skills especializadas conforme a necessidade:
 ### Criação de texto do zero
 
 ```text
-plan-content
+plan-editorial-content
   ↓
 architect-text
   ↓
@@ -93,7 +93,7 @@ assess-editorial-alignment quando aplicável
 ### Artigo científico ou técnico-científico
 
 ```text
-plan-content
+plan-editorial-content
   ↓
 architect-text
   ↓
