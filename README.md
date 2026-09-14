@@ -6,16 +6,16 @@ Repositório canônico de **skills gerais e reutilizáveis**. A fonte de verdade
 
 | Skill | Versão | Categoria | Função |
 |---|---:|---|---|
-| [`plan-content`](skills/plan-content/SKILL.md) | **1.0.0** | Editorial | Briefing, tese, escopo, outline e riscos |
-| [`architect-text`](skills/architect-text/SKILL.md) | **1.2.0** | Editorial | Finalidade → seções → plano de parágrafos → arquitetura |
+| [`plan-editorial-content`](skills/plan-editorial-content/SKILL.md) | **1.0.0** | Editorial | Planejamento de conteúdo para publicação/leitura humana; tese, público, recorte, evidências e outline |
+| [`architect-text`](skills/architect-text/SKILL.md) | **2.0.0** | Editorial | Arquitetura de textos para leitura humana; seções, parágrafos e fluxo — não arquitetura tecnológica |
 | [`design-paragraphs`](skills/design-paragraphs/SKILL.md) | **1.2.0** | Editorial | 18 funções, contratos de refatoração e exemplos estruturais |
 | [`write-with-evidence`](skills/write-with-evidence/SKILL.md) | **1.0.0** | Editorial | Evidência, inferência, causalidade e incerteza |
-| [`write-technical-content`](skills/write-technical-content/SKILL.md) | **1.0.0** | Técnica | Requisitos, procedimentos e documentação |
+| [`write-technical-content`](skills/write-technical-content/SKILL.md) | **2.0.0** | Editorial | Prosa técnico-científica humanizada a partir de conteúdo técnico já definido |
 | [`calibrate-rhetoric`](skills/calibrate-rhetoric/SKILL.md) | **1.0.0** | Editorial | Tom e força argumentativa |
 | [`review-editorial-quality`](skills/review-editorial-quality/SKILL.md) | **1.0.0** | QA | Achados, bloqueios e prontidão |
 | [`improve-accessible-writing`](skills/improve-accessible-writing/SKILL.md) | **1.0.0** | Acessibilidade | Clareza e leitura em tela |
 | [`assess-editorial-alignment`](skills/assess-editorial-alignment/SKILL.md) | **1.0.0** | Governança | Aderência a princípios editoriais |
-| [`writing-workflow`](skills/writing-workflow/SKILL.md) | **1.0.0** | Orquestração editorial | Entry point proporcional para planejamento → redação → QA |
+| [`writing-workflow`](skills/writing-workflow/SKILL.md) | **2.0.0** | Orquestração editorial | Entry point para prosa humanizada; exclui projetos e artefatos tecnológicos |
 | [`prompt-generator`](skills/prompt-generator/SKILL.md) | **1.0.0** | Prompt engineering | Prompts testáveis, padrões e evals |
 | [`graphify`](skills/graphify/SKILL.md) | **1.0.0** | Engenharia | Navegação de código orientada por grafo |
 | [`github-project-repo-sync`](skills/github-project-repo-sync/SKILL.md) | **1.0.0** | GitHub | Reconciliação Project v2 ↔ repositório |
@@ -93,7 +93,11 @@ Entry point geral para trabalhos complexos. Quando o objeto principal é uma ski
 
 ## Workflow editorial
 
-`writing-workflow` é o entry point editorial. Ele escolhe somente as etapas necessárias entre `plan-content`, `architect-text`, `design-paragraphs`, `write-with-evidence`, `write-technical-content`, `calibrate-rhetoric`, `improve-accessible-writing`, `review-editorial-quality` e `assess-editorial-alignment`.
+`writing-workflow` 2.0.0 é o entry point exclusivamente editorial. Ele só deve ser selecionado quando o artefato principal for **texto destinado à publicação, apresentação ou leitura humana**, inclusive artigos científicos, acadêmicos, institucionais e técnico-científicos.
+
+Ele escolhe somente as etapas necessárias entre `plan-editorial-content`, `architect-text`, `design-paragraphs`, `write-with-evidence`, `write-technical-content`, `calibrate-rhetoric`, `improve-accessible-writing`, `review-editorial-quality` e `assess-editorial-alignment`.
+
+**Artefatos tecnológicos ficam fora desse pipeline.** Planejamento de software, arquitetura de sistemas/agentes/dados, requisitos, APIs, schemas, backlog, ADRs, planos de implementação, migração, testes, CI/CD, plugins, MCPs e outros contratos de engenharia devem ser tratados por workflows técnicos apropriados. As skills editoriais podem atuar depois somente para humanizar material técnico já definido.
 
 O contrato é host-agnostic: a função editorial principal não exige filesystem, CLI ou modelo específico. Isso permite testar localmente agora e manter portabilidade estrutural para um plugin privado no ChatGPT Work web depois.
 
@@ -148,7 +152,8 @@ Exemplos:
 ```text
 Use $chatgpt-governed-workflow para conduzir este desenvolvimento até o merge com low-HITL.
 Use $skill-development-lifecycle para criar, validar, promover e distribuir esta skill.
-Use $writing-workflow para transformar estas notas e fontes em um texto estruturado e revisado.
+Use $writing-workflow para transformar estas notas e fontes em um artigo, relatório ou outro texto humanizado para leitores.
+Use $plan-editorial-content para planejar tese, recorte, público e evidências de um artigo científico antes da redação.
 Use $skill-portability-audit para decidir se esta skill local pode virar global.
 Use $skill-validator para rodar o gate determinístico do catálogo.
 Use $skill-evaluator para criar should-trigger e should-not-trigger.
@@ -252,7 +257,7 @@ O catálogo de plugins vive em [`plugin-catalog.json`](plugin-catalog.json). A d
 
 - `guedesle-governed-workflow` — governança low-HITL e workflow complexo;
 - `guedesle-skill-creator` — fábrica e lifecycle de skills;
-- `guedesle-writing` — planejamento, arquitetura, redação e QA editorial.
+- `guedesle-writing` 2.0.0 — escrita humanizada/editorial para leitores, com barreira explícita contra uso em desenvolvimento de artefatos tecnológicos.
 
 Valide e gere:
 
@@ -268,7 +273,7 @@ dist/plugins/
   manifest.json
   guedesle-governed-workflow-v1.0.0.zip
   guedesle-skill-creator-v1.0.0.zip
-  guedesle-writing-v1.0.0.zip
+  guedesle-writing-v2.0.0.zip
   marketplace/
     .agents/plugins/marketplace.json
     plugins/
@@ -308,6 +313,7 @@ A mudança geral nasce no catálogo central, nunca no mirror.
 
 ## Histórico
 
+- **14/09/2026** — `guedesle-writing` 2.0.0: `plan-content` foi substituída por `plan-editorial-content`; `writing-workflow`, `architect-text` e `write-technical-content` receberam fronteiras explícitas contra especificação e planejamento de artefatos tecnológicos; adicionados evals positivos, negativos e comportamentais para impedir colisões com engenharia.
 - **24/08/2026** — adicionado `writing-workflow` 1.0.0 e plugin local `guedesle-writing` 1.0.0, mantendo portabilidade estrutural para compartilhamento privado futuro no ChatGPT Work web.
 - **24/08/2026** — adicionado `guedesle-skill-creator` 1.0.0 ao marketplace local e governança explícita de skills compartilhadas entre plugins.
 - **24/08/2026** — `skill-distribution` 1.1.0 e primeiro plugin skills-only `guedesle-governed-workflow`, gerado a partir do catálogo canônico com marketplace local derivado.
