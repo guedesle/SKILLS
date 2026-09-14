@@ -39,7 +39,7 @@ Use quando o usuário quiser:
 - construir uma suíte de testes/evals para um prompt;
 - diagnosticar por que um prompt produz respostas vagas, inconsistentes ou fora do formato.
 
-Não use esta skill apenas para planejar um texto editorial; nesse caso, prefira `plan-content` ou `architect-text`. Não use um prompt para conceder permissões que o runtime, a política do host ou um contrato de execução não concedem.
+Não use esta skill apenas para planejar um texto editorial; nesse caso, prefira `plan-editorial-content` ou `architect-text`. Não use um prompt para conceder permissões que o runtime, a política do host ou um contrato de execução não concedem.
 
 ## Comportamento padrão
 
@@ -290,7 +290,7 @@ Antes de considerar o prompt pronto, confirme:
 
 ## Composição com outras skills
 
-- `plan-content` — quando o objetivo de conteúdo ainda precisa ser definido antes do prompt;
+- `plan-editorial-content` — quando o objetivo de um texto para publicação/leitura humana ainda precisa ser definido antes do prompt;
 - `knowledge-source-governance` — quando fontes, freshness e corroboration governam a resposta;
 - `contract-governed-execution` — quando ferramentas podem produzir efeitos materiais;
 - `decision-escalation-control` — quando é preciso decidir em que situações parar e pedir revisão;
