@@ -39,8 +39,8 @@
     }
   },
   "skills": [
-    {"name":"plan-content","version":"2.0.0","category":"editorial","path":"skills/plan-content/SKILL.md","origin":"editor-agent / Domínio 01 — Planejamento","mirrors":[]},
-    {"name":"architect-text","version":"1.2.0","category":"editorial","path":"skills/architect-text/SKILL.md","origin":"editor-agent / Domínio 02 — Arquitetura Textual","legacy_source":{"repository":"guedesle/editor-agent","path":".agents/skills/editor-structure/SKILL.md","blob_sha":"66aec5962c5c0f592fd6a9a3a25f46e06d244c8f"},"mirrors":[]},
+    {"name":"plan-editorial-content","version":"1.0.0","category":"editorial","path":"skills/plan-editorial-content/SKILL.md","origin":"editor-agent / Domínio 01 — Planejamento editorial; renamed from plan-content to eliminate engineering trigger collisions","mirrors":[]},
+    {"name":"architect-text","version":"2.0.0","category":"editorial","path":"skills/architect-text/SKILL.md","origin":"editor-agent / Domínio 02 — Arquitetura Textual","legacy_source":{"repository":"guedesle/editor-agent","path":".agents/skills/editor-structure/SKILL.md","blob_sha":"66aec5962c5c0f592fd6a9a3a25f46e06d244c8f"},"mirrors":[]},
     {"name":"design-paragraphs","version":"1.2.0","category":"editorial","path":"skills/design-paragraphs/SKILL.md","origin":"editor-agent / Domínios 03 e 04 — Parágrafos e Ritmo","mirrors":[]},
     {"name":"write-with-evidence","version":"1.0.0","category":"editorial","path":"skills/write-with-evidence/SKILL.md","origin":"editor-agent / Domínios 05, 07 e 08","mirrors":[]},
     {"name":"write-technical-content","version":"2.0.0","category":"editorial","path":"skills/write-technical-content/SKILL.md","origin":"editor-agent / Domínio 06 — Redação Técnica","mirrors":[{"repository":"guedesle/download-edicoes-doe","branch":"main","path":".agents/skills/write-technical-content","mode":"pull","purpose":"homologation"}]},
