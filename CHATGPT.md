@@ -108,7 +108,8 @@ Se o marketplace já estiver registrado no mesmo caminho, regenere os artefatos 
 Guias específicos:
 
 - [`docs/plugins/skill-creator-local.md`](docs/plugins/skill-creator-local.md);
-- [`docs/plugins/writing-local.md`](docs/plugins/writing-local.md).
+- [`docs/plugins/writing-local.md`](docs/plugins/writing-local.md);
+- [`docs/plugins/writing-persistence.md`](docs/plugins/writing-persistence.md) — persistência da fronteira editorial nas duas camadas do ChatGPT: Memory/Personalização e skill/plugin instalado.
 
 ## 4. ChatGPT Work web — alvo privado
 
