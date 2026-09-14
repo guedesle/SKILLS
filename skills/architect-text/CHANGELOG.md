@@ -1,5 +1,14 @@
 # Changelog — `architect-text`
 
+## 2.0.0 — 2026-09-14
+
+- restringe o domínio a arquitetura de **textos destinados à leitura humana**;
+- proíbe uso para arquitetura de software, sistemas, agentes, dados, infraestrutura, APIs e outros artefatos tecnológicos;
+- remove gatilhos editoriais ambíguos associados a requisitos e documentação de implementação;
+- substitui a dependência `plan-content` por `plan-editorial-content`;
+- adiciona evals `trigger_positive`, `trigger_negative` e `behavior` para distinguir arquitetura textual de arquitetura tecnológica;
+- preserva a possibilidade de organizar a comunicação de material técnico já definido sem alterar decisões de engenharia.
+
 ## 1.2.0 — 2026-08-16
 
 - substitui nomenclatura abstrata por termos autoexplicativos em português corrente;
