@@ -1,28 +1,57 @@
 ---
 name: writing-workflow
-description: Orquestre criação, estruturação, redação e revisão de textos usando as skills editoriais canônicas. Use quando o pedido envolve mais de uma etapa entre planejamento, arquitetura textual, desenho de parágrafos, evidência, redação técnica, retórica, acessibilidade, QA e alinhamento editorial. Para tarefas pontuais, delegue diretamente à skill especializada sem impor um pipeline completo.
+description: Use when a human-facing text intended for publication or formal reading needs multiple editorial stages such as planning, textual architecture, paragraph design, evidence handling, rhetoric, accessibility, and editorial QA.
 ---
 
 # Writing Workflow
 
-Use esta skill como **entry point editorial** para transformar intenção de escrita em um fluxo proporcional à tarefa, sem obrigar o usuário a escolher manualmente cada skill do catálogo.
+Use esta skill como **entry point editorial** para transformar intenção de escrita em um fluxo proporcional à tarefa. Seu domínio é **texto para leitura humana**, não desenvolvimento de artefatos tecnológicos.
 
 ## Princípio
 
-**Orquestre somente o necessário.**
+**Orquestre somente trabalho editorial.**
 
-Uma tarefa simples de reescrita, clareza ou revisão não deve acionar automaticamente todo o pipeline editorial. O workflow completo é reservado para criação, refatoração ampla ou revisão multi-etapas.
+Uma tarefa de engenharia não deve ser reinterpretada como tarefa de escrita só porque produzirá documentação. O objeto principal da solicitação determina o domínio.
 
-## Classificação inicial
+## Gate de entrada: editorial ou técnico?
 
-Determine primeiro:
+Antes de carregar qualquer skill editorial, classifique o artefato principal.
 
-- o artefato ou gênero textual;
-- o objetivo e o público;
+### EDITORIAL — pode usar este workflow
+
+Use quando o resultado principal é prosa destinada a leitura humana, por exemplo:
+
+- artigo científico, acadêmico, analítico ou de divulgação;
+- ensaio, relatório narrativo ou institucional;
+- apresentação, roteiro ou texto editorial;
+- texto técnico-científico cuja substância técnica já esteja definida e precise ser comunicada, explicada ou publicada.
+
+### TECNOLÓGICO — não use este workflow
+
+Não use `writing-workflow`, `plan-content` ou as demais skills editoriais para conceber, planejar ou especificar:
+
+- software, aplicações, sites, plugins, extensões, automações ou MCPs;
+- arquitetura de sistemas, agentes, dados, infraestrutura ou integrações;
+- requisitos funcionais/não funcionais, critérios de aceite, histórias, épicos, backlog ou roadmap;
+- APIs, contratos, schemas, modelos de dados, protocolos ou interfaces;
+- planos de implementação, migração, refatoração, testes de software, segurança ou CI/CD;
+- ADRs, runbooks ou documentação que funcione como contrato de implementação;
+- prompts, tools, skills ou agentes quando o objetivo é definir seu comportamento executável.
+
+Nesses casos, **pare o roteamento editorial** e entregue o controle a um workflow de engenharia/produto apropriado. Não produza um outline editorial como substituto de uma especificação técnica.
+
+As skills editoriais podem ser usadas posteriormente, de forma complementar, apenas quando o usuário pedir para transformar material técnico já definido em texto humanizado para publicação, apresentação ou leitura formal.
+
+## Classificação editorial
+
+Depois de passar pelo gate editorial, determine:
+
+- gênero textual;
+- objetivo comunicacional e público;
 - se existe texto de partida;
 - se a estrutura já está definida;
 - se há afirmações que exigem evidência;
-- se o conteúdo é técnico/procedimental;
+- se o conteúdo é científico ou técnico-científico em forma de prosa;
 - se tom, acessibilidade, QA ou alinhamento institucional são requisitos materiais.
 
 Pergunte apenas quando uma lacuna realmente impedir uma decisão estrutural ou factual segura.
@@ -31,11 +60,11 @@ Pergunte apenas quando uma lacuna realmente impedir uma decisão estrutural ou f
 
 Use as skills especializadas conforme a necessidade:
 
-1. `plan-content` — quando objetivo, tese, público, escopo ou outline ainda precisam ser definidos.
+1. `plan-content` — quando objetivo comunicacional, tese, público, recorte ou outline editorial ainda precisam ser definidos.
 2. `architect-text` — quando a ordem de seções, funções dos parágrafos ou dependências entre ideias precisam ser projetadas ou refeitas.
-3. `design-paragraphs` — para construir ou refatorar parágrafos pela função que devem cumprir.
+3. `design-paragraphs` — para construir ou refatorar parágrafos pela função discursiva que devem cumprir.
 4. `write-with-evidence` — para afirmações materiais, causalidade, inferência, incerteza, fontes e limites da evidência.
-5. `write-technical-content` — para requisitos, procedimentos, manuais, documentação e conteúdo técnico operacional.
+5. `write-technical-content` — somente para prosa técnico-científica destinada a leitores humanos, quando a substância técnica já estiver definida; nunca para criar especificações ou decisões de engenharia.
 6. `calibrate-rhetoric` — para adequar tom, força argumentativa e intensidade retórica à evidência, ao público e ao contexto.
 7. `improve-accessible-writing` — para clareza, legibilidade, leitura em tela e redução de carga cognitiva.
 8. `review-editorial-quality` — para QA editorial, achados, bloqueios e prontidão do texto.
@@ -61,7 +90,21 @@ review-editorial-quality
 assess-editorial-alignment quando aplicável
 ```
 
-### Refatoração estrutural
+### Artigo científico ou técnico-científico
+
+```text
+plan-content
+  ↓
+architect-text
+  ↓
+write-with-evidence
+  ↓
+design-paragraphs / write-technical-content quando necessário
+  ↓
+review-editorial-quality
+```
+
+### Refatoração estrutural de texto
 
 ```text
 texto existente
@@ -83,7 +126,7 @@ Delegue diretamente à capacidade adequada. Exemplos:
 - evidência/causalidade → `write-with-evidence`;
 - parágrafo confuso → `design-paragraphs`;
 - tom excessivo → `calibrate-rhetoric`;
-- documento técnico → `write-technical-content`;
+- prosa técnico-científica para publicação → `write-technical-content`;
 - revisão final → `review-editorial-quality`.
 
 Não crie etapas artificiais apenas para usar todas as skills.
@@ -92,20 +135,21 @@ Não crie etapas artificiais apenas para usar todas as skills.
 
 Ao revisar ou reescrever:
 
-- preserve fatos, números, citações, ressalvas e requisitos que não tenham sido explicitamente autorizados a mudar;
+- preserve fatos, números, citações, ressalvas e requisitos já definidos que não tenham sido explicitamente autorizados a mudar;
 - não invente fonte, dado ou intenção do autor;
 - não fortaleça uma conclusão além do suporte disponível;
 - diferencie problema estrutural, problema de estilo e problema factual;
-- mantenha terminologia técnica quando ela for necessária para precisão, mas remova jargão que não produza valor.
+- mantenha terminologia técnica quando ela for necessária para precisão, mas remova jargão que não produza valor;
+- não altere decisões de engenharia, contratos técnicos ou comportamento de sistema sob o pretexto de melhorar a redação.
 
 ## Iteração e QA
 
-Quando a tarefa tiver múltiplas etapas:
+Quando a tarefa tiver múltiplas etapas editoriais:
 
 1. produza a versão de trabalho;
 2. execute o QA editorial pertinente;
 3. corrija falhas determinísticas ou claramente editoriais sem pedir aprovação intermediária;
-4. retorne à arquitetura somente se a revisão revelar problema estrutural real;
+4. retorne à arquitetura textual somente se a revisão revelar problema estrutural real;
 5. registre lacunas factuais ou de evidência que não possam ser resolvidas com segurança;
 6. encerre quando o texto cumprir objetivo, estrutura, precisão, clareza e critérios definidos.
 
@@ -113,24 +157,22 @@ Quando a tarefa tiver múltiplas etapas:
 
 O contrato editorial desta skill é independente de filesystem, modelo, CLI ou fornecedor.
 
-- não exija paths locais, scripts ou comandos para executar a função principal;
+- não exija paths locais, scripts ou comandos para executar a função editorial principal;
 - use arquivos, conectores e ferramentas disponíveis no host apenas como fontes ou destinos opcionais;
-- quando uma capacidade externa não estiver disponível, produza o texto, diagnóstico, plano ou handoff que ainda possa ser concluído no próprio host;
+- quando uma capacidade externa não estiver disponível, produza somente o texto, diagnóstico editorial ou handoff que ainda possa ser concluído no próprio host;
 - não alegue ter lido, alterado ou salvo um recurso externo quando essa ação não ocorreu.
-
-Essa regra preserva compatibilidade entre Codex local e superfícies web de workspace que suportem plugins skills-only.
 
 ## Saída esperada
 
-Conforme a tarefa, entregue apenas o necessário entre:
+Conforme a tarefa editorial, entregue apenas o necessário entre:
 
 - briefing ou plano de conteúdo;
 - arquitetura textual;
-- especificação/refatoração de parágrafos;
+- plano/refatoração de parágrafos;
 - texto redigido ou revisado;
 - mapa de evidências e lacunas;
 - ajustes de retórica e acessibilidade;
 - relatório de QA editorial;
 - estado de prontidão e pendências materiais.
 
-Não exponha a orquestração interna quando ela não ajudar o usuário a compreender ou revisar o resultado.
+Nunca use esta lista de saídas para substituir artefatos próprios de engenharia, produto ou desenvolvimento.
