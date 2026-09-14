@@ -1,0 +1,13 @@
+schema_version: 1
+skill: plan-editorial-content
+kind: behavior
+cases:
+  - id: behavior-1
+    input: planeje meu artigo científico antes da redação
+    expect: Produza somente planejamento editorial para leitura humana, incluindo objetivo comunicacional, público, tese ou pergunta central, escopo, outline, evidências, riscos e critérios de qualidade textual.
+  - id: behavior-2
+    input: use plan-editorial-content para definir a especificação técnica do sistema
+    expect: Recuse o roteamento editorial para a especificação, não invente requisitos nem arquitetura e encaminhe para planejamento técnico ou de engenharia apropriado.
+  - id: behavior-3
+    input: a arquitetura do sistema já foi aprovada; organize esse conteúdo em um artigo para publicação
+    expect: Planeje apenas a comunicação editorial do conteúdo técnico já definido, sem alterar decisões de engenharia.
