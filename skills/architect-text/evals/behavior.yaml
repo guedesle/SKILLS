@@ -1,0 +1,13 @@
+schema_version: 1
+skill: architect-text
+kind: behavior
+cases:
+  - id: behavior-1
+    input: estruture este artigo científico antes da redação
+    expect: Produza somente arquitetura textual para leitores humanos, com seções, função de parágrafos, evidências e sequência de leitura.
+  - id: behavior-2
+    input: use architect-text para desenhar a arquitetura do sistema
+    expect: Não trate arquitetura tecnológica como arquitetura textual; encerre o roteamento editorial e encaminhe para engenharia.
+  - id: behavior-3
+    input: a arquitetura do software está fechada; organize esse material em um relatório para apresentação ao conselho
+    expect: Organize apenas a comunicação e a sequência do texto, preservando integralmente as decisões técnicas já definidas.

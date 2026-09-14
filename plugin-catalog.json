@@ -85,19 +85,19 @@
     },
     {
       "name": "guedesle-writing",
-      "version": "1.0.0",
-      "description": "Plan, architect, draft, refactor, evidence-check, calibrate, and review writing through a coordinated editorial workflow.",
+      "version": "2.0.0",
+      "description": "Plan, structure, draft, humanize, evidence-check, calibrate, and review human-facing prose intended for publication or formal reading.",
       "display_name": "Writing",
-      "short_description": "Structured writing and editorial QA",
-      "long_description": "Take writing from purpose and structure through paragraphs, evidence, technical drafting, rhetoric, accessibility, editorial QA, and alignment without forcing unnecessary stages.",
+      "short_description": "Humanized writing and editorial QA",
+      "long_description": "Create and revise articles, scientific writing, reports, essays, presentations, and other human-facing prose through a coordinated editorial workflow. This plugin does not design or specify software, systems, agents, APIs, backlogs, implementation plans, or other engineering artifacts.",
       "category": "Productivity",
       "default_prompts": [
-        "Use Writing to turn these notes and sources into a structured, evidence-aware, polished document.",
-        "Use Writing to restructure and revise this draft, preserving facts and finishing with editorial QA."
+        "Use Writing to turn these notes and sources into a structured, evidence-aware article or report for human readers.",
+        "Use Writing to restructure and revise this scientific or editorial draft, preserving facts and finishing with editorial QA."
       ],
       "skills": [
         "writing-workflow",
-        "plan-content",
+        "plan-editorial-content",
         "architect-text",
         "design-paragraphs",
         "write-with-evidence",

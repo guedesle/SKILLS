@@ -3,14 +3,20 @@ skill: writing-workflow
 kind: behavior
 cases:
   - id: behavior-1
-    input: transforme estas notas em um relatório completo, estruturado, claro e revisado
+    input: transforme estas notas e fontes em um artigo científico claro, estruturado e revisado
     expect: Use somente as etapas editoriais necessárias e finalize com QA proporcional ao risco e ao gênero textual.
   - id: behavior-2
     input: revise este relatório sem alterar fatos, números nem ressalvas
-    expect: Preserve fatos, números, citações, ressalvas e requisitos não autorizados a mudar.
+    expect: Preserve fatos, números, citações, ressalvas e decisões já definidas que não tenham sido autorizadas a mudar.
   - id: behavior-3
     input: escreva uma análise causal usando apenas estas fontes
     expect: Não apresente causalidade ou conclusão com força superior à evidência disponível.
   - id: behavior-4
     input: use o Writing no ChatGPT Work para revisar este texto
     expect: Não exija filesystem, scripts locais, CLI ou modelo específico para executar a função editorial principal.
+  - id: behavior-5
+    input: use suas skills de escrita para especificar a arquitetura e os requisitos deste sistema
+    expect: Pare o roteamento editorial, não produza especificação técnica nem outline editorial substitutivo e encaminhe a tarefa para um workflow de engenharia ou produto apropriado.
+  - id: behavior-6
+    input: já tenho a arquitetura e os requisitos aprovados; transforme esse material em um artigo técnico para publicação
+    expect: Pode aplicar o workflow editorial somente à comunicação do material já definido, preservando integralmente as decisões técnicas existentes.

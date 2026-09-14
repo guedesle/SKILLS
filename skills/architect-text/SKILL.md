@@ -1,13 +1,15 @@
 ---
 name: architect-text
-description: Transforme finalidade, briefing, tópicos, outline ou rascunho em um plano detalhado da estrutura do texto, com sequência de seções, função de cada parágrafo, dependências entre ideias, evidências, ligações, riscos e instruções para a redação.
+description: Use when human-facing prose intended for publication or formal reading already has a purpose or draft but still needs its sections, paragraph functions, evidence order, transitions, and reading flow designed or reorganized.
 ---
 
 # Architect Text
 
 ## Objetivo
 
-Transformar **por que o texto precisa existir** em um plano claro de **como ele deve ser organizado**.
+Transformar **por que um texto para leitores humanos precisa existir** em um plano claro de **como ele deve ser organizado**.
+
+Esta skill projeta arquitetura textual. Ela não projeta arquitetura de software, sistemas, dados, agentes, APIs ou outros artefatos tecnológicos e não substitui especificação técnica, planejamento de produto ou engenharia.
 
 A skill não deve apenas listar assuntos. Ela deve explicar:
 
@@ -20,6 +22,21 @@ A skill não deve apenas listar assuntos. Ela deve explicar:
 
 `architect-text` decide **quais parágrafos precisam existir e em que ordem**. `design-paragraphs` recebe esse plano e constrói ou refatora cada parágrafo.
 
+## Limite de domínio
+
+Antes de usar esta skill, confirme que o artefato principal é um texto destinado à leitura humana.
+
+Não use `architect-text` para estruturar:
+
+- especificação funcional ou técnica de software;
+- arquitetura de sistema, agente, dados ou infraestrutura;
+- requisitos, critérios de aceite, épicos, histórias ou backlog;
+- APIs, contratos, schemas ou modelos de dados;
+- planos de implementação, migração, refatoração, testes ou CI/CD;
+- ADRs, runbooks, prompts executáveis, tools, plugins, MCPs ou skills enquanto artefatos tecnológicos.
+
+Se o material técnico já estiver definido e o pedido for transformá-lo em artigo, relatório, apresentação ou outra prosa para leitores humanos, esta skill pode organizar **a comunicação**, sem alterar decisões técnicas.
+
 ## Regra de linguagem
 
 Use nomes autoexplicativos. Não exponha abreviações, códigos opacos ou metáforas técnicas quando um nome direto funcionar melhor.
@@ -30,7 +47,7 @@ Prefira:
 - **função principal do texto** em vez de “ato comunicativo dominante”;
 - **resultado esperado da leitura** em vez de “transformação do leitor”;
 - **sequência lógica do texto** em vez de “movimento macro”;
-- **objetivo e requisitos da seção** em vez de “contrato de seção”;
+- **objetivo e conteúdo obrigatório da seção** em vez de “contrato de seção”;
 - **plano de parágrafos** em vez de “matriz paragrafal”;
 - **dependências entre ideias** em vez de “grafo de dependências argumentativas”;
 - **instruções para a próxima etapa** em vez de “handoff”.
@@ -41,13 +58,13 @@ Para identificar um parágrafo, use um identificador legível como `secao-02-par
 
 Use quando:
 
-- existe um tema, objetivo, briefing, template, material de pesquisa ou rascunho, mas a organização do texto ainda precisa ser projetada;
+- existe um tema, objetivo, briefing editorial, material de pesquisa ou rascunho, mas a organização do texto ainda precisa ser projetada;
 - o texto já tem seções, porém a ordem das ideias ou dos parágrafos parece arbitrária;
-- requisitos obrigatórios precisam ser distribuídos em uma sequência coerente;
-- a redação precisa de um plano estrutural antes de começar;
+- conteúdos obrigatórios precisam ser distribuídos em uma sequência coerente;
+- a redação de um texto para leitura humana precisa de um plano estrutural antes de começar;
 - um texto precisa ser reorganizado sem ainda entrar na redação final.
 
-Se ainda não for possível dizer claramente **para que o texto existe**, use `plan-content` primeiro.
+Se ainda não for possível dizer claramente **para que o texto existe**, use `plan-editorial-content` primeiro.
 
 ## Etapa 1 — Defina a finalidade do texto
 
@@ -56,15 +73,15 @@ Use [`references/textual-motive.md`](references/textual-motive.md) para coletar 
 O mínimo é:
 
 1. **assunto e recorte:** sobre o que exatamente o texto tratará;
-2. **função principal:** informar, explicar, analisar, defender uma ideia, recomendar, instruir, documentar, comparar, narrar ou sintetizar;
+2. **função principal:** informar, explicar, analisar, defender uma ideia, recomendar, instruir, relatar, comparar, narrar ou sintetizar;
 3. **resultado esperado da leitura:** o que o leitor deve compreender, decidir ou saber fazer ao final;
-4. **questão central:** pergunta, ideia a defender, decisão a apoiar ou tarefa a ensinar;
+4. **questão central:** pergunta, ideia a defender, decisão a apoiar ou tarefa a explicar;
 5. **público principal:** quem lerá e o que já sabe;
 6. **ação ou decisão esperada:** quando houver;
-7. **tipo de documento:** relatório, nota técnica, artigo, manual, parecer, capítulo etc.;
+7. **tipo de documento:** artigo, ensaio, relatório, nota técnica para leitura, parecer, capítulo, apresentação ou outro gênero editorial;
 8. **fontes e evidências necessárias:** que tipo de suporte sustenta o texto;
 9. **escopo:** o que entra e o que fica de fora;
-10. **conteúdo obrigatório:** requisitos, tópicos, dados ou mensagens que precisam aparecer;
+10. **conteúdo obrigatório:** tópicos, dados, mensagens, evidências ou decisões já definidas que precisam aparecer;
 11. **restrições e riscos de interpretação:** o que não pode ser perdido, antecipado ou entendido de modo errado;
 12. **extensão e nível de detalhe:** quanto desenvolvimento o texto comporta.
 
@@ -257,11 +274,11 @@ Se, durante a redação, um parágrafo só puder funcionar mudando a função de
 
 ## Limites e próximas etapas
 
-- **Objetivo do conteúdo ainda indefinido:** `plan-content`.
+- **Objetivo editorial ainda indefinido:** `plan-editorial-content`.
 - **Construção ou refatoração de cada parágrafo:** `design-paragraphs`.
 - **Evidência, causalidade, inferência e incerteza:** `write-with-evidence`.
 - **Tom e força argumentativa:** `calibrate-rhetoric`.
 - **Legibilidade:** `improve-accessible-writing`.
 - **Revisão editorial final:** `review-editorial-quality`.
 
-Não invente fatos, fontes, requisitos ou intenção do autor. Não use terminologia especializada quando uma expressão direta e autoexplicativa transmitir a mesma decisão com mais clareza.
+Não invente fatos, fontes, requisitos técnicos ou intenção do autor. Não use terminologia especializada quando uma expressão direta e autoexplicativa transmitir a mesma decisão com mais clareza.
