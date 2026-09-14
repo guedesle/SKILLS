@@ -1,0 +1,16 @@
+schema_version: 1
+skill: write-technical-content
+kind: trigger_negative
+cases:
+  - id: negative-1
+    input: escreva a especificação funcional e técnica deste sistema
+  - id: negative-2
+    input: defina os requisitos não funcionais e critérios de aceite desta API
+  - id: negative-3
+    input: crie um ADR para decidir entre PostgreSQL e MongoDB
+  - id: negative-4
+    input: desenhe a arquitetura e os componentes deste agente de IA
+  - id: negative-5
+    input: produza um plano de implementação, testes e CI/CD para esta aplicação
+  - id: negative-6
+    input: crie um runbook operacional para executar a migração em produção
