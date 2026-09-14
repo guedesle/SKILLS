@@ -67,6 +67,8 @@ guedesle-skill-creator
 guedesle-writing
 ```
 
+`guedesle-writing` 2.0.0 é estritamente editorial: serve para artigos científicos, textos acadêmicos/institucionais, relatórios narrativos, apresentações e demais conteúdos para leitura humana. Não deve planejar, conceber ou especificar software, sistemas, agentes, APIs, requisitos, backlogs, planos de implementação ou outros artefatos tecnológicos.
+
 Valide e gere:
 
 ```bash
@@ -81,7 +83,7 @@ dist/plugins/
   manifest.json
   guedesle-governed-workflow-v1.0.0.zip
   guedesle-skill-creator-v1.0.0.zip
-  guedesle-writing-v1.0.0.zip
+  guedesle-writing-v2.0.0.zip
   marketplace/
     .agents/plugins/marketplace.json
     plugins/
@@ -136,7 +138,7 @@ A política detalhada está em [`docs/plugins/work-web-portability.md`](docs/plu
 
 ### Estado estrutural atual
 
-- `guedesle-writing` — desenhado para `WORK_WEB_PORTABLE`; função editorial principal é host-agnostic.
+- `guedesle-writing` 2.0.0 — desenhado para `WORK_WEB_PORTABLE`; função editorial principal é host-agnostic e possui gate explícito para não assumir trabalho de engenharia.
 - `guedesle-governed-workflow` — `GENERAL_WITH_ADAPTER`; ações de repositório dependem das capabilities/apps disponíveis.
 - `guedesle-skill-creator` — `GENERAL_WITH_ADAPTER`; authoring/evals são portáveis, mas empacotamento e writes precisam de capabilities equivalentes no host.
 
@@ -181,7 +183,7 @@ skill-distribution
 DISTRIBUTION_READY
 ```
 
-A meta-skill `skill-development-lifecycle` orquestra esse fluxo. `chatgpt-governed-workflow` é o entry point geral; `writing-workflow` é o entry point editorial.
+A meta-skill `skill-development-lifecycle` orquestra esse fluxo. `chatgpt-governed-workflow` é o entry point geral; `writing-workflow` é o entry point exclusivamente editorial.
 
 ## 7. Atualização
 
@@ -207,7 +209,8 @@ Antes de distribuição:
 - não promover paths absolutos, endpoints internos ou IDs específicos de projeto como dependências do contrato geral;
 - manter guardrails de autorização e contratos fail-closed;
 - não transformar ausência de capability em alegação de execução;
-- tratar scan/review do host como controle adicional, não substituto do gate do repositório.
+- tratar scan/review do host como controle adicional, não substituto do gate do repositório;
+- não usar skills editoriais como substitutas de workflows de engenharia para especificar artefatos tecnológicos.
 
 ## Referências oficiais
 
