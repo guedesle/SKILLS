@@ -1,6 +1,6 @@
 # Estado das skills gerais
 
-Atualizado em 24 de agosto de 2026.
+Atualizado em 14 de setembro de 2026.
 
 ## Fonte canônica
 
@@ -12,16 +12,16 @@ Skills de projeto não são promovidas automaticamente: passam por auditoria de 
 
 | Skill | Categoria | Versão | Estado |
 |---|---|---:|---|
-| `plan-content` | Editorial | 1.0.0 | Canônica |
-| `architect-text` | Editorial | 1.2.0 | Canônica |
+| `plan-editorial-content` | Editorial | 1.0.0 | Canônica + evals; planejamento somente de prosa para leitores |
+| `architect-text` | Editorial | 2.0.0 | Canônica + evals; arquitetura textual, não tecnológica |
 | `design-paragraphs` | Editorial | 1.2.0 | Canônica |
 | `write-with-evidence` | Editorial | 1.0.0 | Canônica |
-| `write-technical-content` | Editorial/Técnica | 1.0.0 | Canônica + mirror |
+| `write-technical-content` | Editorial | 2.0.0 | Canônica + mirror + evals; somente prosa técnico-científica humanizada |
 | `calibrate-rhetoric` | Editorial | 1.0.0 | Canônica |
 | `review-editorial-quality` | QA | 1.0.0 | Canônica + mirror |
 | `improve-accessible-writing` | Acessibilidade | 1.0.0 | Canônica |
 | `assess-editorial-alignment` | Governança editorial | 1.0.0 | Canônica |
-| `writing-workflow` | Orquestração editorial | 1.0.0 | Canônica + meta-skill + evals |
+| `writing-workflow` | Orquestração editorial | 2.0.0 | Canônica + meta-skill + evals; bloqueia artefatos tecnológicos |
 | `prompt-generator` | Prompt engineering | 1.0.0 | Canônica + evals |
 | `graphify` | Engenharia de software | 1.0.0 | Canônica |
 | `github-project-repo-sync` | GitHub automation | 1.0.0 | Canônica |
@@ -66,7 +66,13 @@ A governança central (`skills-central-governance` 1.3.0) mantém policy e fonte
 
 ## Workflow editorial
 
-`writing-workflow` 1.0.0 é o entry point do plugin Writing. O roteamento é proporcional: uma tarefa pontual vai diretamente para a skill especializada; tarefas multi-etapas podem compor planejamento, arquitetura, parágrafos, evidência, redação técnica, retórica, acessibilidade, QA e alinhamento editorial.
+`writing-workflow` 2.0.0 é o entry point do plugin Writing e agora aplica um gate de domínio antes de qualquer planejamento editorial.
+
+O pipeline editorial só é válido quando o artefato principal é prosa destinada à publicação, apresentação ou leitura humana, como artigos científicos, acadêmicos, institucionais, ensaios, relatórios narrativos e conteúdo técnico-científico cuja substância técnica já esteja definida.
+
+A antiga `plan-content` foi substituída por `plan-editorial-content` para remover a ambiguidade semântica. `architect-text` 2.0.0 também diferencia explicitamente arquitetura textual de arquitetura de software, sistemas, agentes, dados ou infraestrutura. `write-technical-content` 2.0.0 deixou de criar especificações/requisitos e passou a operar somente sobre prosa técnico-científica para leitores.
+
+Planejamento de software, requisitos, critérios de aceite, APIs, schemas, backlog, ADRs, implementação, migração, testes, CI/CD, agentes, plugins, MCPs e outros artefatos tecnológicos devem ser roteados para engenharia/produto. As skills editoriais podem atuar depois somente para humanizar material técnico já definido.
 
 O contrato principal não exige filesystem, CLI nem modelo específico. Isso o torna candidato direto a uso em plugin skills-only no ChatGPT Work web, além do marketplace local.
 
@@ -130,7 +136,7 @@ Capacidades previamente promovidas continuam registrando suas origens: `editor-a
 - **Plugins locais**:
   - `guedesle-governed-workflow` 1.0.0 — 17 skills;
   - `guedesle-skill-creator` 1.0.0 — 12 skills;
-  - `guedesle-writing` 1.0.0 — 10 skills.
+  - `guedesle-writing` 2.0.0 — 10 skills.
 - **Consumers**: mirrors declarados em `registry.json`, preferindo pull.
 
 Preparar bundle/plugin equivale apenas a `DISTRIBUTION_READY`. O catálogo não declara `INSTALLED`, `VERIFIED` ou `PUBLISHED` sem evidência da superfície de destino.
@@ -147,7 +153,7 @@ Estado de portabilidade estrutural:
 |---|---|---|---|
 | `guedesle-governed-workflow` | READY | GENERAL_WITH_ADAPTER | Operações de repositório dependem das capabilities/apps disponíveis no host |
 | `guedesle-skill-creator` | READY | GENERAL_WITH_ADAPTER | Authoring/evals são portáveis; empacotamento e writes dependem das capabilities do host |
-| `guedesle-writing` | READY | WORK_WEB_PORTABLE | Função editorial principal é skills-only e host-agnostic |
+| `guedesle-writing` | READY | WORK_WEB_PORTABLE | Função editorial principal é skills-only e host-agnostic; domínio explicitamente separado de engenharia |
 
 Nenhum desses estados equivale a instalação real no ChatGPT Work. A validação de runtime web será uma etapa posterior em workspace compatível.
 
@@ -177,6 +183,7 @@ Demais skills canônicas podem ser consumidas globalmente por hosts que apontem 
 - instalar e executar os três plugins no marketplace local e registrar evals observados;
 - validar `guedesle-writing` no ChatGPT Work web quando o workspace permitir import/share de plugin privado;
 - criar adapters de capability para Governed Workflow e Skill Creator até ambos atingirem `WORK_WEB_PORTABLE`;
-- medir colisão de gatilhos, regressões e taxa de sucesso;
+- medir colisão de gatilhos, especialmente entre verbos genéricos como planejar/estruturar e tarefas reais de engenharia;
+- medir regressões e taxa de sucesso dos `trigger_negative` de artefatos tecnológicos;
 - medir HITLs evitados versus reversões materiais;
 - ampliar fixtures negativas sem transformar validação determinística em julgamento LLM implícito.
