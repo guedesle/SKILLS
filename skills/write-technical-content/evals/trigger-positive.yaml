@@ -1,0 +1,10 @@
+schema_version: 1
+skill: write-technical-content
+kind: trigger_positive
+cases:
+  - id: positive-1
+    input: revise esta seção metodológica de um artigo científico para deixá-la precisa e legível sem alterar o método
+  - id: positive-2
+    input: transforme estas decisões técnicas já aprovadas em uma explicação clara para publicação institucional
+  - id: positive-3
+    input: reescreva este relatório técnico para leitura humana preservando parâmetros, números e conclusões
