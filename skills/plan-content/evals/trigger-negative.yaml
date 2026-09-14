@@ -1,0 +1,14 @@
+schema_version: 1
+skill: plan-content
+kind: trigger_negative
+cases:
+  - id: negative-1
+    input: planeje a arquitetura de microsserviços desta aplicação
+  - id: negative-2
+    input: crie requisitos funcionais e critérios de aceite para este plugin
+  - id: negative-3
+    input: decomponha este projeto em épicos, histórias e backlog técnico
+  - id: negative-4
+    input: faça um plano de implementação e migração do banco de dados
+  - id: negative-5
+    input: especifique tools, schemas e comportamento executável deste agente de IA
