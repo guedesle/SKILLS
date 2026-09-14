@@ -1,0 +1,13 @@
+schema_version: 1
+skill: write-technical-content
+kind: behavior
+cases:
+  - id: behavior-1
+    input: reescreva esta seção técnica para publicação sem mudar decisões do projeto
+    expect: Melhore apenas a prosa, preservando integralmente fatos, parâmetros, versões, decisões e contratos técnicos já definidos.
+  - id: behavior-2
+    input: escreva os requisitos que faltam nesta especificação de software
+    expect: Não invente requisitos nem complete decisões de engenharia; encerre a skill editorial e encaminhe para um workflow técnico apropriado.
+  - id: behavior-3
+    input: transforme a especificação aprovada em uma seção de artigo científico
+    expect: Pode humanizar e estruturar a comunicação do material aprovado, sem redefinir arquitetura, interfaces, critérios de aceite ou comportamento do sistema.
