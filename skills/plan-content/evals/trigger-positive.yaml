@@ -1,0 +1,10 @@
+schema_version: 1
+skill: plan-content
+kind: trigger_positive
+cases:
+  - id: positive-1
+    input: planeje a estrutura, tese, público e evidências de um artigo científico sobre governança de IA
+  - id: positive-2
+    input: antes de escrever este ensaio, defina recorte, promessa de leitura, outline e riscos editoriais
+  - id: positive-3
+    input: organize este relatório institucional para publicação, definindo objetivo comunicacional, público e estrutura
