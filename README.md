@@ -37,6 +37,7 @@ Repositório canônico de **skills gerais e reutilizáveis**. A fonte de verdade
 | [`decision-escalation-control`](skills/decision-escalation-control/SKILL.md) | **1.0.0** | Governança | AUTO_CONTINUE e revisão por materialidade |
 | [`contract-governed-execution`](skills/contract-governed-execution/SKILL.md) | **1.0.0** | Governança | Contratos fail-closed e ledger |
 | [`knowledge-source-governance`](skills/knowledge-source-governance/SKILL.md) | **1.0.0** | Conhecimento | Proveniência, freshness e evidence ceilings |
+| [`langgraph-gemini-agent-setup`](skills/langgraph-gemini-agent-setup/SKILL.md) | **1.0.0** | Desenvolvimento de agentes | Ambiente local com uv, LangChain, LangGraph Dev, Gemini e Tavily |
 
 ## Fábrica governada de skills
 
@@ -61,6 +62,12 @@ Orquestra nova skill, atualização, candidata de projeto ou distribuição. Com
 ### `skill-authoring`
 
 Transforma comportamento desejado em `SKILL.md` + recursos auxiliares. Exige fronteira clara de responsabilidade e evals para novas skills deste lifecycle.
+
+### `langgraph-gemini-agent-setup`
+
+Orienta a criação de ambientes locais reproduzíveis para agentes LangChain com
+LangGraph Dev, Google Gemini e Tavily, com segurança de segredos, importação
+sem efeitos colaterais e separação entre validação estrutural e teste externo.
 
 ### `skill-validator`
 
@@ -312,6 +319,8 @@ skill canônica → registry.json → validação → consumer workflow → path
 A mudança geral nasce no catálogo central, nunca no mirror.
 
 ## Histórico
+
+- **20/09/2026** — adicionada `langgraph-gemini-agent-setup` 1.0.0, generalizada a partir da skill local de setup LangChain/Gemini e acompanhada de evals de gatilho e comportamento.
 
 - **14/09/2026** — `guedesle-writing` 2.0.0: `plan-content` foi substituída por `plan-editorial-content`; `writing-workflow`, `architect-text` e `write-technical-content` receberam fronteiras explícitas contra especificação e planejamento de artefatos tecnológicos; adicionados evals positivos, negativos e comportamentais para impedir colisões com engenharia.
 - **24/08/2026** — adicionado `writing-workflow` 1.0.0 e plugin local `guedesle-writing` 1.0.0, mantendo portabilidade estrutural para compartilhamento privado futuro no ChatGPT Work web.

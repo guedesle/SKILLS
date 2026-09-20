@@ -1,0 +1,10 @@
+schema_version: 1
+skill: langgraph-gemini-agent-setup
+kind: trigger_negative
+cases:
+  - id: negative-1
+    input: publique meu agente LangChain em produção com Kubernetes e observabilidade
+  - id: negative-2
+    input: projete um pipeline RAG completo com banco vetorial e ingestão de PDFs
+  - id: negative-3
+    input: migre este agente de Gemini para Anthropic e compare custos de produção
