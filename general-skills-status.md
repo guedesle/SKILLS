@@ -43,8 +43,9 @@ Skills de projeto não são promovidas automaticamente: passam por auditoria de 
 | `decision-escalation-control` | Governança de workflow | 1.0.0 | Canônica |
 | `contract-governed-execution` | Governança de execução | 1.0.0 | Canônica |
 | `knowledge-source-governance` | Governança de conhecimento | 1.0.0 | Canônica |
+| `langgraph-gemini-agent-setup` | Desenvolvimento de agentes | 1.0.0 | Canônica + evals |
 
-**Total: 31 skills canônicas.**
+**Total: 32 skills canônicas.**
 
 ## Fábrica governada de skills
 

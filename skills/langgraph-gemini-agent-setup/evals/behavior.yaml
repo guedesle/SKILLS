@@ -1,0 +1,13 @@
+schema_version: 1
+skill: langgraph-gemini-agent-setup
+kind: behavior
+cases:
+  - id: behavior-1
+    input: crie um ambiente local com uv, LangChain, Gemini e LangGraph Dev
+    expect: Incluir pyproject.toml/uv.lock, .env.example, .gitignore, agente importável, langgraph.json e comandos de validação.
+  - id: behavior-2
+    input: corrija um exemplo que chama o modelo ao importar agent.py
+    expect: Mover a execução para uma função ou bloco __main__ e declarar que a importação não prova teste externo.
+  - id: behavior-3
+    input: o arquivo .env com uma chave real apareceu no diff
+    expect: Não reproduzir a chave; recomendar revogação/rotação e manter apenas um .env.example sem segredo.

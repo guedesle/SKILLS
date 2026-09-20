@@ -1,0 +1,10 @@
+schema_version: 1
+skill: langgraph-gemini-agent-setup
+kind: trigger_positive
+cases:
+  - id: positive-1
+    input: crie um ambiente local com uv, LangChain, Gemini e LangGraph Dev
+  - id: positive-2
+    input: corrija meu setup Python de agente com Tavily e arquivo langgraph.json
+  - id: positive-3
+    input: revise esta skill de criação de ambiente LangChain para não vazar .env e não executar chamadas no import

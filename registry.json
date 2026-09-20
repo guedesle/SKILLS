@@ -69,6 +69,7 @@
     {"name":"adaptive-model-routing","version":"1.1.1","category":"model-routing","path":"skills/adaptive-model-routing/SKILL.md","origin":"generalização do roteamento por papel/modelo de guedesle/cyber-skills-framework","mirrors":[]},
     {"name":"decision-escalation-control","version":"1.0.0","category":"workflow-governance","path":"skills/decision-escalation-control/SKILL.md","origin":"generalização dos gates de escalation e elevated review de guedesle/cyber-skills-framework","mirrors":[]},
     {"name":"contract-governed-execution","version":"1.0.0","category":"workflow-governance","path":"skills/contract-governed-execution/SKILL.md","origin":"generalização dos contratos machine-readable fail-closed de guedesle/cyber-skills-framework","mirrors":[]},
-    {"name":"knowledge-source-governance","version":"1.0.0","category":"knowledge-governance","path":"skills/knowledge-source-governance/SKILL.md","origin":"generalização do Cyber Knowledge Plane de guedesle/cyber-skills-framework","mirrors":[]}
+    {"name":"knowledge-source-governance","version":"1.0.0","category":"knowledge-governance","path":"skills/knowledge-source-governance/SKILL.md","origin":"generalização do Cyber Knowledge Plane de guedesle/cyber-skills-framework","mirrors":[]},
+    {"name":"langgraph-gemini-agent-setup","version":"1.0.0","category":"agent-development","path":"skills/langgraph-gemini-agent-setup/SKILL.md","origin":"guedesle/SKILLS / revisão da skill local langgraph-gemini-agent-setup","mirrors":[]}
   ]
 }
